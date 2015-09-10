@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
+  <link rel="stylesheet" href="css/product_details.css" type="text/css" media="screen" />
+  <script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="js/JsBarcodeGenCODE128.js"></script>
+  <script src="js/JsBarcodeGen.js"></script>
+  <script src="js/product_details.js" type="text/javascript"></script>
+	
+	<title>PTL</title>
+    
+</head>
+<body>
+	<div id="distance"></div>
+	<div id="wrapper">
+    <a href="Logout"><button id="logout" class="color_discreet">Logout</button></a>
+    <a href="welcome.html"><button id="back" class="color_discreet">&#060&#060 Übersicht</button></a>
+
+    <div id="product">
+		<img id="barcode" />
+		<div class="description">Produkt ID:</div>
+		<div class="value" id="product_id">321456</div>
+		<div class="description">Produktname:</div>
+		<div class="value">Zurrgurte groß</div>
+		<div class="description">Beschreibung:</div>
+		<div class="value">5 Meter lang</div>
+		<div class="description">Mindestmenge im Lager:</div>
+		<div class="value">3 Stück</div>
+		<div class="description">Lagerbestand:</div>
+		<div class="value">1 Stück</div>
+		
+		<button id="ingoing" class="color">Eingang<img src="img/lager_icon_in.png"/></button>
+		<button id="outgoing" class="color">Ausgang<img src="img/lager_icon_out.png"/></button>
+    </div>
+    <button id="ok" class="color">OK</button>
+    <footer></footer>
+    
+	</div>
+</body>
+</html>
