@@ -67,7 +67,8 @@ public class HibernateSupport {
 	private static void init() {
 		//Change the path to your deployed config file !
 		
-		File configFile = new File("/Users/matthiasivantsits/Documents/workspace/InventoryControlPTL/src/hibernate.cfg.xml");
+//		File configFile = new File("/Users/matthiasivantsits/Documents/workspace/InventoryControlPTL/src/hibernate.cfg.xml");
+		File configFile = new File("C:/xampp/htdocs/InventoryControlPTL/src/hibernate.cfg.xml");
 		
 		if(configFile.exists()) {
 			System.out.println("null...");
