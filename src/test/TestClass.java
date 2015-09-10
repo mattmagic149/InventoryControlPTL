@@ -43,7 +43,7 @@ public class TestClass {
 		HibernateSupport.commitTransaction();
 		
 		User user = User.login(username, password);
-		System.out.println(user.moveNumberOfProductElements(3, product, truck2, truck1));
+		System.out.println(user.moveNumberOfProductElements(6, product, truck2, truck1));
 		
 		
 		

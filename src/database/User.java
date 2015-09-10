@@ -19,6 +19,10 @@ import utils.HibernateSupport;
 
 @Entity
 public class User implements ISaveAndDelete {
+	
+	public enum Permission {
+		ADMIN, USER
+	}
 
 	@Id
 	private String username;
