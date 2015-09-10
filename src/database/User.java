@@ -7,11 +7,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
-<<<<<<< HEAD
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-=======
->>>>>>> d981bac4b448cd0cfa9b9e6e8174335eec67bbaf
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -40,42 +37,27 @@ public class User implements ISaveAndDelete {
 		
 	private String password_hash;
 	
-<<<<<<< HEAD
 	@Enumerated(value=EnumType.ORDINAL)
 	protected Permission permission;
 	
-=======
->>>>>>> d981bac4b448cd0cfa9b9e6e8174335eec67bbaf
 	@OneToMany
 	@JoinColumn(name="transaction")
 	private List<Transaction> transactions;
 	
 	public User() {}
 	
-<<<<<<< HEAD
 	public User(String username, String firstname, String lastname, String email, 
 			String password_hash, Permission permission) {
-=======
-	public User(String username, String firstname, String lastname, String email, String password_hash) {
->>>>>>> d981bac4b448cd0cfa9b9e6e8174335eec67bbaf
 		this.username = username;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
 		this.password_hash = password_hash;
-<<<<<<< HEAD
 		this.permission = permission;
 	}
 	
 	public static User register(String username, String firstname, String lastname, 
-								String email, String password_plain, Permission permission){		
-=======
-	}
-	
-	public static User register(String username, String firstname, String lastname, 
-								String email, String password_plain){		
->>>>>>> d981bac4b448cd0cfa9b9e6e8174335eec67bbaf
-		
+								String email, String password_plain, Permission permission) {
 		// Check, if user already exists
 		User user = getUser(username);
 		
@@ -87,11 +69,7 @@ public class User implements ISaveAndDelete {
 		String password_hash = BCrypt.hashpw(password_plain, salt);
 		
 		// create a new user and set it's parameter
-<<<<<<< HEAD
 		User new_user = new User(username, firstname, lastname, email, password_hash, permission);
-=======
-		User new_user = new User(username, firstname, lastname, email, password_hash);
->>>>>>> d981bac4b448cd0cfa9b9e6e8174335eec67bbaf
 		
 		// Store the created user in the DB and return it's object, in case of a successful writing.
 		HibernateSupport.beginTransaction();

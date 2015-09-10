@@ -21,12 +21,8 @@ package utils;
 
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
-
 import database.*;
-<<<<<<< HEAD
-import database.User.Permission;
-=======
->>>>>>> d981bac4b448cd0cfa9b9e6e8174335eec67bbaf
+
 
 // TODO: Auto-generated Javadoc
 /**
@@ -65,25 +61,19 @@ public class DatabaseConstruction {
 
 		String username = "rene";
 		String password = "123456";
-<<<<<<< HEAD
-		User user = User.register(username, "Rene", "Pellissier", "test@gmail.com", password, Permission.ADMIN);
+		User user = User.register(username, "Rene", "Pellissier", "test@gmail.com", password, User.Permission.ADMIN);
 		
 		String username2 = "matt";
 		String password2 = "123456";
-		User user2 = User.register(username2, "Matt", "Nachname", "bla@gmail.com", password2, Permission.USER);
-		
-=======
-		User user = User.register(username, "Rene", "Pellissier", "test@gmail.com", password);
->>>>>>> d981bac4b448cd0cfa9b9e6e8174335eec67bbaf
+		User user2 = User.register(username2, "Matt", "Nachname", "bla@gmail.com", password2, User.Permission.USER);
+
 		Inventory inventory = new Inventory("Hauptlager", "1. Stock");
 		Inventory entry = new Inventory("Waren Eingang", "");
 		
 		HibernateSupport.beginTransaction();
 			user.saveToDB();
-<<<<<<< HEAD
 			user2.saveToDB();
-=======
->>>>>>> d981bac4b448cd0cfa9b9e6e8174335eec67bbaf
+
 			inventory.saveToDB();
 			entry.saveToDB();
 		HibernateSupport.commitTransaction();

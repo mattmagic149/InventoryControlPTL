@@ -1,11 +1,6 @@
 package test;
 
-
-<<<<<<< HEAD
 import java.util.ArrayList;
-
-=======
->>>>>>> d981bac4b448cd0cfa9b9e6e8174335eec67bbaf
 import database.*;
 import utils.HibernateSupport;
 
@@ -15,14 +10,10 @@ public class TestClass {
 		String username = "rene";
 		String password = "123456";
 				
-<<<<<<< HEAD
 		Product product = new Product("name", "description", 10, 
 										new ArrayList<Truck>(), 
 										Product.TruckRestriction.NO);
 		
-=======
-		Product product = new Product("name", "description", 10);
->>>>>>> d981bac4b448cd0cfa9b9e6e8174335eec67bbaf
 		Truck truck1 = Truck.getTruck("GU PTL 12");
 		Truck truck2 = Truck.getTruck("GU PTL 13");
 		

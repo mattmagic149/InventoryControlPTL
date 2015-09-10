@@ -21,12 +21,9 @@ public class Truck extends Location implements ISaveAndDelete {
 	
 	private String licence_tag;
 	
-<<<<<<< HEAD
 	@ManyToMany(mappedBy="trucks_to_restrict")
 	private List<Product> products_consumeable;
 	
-=======
->>>>>>> d981bac4b448cd0cfa9b9e6e8174335eec67bbaf
 	public Truck() {
 		super();
 	}
