@@ -129,7 +129,12 @@ public class Product implements ISaveAndDelete {
 			return false;
 		}
 		
-		Product old_product = HibernateSupport.readOneObjectByLongID(Product.class, parsed_product.getId());
+		Product old_product = HibernateSupport.readOneObjectByID(Product.class, parsed_product.getId());
+		
+		System.out.println("parsed_product.id = " + parsed_product.getId());
+		if(old_product == null) {
+			return false;
+		}
 		
 		old_product.setName(parsed_product.getName());
 		old_product.setDescription(parsed_product.getDescription());
@@ -142,8 +147,9 @@ public class Product implements ISaveAndDelete {
 			old_product.setRestriction(TruckRestriction.NO);
 		}
 		
-		old_product.setName(parsed_product.getName());
-		old_product.setName(parsed_product.getName());
+		HibernateSupport.beginTransaction();
+		old_product.saveToDB();
+		HibernateSupport.commitTransaction();
 		
 		return true;
 	}
