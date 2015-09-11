@@ -18,10 +18,10 @@ public class TestClass {
 		
 		System.out.println(HibernateSupport.readMoreObjects(Product.class, new ArrayList<Criterion>()).size());
 
-		String object = "{\"id\":\"P-000000\",\"name\":\"Samsung Handy Neu Galaxy S4 mini\","
+		String object = "{\"id\":\"P-000045\",\"name\":\"Samsung Handy Neu Galaxy S4 mini\","
 				+ "\"description\":\"Beschreibung...\",\"minimum_limit\":\"10\",\"lkw_ids\":[1,2,3], \"unity\":\"Stück\"}";
 
-		System.out.println(Product.createProductFromJSON(object));
+		System.out.println(Product.editProduct(object));
 		System.out.println(HibernateSupport.readMoreObjects(Product.class, new ArrayList<Criterion>()).size());
 		
 		/*String username = "rene";
