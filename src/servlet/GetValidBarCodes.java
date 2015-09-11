@@ -55,9 +55,9 @@ public class GetValidBarCodes extends HttpServlet {
 		}
 		
 		
-		boolean products = Boolean.getBoolean(request.getParameter("products"));
-		boolean trucks = Boolean.getBoolean(request.getParameter("trucks"));
-		boolean inventories = Boolean.getBoolean(request.getParameter("inventories"));
+		boolean products = request.getParameter("products").equals("true");
+		boolean trucks = request.getParameter("trucks").equals("true");
+		boolean inventories = request.getParameter("inventories").equals("true");
 
 		String result = BarCodeUtils.getAllTrucksAndLocationBarCodes(products, trucks, inventories);
 		
