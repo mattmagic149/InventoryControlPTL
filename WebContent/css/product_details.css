@@ -31,9 +31,15 @@ h2{
   margin: 0 auto;
 }
 
-#product input[type="text"] , #product textarea{
+
+#product_name, #product_description , #product textarea{
   width: 650px;
 }
+
+#product_minimum_limit {
+	width: 200px;
+}
+
 
 #barcode_picture {
 	float:right;
@@ -63,5 +69,4 @@ h2{
 	left: 12px;
 	top: -5px;
 }
-
 

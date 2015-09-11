@@ -3,17 +3,19 @@
 <%
 	Product product = (Product)session.getAttribute("current_product");
 	
-	String product_id = "wird automatisch generiert";
+	String product_id = "Wird automatisch generiert";
 	String product_name = "";
 	String product_description = "";
 	String product_min_quantity = "";
-	String product_lager_quantity = "";
+	String product_lager_quantity = "3";
+	String product_unity = "";
 	
 	if (product != null) {
 		product_id = product.getBarCodeEncoding();
 		product_name = product.getName();
 		product_description = product.getDescription();
-		product_min_quantity = product.getMinimumLimit() + " " + product.getUnity();
+		product_min_quantity = String.valueOf(product.getMinimumLimit());
+		product_unity = product.getUnity();
 //		product_lager_quantity = " " + product.getUnity()
 	}
 	
@@ -50,16 +52,16 @@
 		<div id="product">
 			<img id="barcode_picture" />
 			<div class="description">Produkt ID:</div>
-			<div class="value" id="product_id"><%=product_id %></p></div>
+			<div class="value" id="product_id"><%=product_id %></div>
 			<div class="description">Produktname:</div>
-			<div class="value" class="editable" id="product_name"><%=product_name %></div>
+			<div class="value editable" id="product_name"><%=product_name %></div>
 			<div class="description">Beschreibung:</div>
-			<div class="value" class="editable" id="product_description"><%=product_description %></div>
+			<div class="value editable" id="product_description"><%=product_description %></div>
 			<div class="description">Mindestmenge im Lager:</div>
-			<div class="value" class="editable" id="product_minimum_limit"><%=product_min_quantity %></div>
+			<div class="value editable" > <span id="product_minimum_limit"><%=product_min_quantity %></span> <%=product_unity %></div>
 			<div class="description">Lagerbestand:</div>
-			<div class="value" class="editable" id="product_lager_quantity"><%=product_lager_quantity %></div>
-			
+			<div class="value editable"><span id="product_lager_quantity"><%=product_lager_quantity %></span> <%=product_unity %></div>
+
 			<button id="ingoing" class="color">Eingang<img src="img/lager_icon_in.png"/></button>
 			<button id="outgoing" class="color">Ausgang<img src="img/lager_icon_out.png"/></button>
 		</div>
