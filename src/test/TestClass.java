@@ -11,8 +11,10 @@ import utils.HibernateSupport;
 public class TestClass {
 
 	public static void main(String[] args) throws InterruptedException {
+		
+		String s = "tru";
+		System.out.println(s.equals("true"));
 
-		System.out.println(BarCodeUtils.getAllTrucksAndLocationBarCodes(false, true, true));
 		
 		/*String username = "rene";
 		String password = "123456";
