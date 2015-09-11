@@ -13,9 +13,12 @@ public class Inventory extends Location {
 	
 	private String location;
 	
-	public Inventory() {}
+	public Inventory() {
+		super();
+	}
 	
 	public Inventory(String name, String location) {
+		this.id = this.getNextId();
 		this.name = name;
 		this.location = location;
 	}
