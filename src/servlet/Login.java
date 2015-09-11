@@ -41,7 +41,7 @@ public class Login extends HttpServlet {
 
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		
+
 		// try to login
 		User user;
 		if((user = User.login(email, password)) != null){
@@ -49,10 +49,10 @@ public class Login extends HttpServlet {
 			HttpSession session = request.getSession(true);
 			session.setAttribute("currentUser", user);
 			
-			request.getRequestDispatcher("pages/welcome.jsp").include(request, response);
+			request.getRequestDispatcher("welcome.jsp").include(request, response);
 			return;
 		}
-		
+				
 		// login failed
 		response.setStatus(401);
 		response.setHeader("error_message", "Login fehlgeschlagen!");

@@ -14,7 +14,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import org.hibernate.Criteria;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import utils.HibernateSupport;
@@ -27,7 +29,6 @@ public class Product implements ISaveAndDelete {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
 	private int id;
 	
 	private String name;
@@ -64,6 +65,20 @@ public class Product implements ISaveAndDelete {
 	
 	public Product(String name, String description, int minimum_limit, List<Truck> trucks_to_restrict,
 								TruckRestriction restriction) {
+		
+		HibernateSupport.beginTransaction();
+		Criteria c = HibernateSupport.getCurrentSession().createCriteria(Product.class);
+		c.addOrder(Order.desc("id"));
+		c.setMaxResults(1);
+		Product product = (Product)c.uniqueResult();
+		HibernateSupport.commitTransaction();
+		
+		int id = 1;
+		if(product != null) {
+			id = product.getId();
+		}
+		
+		this.id = id;
 		this.product_elements = new ArrayList<ProductElement>();
 		this.trucks_to_restrict = new ArrayList<Truck>();
 		this.name = name;

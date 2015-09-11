@@ -87,7 +87,7 @@ public class User implements ISaveAndDelete {
 		
 		// Check, if user exists
 		User user = getUser(username);
-		
+
 		if (user != null && BCrypt.checkpw(password_plaintext, user.getPasswordHash())) {
 			return user;
 		} else {
