@@ -1,3 +1,24 @@
+<%@page import="database.Product"%>
+
+<%
+	Product product = (Product)session.getAttribute("current_product");
+	
+	String product_id = "";
+	String product_name = "";
+	String product_description = "";
+	String product_min_quantity = "";
+	String product_lager_quantity = "";
+	
+	if (product != null) {
+		product_id = product.getId();
+		product_name = product.
+		product_description = product.
+		product_min_quantity = product.
+		product_lager_quantity = product.
+	}
+	
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,15 +60,15 @@
 		<div id="product">
 			<img id="barcode_picture" />
 			<div class="description">Produkt ID:</div>
-			<div class="value" id="product_id">321456</div>
+			<div class="value" id="product_id"><% product_id %></div>
 			<div class="description">Produktname:</div>
-			<div class="value">Zurrgurte groß</div>
+			<div class="value"><% product_name %></div>
 			<div class="description">Beschreibung:</div>
-			<div class="value">5 Meter lang</div>
+			<div class="value"><% product_description %></div>
 			<div class="description">Mindestmenge im Lager:</div>
-			<div class="value">3 Stück</div>
+			<div class="value"><% product_min_quantity %></div>
 			<div class="description">Lagerbestand:</div>
-			<div class="value">1 Stück</div>
+			<div class="value"><% product_lager_quantity %></div>
 			
 			<button id="ingoing" class="color">Eingang<img src="img/lager_icon_in.png"/></button>
 			<button id="outgoing" class="color">Ausgang<img src="img/lager_icon_out.png"/></button>
