@@ -1,10 +1,14 @@
 package test;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.criterion.Criterion;
 
 import com.orsoncharts.util.json.JSONArray;
 
 import database.*;
+import servlet.ProductDetail;
 import utils.BarCodeUtils;
 import utils.HibernateSupport;
 
@@ -12,8 +16,9 @@ public class TestClass {
 
 	public static void main(String[] args) throws InterruptedException {
 		
-		String s = "tru";
-		System.out.println(s.equals("true"));
+
+		List<Product> products = HibernateSupport.readMoreObjects(Product.class, new ArrayList<Criterion>());
+		System.out.println("size = " + products.size());
 
 		
 		/*String username = "rene";

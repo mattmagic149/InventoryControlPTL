@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,17 +11,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.criterion.Criterion;
+
+import database.Product;
+import utils.HibernateSupport;
+
 /**
  * Servlet implementation class Welcome
  */
-@WebServlet("/Lager")
-public class Lager extends HttpServlet {
+@WebServlet("/ProductDetail")
+public class ProductDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Lager() {
+    public ProductDetail() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,8 +43,37 @@ public class Lager extends HttpServlet {
 			return;
 		}	*/
 		
-		System.out.println("Welcome has been called...");
-		request.getRequestDispatcher("lager.jsp").include(request, response);
+		//ERROR:
+		if(request.getParameter("id")	== null) {
+			request.getRequestDispatcher("welcome.jsp").include(request, response);
+			System.out.println("id = null");
+			return;
+		}
+		
+		int id;
+		try {
+		id = Integer.valueOf(request.getParameter("id"));
+		} catch(NumberFormatException e) {
+			System.out.println("Couldn't parse id");
+			request.getRequestDispatcher("welcome.jsp").include(request, response);
+			return;
+		}
+		
+		System.out.println("id = " + id);
+		Product product = HibernateSupport.readOneObjectByID(Product.class, id);
+		List<Product> products = HibernateSupport.readMoreObjects(Product.class, new ArrayList<Criterion>());
+		System.out.println("size = " + products.size());
+
+		//ERROR:
+		if(product == null) {
+			request.getRequestDispatcher("welcome.jsp").include(request, response);
+			System.out.println("Couldn't find id in database");
+			return;
+		}
+		
+		session.setAttribute("current_product", product);
+		
+		request.getRequestDispatcher("product.jsp").include(request, response);
 		return;
 	}
 

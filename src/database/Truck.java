@@ -26,10 +26,7 @@ public class Truck extends Location implements ISaveAndDelete {
 	@ManyToMany(mappedBy="trucks_to_restrict")
 	private List<Product> products_consumeable;
 	
-	public Truck() {
-		System.out.println("truck ctor");
-
-	}
+	public Truck() {}
 	
 	public Truck(String licence_tag, String brand) {
 		this.id = this.getNextId();

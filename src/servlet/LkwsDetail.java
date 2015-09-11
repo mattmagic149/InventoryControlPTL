@@ -7,19 +7,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Welcome
  */
-@WebServlet("/Lkw")
-public class Lkw extends HttpServlet {
+@WebServlet("/Lkws")
+public class LkwsDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Lkw() {
+    public LkwsDetail() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,16 +27,16 @@ public class Lkw extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(true);
+		/*HttpSession session = request.getSession(true);
 		
-		/*if(session.getAttribute("currentUser") == null) {
+		if(session.getAttribute("currentUser") == null) {
 			request.getRequestDispatcher("index.jsp").include(request, response);
 			System.out.println("NOT logged in");
 			return;
 		}	*/
 		
 		System.out.println("Welcome has been called...");
-		request.getRequestDispatcher("lkw.jsp").include(request, response);
+		request.getRequestDispatcher("lkws.jsp").include(request, response);
 		return;
 	}
 
