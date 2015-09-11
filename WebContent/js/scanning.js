@@ -1,17 +1,12 @@
 // JavaScript Document
 $(document).ready(function() {
 	getValidIdsFromServer();
-//	startReadingBarcode();
-	alert(getId("000001"));
-	alert(getType("000001"));
-	alert(getId("1204832"));
-	alert(getType("104042"));
-	alert(getType("32524"));
+	startReadingBarcode();
 });
 
 var has_valid_id_list = false;
 var quagga_is_ready = false;
-var valid_ids;
+var valid_ids = [];
 
 function startReadingBarcode() {
 	var App = {
@@ -69,9 +64,10 @@ function startReadingBarcode() {
     });
 }
 
-function isValidCode(code) {
+function isValidCode(code) {	
 	var index = valid_ids.indexOf(code);
 	if (index == -1) {
+		alert("not valid code = " + code);
 		return false;
 	} else {
 		return true;
@@ -114,14 +110,10 @@ function getValidIdsFromServer() {
 				inventories: "true" },
 		cache: false,
 		success: function(data, settings, xhr) {
-			alert("success");
-			valid_ids = xhr.getResponseHeader('list');
-			alert("list = " + list);
-			//var asdf = ["P-000002", "asdf"];
-			alert("valid_ids = " + valid_ids);
-//			alert("is valid = " + isValidCode("P-000002"));
-//			alert("is valid = " + isValidCode("P-00002"));
-			
+			var list = xhr.getResponseHeader('list');
+			valid_ids = jQuery.parseJSON(list);
+			has_valid_id_list = true;
+			startQuaggaIfListAndQuaggaIsReady();
 		},
 		error: function(data, settings, xhr) {
 			alert("error");
