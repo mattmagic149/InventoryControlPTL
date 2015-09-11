@@ -1,12 +1,19 @@
 package test;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
+
 import database.*;
 import utils.HibernateSupport;
 
 public class TestClass {
 
 	public static void main(String[] args) throws InterruptedException {
+				
+		
 		String username = "rene";
 		String password = "123456";
 				
