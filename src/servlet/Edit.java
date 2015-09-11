@@ -47,9 +47,9 @@ public class Edit extends HttpServlet {
 		
 		if(parameter.equals("product")) {
 			System.out.println("I am adding a new Product");
-			if(!Product.createProductFromJSON(object)) {
+			if(!Product.editProduct(object)) {
 				response.setStatus(401);
-				response.setHeader("error_message", "Produkt konnte nicht hinzugefügt werden.");
+				response.setHeader("error_message", "Produkt konnte nicht bearbeitet werden.");
 				return;
 			}
 		} else if(parameter.equals("truck")) {
