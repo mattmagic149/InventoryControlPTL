@@ -1,15 +1,16 @@
 //Javascript Document
 
 function activateEditing() {
+	alert("activated");
   $("#edit").off("click");
   $("#edit").toggleClass("color").toggleClass("color_discreet");  
   
-
   $('.editable').inlineEdit({
 		buttons: '',
 		saveOnBlur: true,
 	});
 }
+
 
 //----------------------------------------------------------------------------------------------
 // Shows all editing Buttons and lets the Creator edit all Content

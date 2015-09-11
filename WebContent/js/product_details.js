@@ -1,20 +1,41 @@
 // JavaScript Document
 $(document).ready(function() {
+	generateBarCode();
 	
+	$("#ingoing").on("click", handleIngoing);
+	$("#outgoing").on("click", handleOutgoing);
+	
+	$("#edit").on("click", activateProductEditing);
+	$("#wrapper").on("click", "#ok", confirmProductEditing);
 });
 
-function sendRequestToServer(code) {
+function activateProductEditing() {
+	var elements = $(".editable");
+	
+}
+
+function confirmProductEditing() {
+	var product = new Object();
+	product.id = $("#product_id").text();
+	product.name = $("#product_name").text();
+	product.description = $("#product_description").text();
+	product.minimum_limit = $("#product_minimum_limit").text();
+	product.lkw_ids = [1,2,3];
+	var product_string = JSON.stringify(product);
+	sendProductToServer(product_string);
+}
+function sendProductToServer(product_string) {
 
 	$.ajax({
 		type: "POST",
-		url: "Display",
-		data: { type: "Product",
-				id: code },
+		url: "Add",
+		data: { type: "product",
+				product: product_string },
 		cache: false,
 		success: function(data, settings, xhr) {
 			alert("success");
 			var content = xhr.getResponseHeader('content');
-			printProductDetails(content);			
+			
 		},
 		error: function(data, settings, xhr) {
 			alert("error");
@@ -24,9 +45,7 @@ function sendRequestToServer(code) {
 	});
 }
 
-function printProductDetails() {
-	$("#product_details_container").removeClass("toggle");
-	$("#scanning_container").addClass("toggle");
+function generateBarCode() {
 	var barcode_options = {
 					width:  2,
 					height: 100,
@@ -40,24 +59,15 @@ function printProductDetails() {
 					lineColor:"#000"
 				}
 	var id = $("#product_id").text();
-	$("#barcode_picture").JsBarcode(id, barcode_options);
-	
-	$("#ingoing").on("click", handleIngoing);
-	$("#outgoing").on("click", handleOutgoing);
-	$("#edit").on("click", handleClickOnEditButton);
-	Quagga.stop();
+	$("#barcode_picture").JsBarcode(id, barcode_options);	
 }
 
-
-function toggleScanningAndDetails() {
-	$("#product_details_container").toggleClass("toggle");
-	$("#scanning_container").toggleClass("toggle");
-}
 
 function handleIngoing() {
 	createTransactionPopUp("Eingang...", "Wo kommt es her?", "<option value='new'>Neue Ware...</option><option value='LKW1'>GU PTL 10</option><option value='LKW2'>GU PTL 12</option>");
 //	createPopUp("Eingang...", "message");
 	createPopUpButtons("Verbuchen", "Abbrechen");
+	
 }
 
 function handleOutgoing() {
@@ -65,8 +75,4 @@ function handleOutgoing() {
 	createPopUpButtons("Verbuchen", "Abbrechen");
 }
 
-function handleClickOnEditButton(e) {
-	var id = $("#product_id").text();
-	location.href = 'ProductNew.html?id=' + id;
-}
 

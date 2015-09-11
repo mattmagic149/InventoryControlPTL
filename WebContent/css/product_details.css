@@ -24,19 +24,11 @@ h2{
   line-height:1.25em;
 }
 
-#scanning_container {
-	visibility: visible;
-}
-
 #product_details_container {
   position: relative;
-  top: -60px;
+  top: 140px;
   width: 700px;
   margin: 0 auto;
-}
-
-#product_details_container.toggle, #scanning_container.toggle {
-	visibility: hidden;
 }
 
 #product input[type="text"] , #product textarea{
@@ -57,7 +49,7 @@ h2{
 }
 
 #ingoing , #outgoing{
-	margin-top: 30px;
+	margin-top: 40px;
 	width: 49%;
 	height: 40px;
     border-radius: 5px;
