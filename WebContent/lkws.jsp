@@ -1,3 +1,12 @@
+<%@page import="database.Truck" %>
+<%@page import="java.util.ArrayList" %>
+<%@page import="java.util.List" %>
+
+<%
+	List<Truck> trucks = new ArrayList<Truck>((ArrayList) session.getAttribute("products_list"));
+	System.out.println(trucks.size());
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
