@@ -3,7 +3,7 @@
 <%@page import="java.util.List" %>
 
 <%
-	List<Truck> trucks = new ArrayList<Truck>((ArrayList) session.getAttribute("products_list"));
+	List<Truck> trucks = new ArrayList<Truck>((ArrayList) session.getAttribute("trucks_list"));
 	System.out.println(trucks.size());
 %>
 

@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import utils.BarCodeUtils;
 
 /**
- * Servlet implementation class GetValidBarCodes
+ * Servlet implementation class Add
  */
-@WebServlet("/GetValidBarCodes")
-public class GetValidBarCodes extends HttpServlet {
+@WebServlet("/Add")
+public class Add extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetValidBarCodes() {
+    public Add() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,31 +37,18 @@ public class GetValidBarCodes extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*HttpSession session = request.getSession(true);
-		
-		if(session.getAttribute("currentUser") == null) {
-			request.getRequestDispatcher("index.jsp").include(request, response);
-			System.out.println("NOT logged in");
-			return;
-		}	*/
-		
-		if(request.getParameter("products") == null ||
-				request.getParameter("trucks") == null ||
-				request.getParameter("inventories") == null) {
-			
+		if(request.getParameter("type") == null) {
 			response.setStatus(401);
 			response.setHeader("error_message", "Ungültige Anfrage.");
 		}
 		
+		String parameter = request.getParameter("type");
 		
-		boolean products = request.getParameter("products").equals("true");
-		boolean trucks = request.getParameter("trucks").equals("true");
-		boolean inventories = request.getParameter("inventories").equals("true");
-
-		String result = BarCodeUtils.getAllTrucksAndLocationBarCodes(products, trucks, inventories);
+		if(parameter.equals("product")) {
+			
+		}
 		
-		response.setHeader("list", result);
-
+		//response.setHeader("list", result);
 	}
 
 }
