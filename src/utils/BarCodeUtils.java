@@ -27,6 +27,14 @@ public class BarCodeUtils {
 		return result;
 	}
 	
+	public static int decodeBarCode(String barcode) {
+		if(barcode.length() < 3) {
+			return -1;
+		}
+		
+		return Integer.valueOf(barcode.substring(2));
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static String getAllTrucksAndLocationBarCodes(boolean pro, boolean tru, boolean inv) {
 		

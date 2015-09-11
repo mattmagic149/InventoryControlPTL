@@ -16,10 +16,13 @@ public class TestClass {
 
 	public static void main(String[] args) throws InterruptedException {
 		
+		System.out.println(HibernateSupport.readMoreObjects(Product.class, new ArrayList<Criterion>()).size());
 
-		List<Product> products = HibernateSupport.readMoreObjects(Product.class, new ArrayList<Criterion>());
-		System.out.println("size = " + products.size());
+		String object = "{\"id\":\"P-000000\",\"name\":\"Samsung Handy Neu Galaxy S4 mini\","
+				+ "\"description\":\"Beschreibung...\",\"minimum_limit\":\"10\",\"lkw_ids\":[1,2,3], \"unity\":\"Stück\"}";
 
+		System.out.println(Product.createProductFromJSON(object));
+		System.out.println(HibernateSupport.readMoreObjects(Product.class, new ArrayList<Criterion>()).size());
 		
 		/*String username = "rene";
 		String password = "123456";

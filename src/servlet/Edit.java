@@ -8,34 +8,53 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import database.Product;
+
 /**
- * Servlet implementation class Display
+ * Servlet implementation class Edit
  */
-@WebServlet("/Display")
-public class Display extends HttpServlet {
+@WebServlet("/Edit")
+public class Edit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Display() {
+    public Edit() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("index.jsp").include(request, response);
-		return;
+		// TODO Auto-generated method stub
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("welcome.jsp").include(request, response);
-		return;
+		String parameter = request.getParameter("type");
+		String object = request.getParameter("object");
+		if(parameter == null || object == null) {
+			response.setStatus(401);
+			response.setHeader("error_message", "Ungültige Anfrage.");
+			return;
+		}
+		System.out.println("I am in Edit Servlet");
+		
+		if(parameter.equals("product")) {
+			System.out.println("I am adding a new Product");
+			if(!Product.editProduct(object)) {
+				response.setStatus(401);
+				response.setHeader("error_message", "Produkt konnte nicht bearbeitet werden.");
+				return;
+			}
+		} else if(parameter.equals("truck")) {
+			
+		}
 	}
 
 }

@@ -8,19 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import utils.BarCodeUtils;
+import database.Product;
 
 /**
- * Servlet implementation class GetValidBarCodes
+ * Servlet implementation class Add
  */
-@WebServlet("/GetValidBarCodes")
-public class GetValidBarCodes extends HttpServlet {
+@WebServlet("/Add")
+public class Add extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetValidBarCodes() {
+    public Add() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,32 +37,26 @@ public class GetValidBarCodes extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*HttpSession session = request.getSession(true);
-		
-		if(session.getAttribute("currentUser") == null) {
-			request.getRequestDispatcher("index.jsp").include(request, response);
-			System.out.println("NOT logged in");
-			return;
-		}	*/
-		
-		if(request.getParameter("products") == null ||
-				request.getParameter("trucks") == null ||
-				request.getParameter("inventories") == null) {
-			
+		String parameter = request.getParameter("type");
+		String object = request.getParameter("object");
+		if(parameter == null || object == null) {
 			response.setStatus(401);
 			response.setHeader("error_message", "Ungültige Anfrage.");
 			return;
 		}
+		System.out.println("I am in Add Servlet");
 		
+		if(parameter.equals("product")) {
+			System.out.println("I am adding a new Product");
+			if(!Product.createProductFromJSON(object)) {
+				response.setStatus(401);
+				response.setHeader("error_message", "Produkt konnte nicht hinzugefügt werden.");
+				return;
+			}
+		} else if(parameter.equals("truck")) {
+			
+		}
 		
-		boolean products = request.getParameter("products").equals("true");
-		boolean trucks = request.getParameter("trucks").equals("true");
-		boolean inventories = request.getParameter("inventories").equals("true");
-
-		String result = BarCodeUtils.getAllTrucksAndLocationBarCodes(products, trucks, inventories);
-		
-		response.setHeader("list", result);
-
 	}
 
 }
