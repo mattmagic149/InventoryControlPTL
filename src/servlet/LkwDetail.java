@@ -37,7 +37,7 @@ public class LkwDetail extends HttpServlet {
 			request.getRequestDispatcher("index.jsp").include(request, response);
 			System.out.println("NOT logged in");
 			return;
-		}	*/
+		}*/
 		
 		if(request.getParameter("id")	== null) {
 			request.getRequestDispatcher("welcome.jsp").include(request, response);
@@ -65,7 +65,6 @@ public class LkwDetail extends HttpServlet {
 		}
 		
 		session.setAttribute("current_truck", truck);
-		
 		request.getRequestDispatcher("lkw.jsp").include(request, response);
 		return;
 	}
