@@ -22,7 +22,7 @@
 	left: 50%;
 	margin: 0 0 0 -200px;
 	box-shadow: 5px 5px 5px #666;
-	border: 1px solid green;
+	border: 1px solid #023e88;
 	border-radius: 5px;
 	padding: 20px 0;
 	z-index: 1001;
@@ -30,6 +30,10 @@
 #pop_up p, #pop_up h2 {
 	text-align: center;
 }
+
+#pop_up p {
+	margin-bottom: 2em;
+}	
 
 #close {
 	position: absolute;
@@ -41,7 +45,7 @@
 }
 
 #confirm_pop_up_button, #cancel_pop_up_button {
-	background-color: green;
+	background-color: #023e88;
 	width: 120px;
 	color: #FFF;
 	line-height: 1.8em;
@@ -61,7 +65,19 @@
 }
 
 #confirm_pop_up_button:hover, #cancel_pop_up_button:hover {
-	background-color: #090;
+	background-color: #5576c7;
 	cursor: pointer;
 	color: #FFF;
+}
+
+#pop_up_field_container {
+	margin-left: 30px;
+	margin-right: 30px;
+	margin-bottom: 2em;
+}
+#pop_up_field_container select {
+	width: 340px;
+}
+#pop_up_field_container input[type="number"] {
+	width: 327px;
 }
