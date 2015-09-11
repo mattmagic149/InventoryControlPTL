@@ -10,6 +10,8 @@ $(document).ready(function() {
 	
 	$("#edit").on("click", activateProductEditing);
 	$("#wrapper").on("click", "#ok", confirmProductEditing);
+	
+	fillProductWithDataBecauseOfTextFields();
 });
 
 function fillProductWithDataBecauseOfTextFields() {
@@ -18,6 +20,8 @@ function fillProductWithDataBecauseOfTextFields() {
 	product.description = $("#product_description").text();
 	product.minimum_limit = $("#product_minimum_limit").text();
 	product.lkw_ids = [1,2,3];
+	product.lager_quantity = $("#product_lager_quantity").text();
+	product.unity = $(".product_unity").get(0).innerHTML;
 }
 
 function fillProductWithDataBecauseOfInputFields() {
@@ -25,7 +29,7 @@ function fillProductWithDataBecauseOfInputFields() {
 	product.description = $("#product_description").val();
 	product.minimum_limit = $("#product_minimum_limit").val();
 	product.lkw_ids = [1,2,3];
-	product.unity = "stk";
+	product.unity = $("#product_unity").val();
 }
 
 function activateProductEditing() {
@@ -41,15 +45,17 @@ function activateProductEditing() {
 				'<div class="description">Produktname:</div>' +
 				'<input type="text" class="value editable" id="product_name" value="'+ product.name +'"></input>' + 
 				'<div class="description">Beschreibung:</div>' +
-				'<textarea type="text"class="value editable" id="product_description" value="' + product.description + '"></textarea>' +
+				'<textarea type="text" class="value editable" id="product_description">' + product.description + '</textarea>' +
 				'<div class="description">Mindestmenge im Lager:</div>' +
-				'<input type="text" class="value editable" id="product_minimum_limit" value="' + product.minimum_limit + '"></input>' +
-				'<select class="value" id="#product_unity">' +
+				'<input type="number" class="value editable" id="product_minimum_limit" value="' + product.minimum_limit + '"></input>' +
+				'<select class="value" id="product_unity">' +
 				'<option value="Stück">Stück</option>' +
 				'<option value="Liter">Liter</option>' +
 				'<option value="Paar">Paar</option>' +
 				'</select>');
 	content.insertAfter("#barcode_picture");
+	
+	$("#product_unity").val(product.unity).change();
 }
 
 function showProductBecauseOfData() {
@@ -67,9 +73,9 @@ function showProductBecauseOfData() {
 				'<div class="description">Beschreibung:</div>' +
 				'<div class="value editable" id="product_description">' + product.description + '</div>' +
 				'<div class="description">Mindestmenge im Lager:</div>' +
-				'<div class="value editable"><span id="product_minimum_limit">' + product.minimum_limit + '</span>' + product.unity + '</div>' +
+				'<div class="value editable"><span id="product_minimum_limit">' + product.minimum_limit + '</span><span class="product_unity">' + " " + product.unity + '</span></div>' +
 				'<div class="description">Lagerbestand:</div>' +
-				'<div class="value editable"><span id="product_lager_quantity">' + product.lager_quantity + '</span>' + product.unity + '</div>');
+				'<div class="value editable"><span id="product_lager_quantity">' + product.lager_quantity + '</span><span class="product_unity">' + " " + product.unity + '</span></div>');
 	
 	content.insertAfter("#barcode_picture");
 }
@@ -100,7 +106,7 @@ function sendProductToServer(product_string) {
 			
 		},
 		error: function(data, settings, xhr) {
-			alert("error");
+			alert("error message = " + xhr.getResponseHeader('error_message'));
 //			$("#pop_up_message").html(xhr.getResponseHeader('error_message'));
 		}
 	});
@@ -130,12 +136,47 @@ function handleIngoing() {
 	createTransactionPopUp("Eingang...", "Wo kommt es her?", "<option value='new'>Neue Ware...</option><option value='LKW1'>GU PTL 10</option><option value='LKW2'>GU PTL 12</option>");
 //	createPopUp("Eingang...", "message");
 	createPopUpButtons("Verbuchen", "Abbrechen");
-	
+	$("#confirm_pop_up_button").on("click", confirmIngoingTransaction);
 }
 
 function handleOutgoing() {
 	createTransactionPopUp("Ausgang...", "Wo geht es hin?", "<option value='selection'>Wählen Sie einen LKW aus!</option><option value='LKW1'>GU PTL 10</option><option value='LKW2'>GU PTL 12</option><option value='other'>Andere...</option>");
 	createPopUpButtons("Verbuchen", "Abbrechen");
+	$("#confirm_pop_up_button").on("click", confirmOutgoingTransaction);
 }
 
+function confirmIngoingTransaction() {
+	$("#confirm_pop_up_button").off("click", confirmIngoingTransaction);
+	var quantity = $("#quantity").val();
+	var loc = $("#location").val();	
+	sendTransaction(quantity, loc, "true");
+	location.href = location.href;
+}
+function confirmOutgoingTransaction() {
+	$("#confirm_pop_up_button").off("click", confirmOutgoingTransaction);
+	var quantity = $("#quantity").val();
+	var loc = $("#location").val();
+	sendTransaction(quantity, loc, "false");
+	location.href = location.href;
+}
+
+function sendTransaction(quantity, loc, is_ingoing_transaction) {
+	$.ajax({
+		type: "POST",
+		url: "CommitTransaction",
+		data: { quantity: quantity,
+				location: loc,
+				is_ingoing_transaction: is_ingoing_transaction},
+		cache: false,
+		success: function(data, settings, xhr) {
+			alert("success, transaction was sent");
+			var content = xhr.getResponseHeader('content');
+			
+		},
+		error: function(data, settings, xhr) {
+			alert("error message = " + xhr.getResponseHeader('error_message'));
+//			$("#pop_up_message").html(xhr.getResponseHeader('error_message'));
+		}
+	});
+}
 

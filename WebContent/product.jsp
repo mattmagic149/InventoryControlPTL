@@ -16,8 +16,11 @@
 		product_description = product.getDescription();
 		product_min_quantity = String.valueOf(product.getMinimumLimit());
 		product_unity = product.getUnity();
+		
 //		product_lager_quantity = " " + product.getUnity()
 	}
+	product_description = "asdfasdfasdf";
+	product_unity = "Liter";
 	
 %>
 
@@ -58,9 +61,9 @@
 			<div class="description">Beschreibung:</div>
 			<div class="value editable" id="product_description"><%=product_description %></div>
 			<div class="description">Mindestmenge im Lager:</div>
-			<div class="value editable" > <span id="product_minimum_limit"><%=product_min_quantity %></span> <%=product_unity %></div>
+			<div class="value editable" > <span id="product_minimum_limit"><%=product_min_quantity %></span> <span class="product_unity"><%=product_unity %></span></div>
 			<div class="description">Lagerbestand:</div>
-			<div class="value editable"><span id="product_lager_quantity"><%=product_lager_quantity %></span> <%=product_unity %></div>
+			<div class="value editable"><span id="product_lager_quantity"><%=product_lager_quantity %></span> <span class="product_unity"><%=product_unity %></span></div>
 
 			<button id="ingoing" class="color">Eingang<img src="img/lager_icon_in.png"/></button>
 			<button id="outgoing" class="color">Ausgang<img src="img/lager_icon_out.png"/></button>

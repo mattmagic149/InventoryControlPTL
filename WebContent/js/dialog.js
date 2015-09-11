@@ -5,6 +5,7 @@ $(document).ready(function() {
 	$("body").on("click", "#close", closeAddingInput);
 	$("body").on("click", "#close", closeAddingInput);
 	$("body").on("click", "#cancel_pop_up_button", closeAddingInput);
+	$("body").on("click", "#confirm_pop_up_button", closeAddingInput);
 });
 
 //--------------------------------------------------------------------------------
@@ -30,9 +31,9 @@ function createTransactionPopUp(headline, options_description, options) {
 		"<h2 id='pop_up_headline'>" + headline + "</h2>" +
 		"<div id='pop_up_field_container'>" +
 			"<div class='description'>Anzahl</div>" +
-			"<input type='number' class='value'></input>" +
+			"<input type='number' class='value' id='quantity'></input>" +
 			"<div class='description'>" + options_description + "</div>" +
-			"<select class='value'>" + options + 
+			"<select class='value' id='location'>" + options + 
 			"</select>" +
 		"</div>" +
 	"</div>" +
