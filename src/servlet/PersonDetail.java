@@ -32,7 +32,7 @@ public class PersonDetail extends HttpServlet {
 		}*/
 		
 		System.out.println("Welcome has been called...");
-		request.getRequestDispatcher("persons.jsp").include(request, response);
+		request.getRequestDispatcher("person.jsp").include(request, response);
 		return;
 	}
 
