@@ -28,7 +28,7 @@
     <a href="Welcome"><button id="back" class="color_discreet">&#060&#060 Übersicht</button></a>
     <button id="edit" class="color" >Bearbeiten</button>
 	
-	<div id="product_details_container" class="toggle">
+	<div id="product_details_container">
 		<div id="product">
 			<div class="description">Produkt ID:</div>
 			<div class="value" id="product_id"></div>

@@ -27,7 +27,7 @@
       <a href="Scanning"><div class="color">Scannen<img src="img/scanning_icon.png"/></div></a>
       <a href="LkwsDetail"><div class="color">LKWs<img src="img/lieferwagen_icon.png"/></div></a>
       <a href="LagerDetail"><div class="color">Lager<img src="img/lager_icon.png"/></div></a>
-      <a href="ProductsDetail"><div class="color">Produkte<img src="img/product_icon.png"/></div></a>
+      <a href="ProductsOverview"><div class="color">Produkte<img src="img/product_icon.png"/></div></a>
       <a href="PersonsDetail"><div class="color">Personen<img src="img/personen_icon.png"/></div></a>
     </div>
         
