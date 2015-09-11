@@ -6,8 +6,6 @@ import java.util.List;
 import interfaces.ISaveAndDelete;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -55,30 +53,19 @@ public class Product implements ISaveAndDelete {
 		this.product_elements = new ArrayList<ProductElement>();
 	}
 	
-	public Product(String serialized_product) {
+	public Product(String serialized_product) {		
 		String[] tmp = serialized_product.split("\t");
 		this.name = tmp[0];
 		this.description = tmp[1];
 		this.unity = tmp[2];
 		this.minimum_limit = Integer.parseInt(tmp[3]);
+		this.id = Integer.parseInt(tmp[4]);
 	}
 	
 	public Product(String name, String description, int minimum_limit, List<Truck> trucks_to_restrict,
 								TruckRestriction restriction) {
 		
-		HibernateSupport.beginTransaction();
-		Criteria c = HibernateSupport.getCurrentSession().createCriteria(Product.class);
-		c.addOrder(Order.desc("id"));
-		c.setMaxResults(1);
-		Product product = (Product)c.uniqueResult();
-		HibernateSupport.commitTransaction();
-		
-		int id = 1;
-		if(product != null) {
-			id = product.getId();
-		}
-		
-		this.id = id;
+		this.id = this.getNextId();
 		this.product_elements = new ArrayList<ProductElement>();
 		this.trucks_to_restrict = new ArrayList<Truck>();
 		this.name = name;
@@ -86,6 +73,21 @@ public class Product implements ISaveAndDelete {
 		this.minimum_limit = minimum_limit;
 		this.restriction = restriction;
 		this.trucks_to_restrict = trucks_to_restrict;	
+	}
+	
+	private int getNextId() {
+		System.out.println("Product ctor");
+		Criteria c = HibernateSupport.getCurrentSession().createCriteria(Product.class);
+		c.addOrder(Order.desc("id"));
+		c.setMaxResults(1);
+		Product product = (Product)c.uniqueResult();
+		
+		int id = 0;
+		if(product != null) {
+			id = product.getId();
+		}
+		
+		return id + 1;
 	}
 	
 	public int getId() {
@@ -186,7 +188,8 @@ public class Product implements ISaveAndDelete {
 
 	@Override
 	public String serialize() {
-		return this.name + "\t" + this.description + "\t" +  this.unity + "\t" + this.minimum_limit;
+		return this.name + "\t" + this.description + "\t" +  this.unity + "\t" + 
+				this.minimum_limit + "\t" + this.id;
 	}
 	
 	/* (non-Javadoc)

@@ -67,10 +67,11 @@ public class DatabaseConstruction {
 		String password2 = "123456";
 		User user2 = User.register(username2, "Matt", "Nachname", "bla@gmail.com", password2, User.Permission.USER);
 
-		Inventory inventory = new Inventory("Hauptlager", "1. Stock");
-		Inventory entry = new Inventory("Waren Eingang", "");
-		
 		HibernateSupport.beginTransaction();
+		
+			Inventory inventory = new Inventory("Hauptlager", "1. Stock");
+			Inventory entry = new Inventory("Waren Eingang", "");
+		
 			user.saveToDB();
 			user2.saveToDB();
 

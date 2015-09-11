@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -16,6 +14,7 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import utils.HibernateSupport;
@@ -26,7 +25,6 @@ import utils.HibernateSupport;
 public abstract class Location implements ISaveAndDelete {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
 	protected int id;
 	
 	@OneToMany
@@ -34,7 +32,7 @@ public abstract class Location implements ISaveAndDelete {
 	protected List<ProductElement> product_elements;
 	
 	public Location() {
-		this.product_elements = new ArrayList<ProductElement>();
+		this.product_elements = new ArrayList<ProductElement>();		
 	}
 	
 	public int getId() {
@@ -43,6 +41,19 @@ public abstract class Location implements ISaveAndDelete {
 
 	public List<ProductElement> getProductElements() {
 		return product_elements;
+	}
+	
+	protected int getNextId() {
+		Criteria c = HibernateSupport.getCurrentSession().createCriteria(Location.class);
+		c.addOrder(Order.desc("id"));
+		c.setMaxResults(1);
+		Location location = (Location)c.uniqueResult();
+		
+		int id = 0;
+		if(location != null) {
+			id = location.getId();
+		}
+		return id + 1;
 	}
 	
 	public boolean addProductElement(ProductElement elem) {
