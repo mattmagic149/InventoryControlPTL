@@ -1,8 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,8 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.hibernate.criterion.Criterion;
 
 import database.Product;
 import utils.HibernateSupport;
@@ -61,8 +57,6 @@ public class ProductDetail extends HttpServlet {
 		
 		System.out.println("id = " + id);
 		Product product = HibernateSupport.readOneObjectByID(Product.class, id);
-		List<Product> products = HibernateSupport.readMoreObjects(Product.class, new ArrayList<Criterion>());
-		System.out.println("size = " + products.size());
 
 		//ERROR:
 		if(product == null) {
@@ -72,7 +66,6 @@ public class ProductDetail extends HttpServlet {
 		}
 		
 		session.setAttribute("current_product", product);
-		
 		request.getRequestDispatcher("product.jsp").include(request, response);
 		return;
 	}

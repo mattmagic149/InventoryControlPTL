@@ -33,7 +33,7 @@ public class PersonsDetail extends HttpServlet {
 			request.getRequestDispatcher("index.jsp").include(request, response);
 			System.out.println("NOT logged in");
 			return;
-		}	*/
+		}*/
 		
 		System.out.println("Welcome has been called...");
 		request.getRequestDispatcher("persons.jsp").include(request, response);
