@@ -9,17 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import utils.HibernateSupport;
+import database.Truck;
+
 /**
  * Servlet implementation class Welcome
  */
-@WebServlet("/Persons")
-public class Persons extends HttpServlet {
+@WebServlet("/LkwDetail")
+public class LkwDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Persons() {
+    public LkwDetail() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,8 +39,34 @@ public class Persons extends HttpServlet {
 			return;
 		}	*/
 		
-		System.out.println("Welcome has been called...");
-		request.getRequestDispatcher("persons.jsp").include(request, response);
+		if(request.getParameter("id")	== null) {
+			request.getRequestDispatcher("welcome.jsp").include(request, response);
+			System.out.println("id = null");
+			return;
+		}
+		
+		int id;
+		try {
+		id = Integer.valueOf(request.getParameter("id"));
+		} catch(NumberFormatException e) {
+			System.out.println("Couldn't parse id");
+			request.getRequestDispatcher("welcome.jsp").include(request, response);
+			return;
+		}
+		
+		System.out.println("id = " + id);
+		Truck truck = HibernateSupport.readOneObjectByID(Truck.class, id);
+
+		//ERROR:
+		if(truck == null) {
+			request.getRequestDispatcher("welcome.jsp").include(request, response);
+			System.out.println("Couldn't find id in database");
+			return;
+		}
+		
+		session.setAttribute("current_truck", truck);
+		
+		request.getRequestDispatcher("lkw.jsp").include(request, response);
 		return;
 	}
 

@@ -8,17 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class Welcome
- */
-@WebServlet("/Scanning")
-public class Scanning extends HttpServlet {
+@WebServlet("/ProductsDetail")
+public class ProductsDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Scanning() {
+    public ProductsDetail() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,7 +33,7 @@ public class Scanning extends HttpServlet {
 		}	*/
 		
 		System.out.println("Welcome has been called...");
-		request.getRequestDispatcher("scanning.jsp").include(request, response);
+		request.getRequestDispatcher("products.jsp").include(request, response);
 		return;
 	}
 

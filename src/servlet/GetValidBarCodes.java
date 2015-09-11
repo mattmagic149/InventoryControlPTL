@@ -7,10 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import utils.BarCodeUtils;
-import database.User;
 
 /**
  * Servlet implementation class GetValidBarCodes
@@ -38,9 +36,9 @@ public class GetValidBarCodes extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(true);
+		/*HttpSession session = request.getSession(true);
 		
-		/*if(session.getAttribute("currentUser") == null) {
+		if(session.getAttribute("currentUser") == null) {
 			request.getRequestDispatcher("index.jsp").include(request, response);
 			System.out.println("NOT logged in");
 			return;
