@@ -70,3 +70,23 @@ h2{
 	top: -5px;
 }
 
+@media only all and (max-width:40em) {
+	
+	input[type="text"], textarea {
+		width: 100%;
+		margin: 0;
+	}
+	
+	h1 {
+	  padding-top: 0px;
+	}
+	
+	#product_name, #product_description , #product textarea{
+	  width: 650px;
+	}
+	
+	#product_minimum_limit {
+		width: 200px;
+	}
+	
+}

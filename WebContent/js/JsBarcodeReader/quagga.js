@@ -8411,8 +8411,8 @@ define('config',[],function(){
       inputStream: { name: "Live",
           type: "LiveStream",
           constraints: {
-              width: 640,
-              height: 480,
+              width: 640,/*FIXME: Ich habs umgestellt (vorher 640)*/
+              height: 480,/*vorher 480*/
               minAspectRatio: 0,
               maxAspectRatio: 100,
               facing: "environment" // or user
@@ -8632,7 +8632,7 @@ define('camera_access',["html_utils"], function(HtmlUtils) {
                 video: true
             },
             videoConstraints = HtmlUtils.mergeObjects({
-                width: 640,
+                width: 480, /*FIXME: auch hier 640 width 480 height*/
                 height: 480,
                 minAspectRatio: 0,
                 maxAspectRatio: 100,

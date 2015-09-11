@@ -2,10 +2,10 @@
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-  
+  <meta name="viewport" width="device-width">
+
   <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
-  <link rel="stylesheet" href="css/dialog.css" type="text/css" media="screen" />
-  <link rel="stylesheet" href="css/product_details.css" type="text/css" media="screen" />
+  <link rel="stylesheet" href="css/scanning.css" type="text/css" media="screen" />
 
   <script src="js/JsBarcodeReader/jquery-1.9.0.min.js" type="text/javascript"></script>
   <script src="js/JsBarcodeReader/quagga.js" type="text/javascript"></script>
@@ -32,7 +32,7 @@
 	</div>
 	
     <footer></footer>
-    			
+    
 	</div>
 
 </body>

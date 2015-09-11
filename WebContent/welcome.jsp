@@ -3,11 +3,10 @@
 <head>
   <link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico">
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-  
-	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="css/dialog.css" type="text/css" media="screen" />
-  
+    <meta name="viewport" width="device-width">
+    
+ 	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
+	
   	<script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
   	<script src="js/main.js" type="text/javascript"></script>
   	<script src="js/dialog.js" type="text/javascript"></script>

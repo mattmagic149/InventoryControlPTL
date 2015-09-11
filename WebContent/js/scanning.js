@@ -27,11 +27,14 @@ function startReadingBarcode() {
         },
         attachListeners: function() {
             var self = this;
+        },
+        state: {
+            locate: false
         }
     };
     App.init();
     Quagga.onProcessed(function(result) {
-        var drawingCtx = Quagga.canvas.ctx.overlay,
+/*        var drawingCtx = Quagga.canvas.ctx.overlay,
             drawingCanvas = Quagga.canvas.dom.overlay;
 
         if (result) {
@@ -50,6 +53,7 @@ function startReadingBarcode() {
                 Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
             }
         }
+        */
     });
 
     Quagga.onDetected(function(result) {

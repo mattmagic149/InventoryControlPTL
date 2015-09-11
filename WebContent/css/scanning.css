@@ -1,0 +1,21 @@
+@charset "UTF-8";
+/* CSS Document */
+
+h1 {
+  text-transform: uppercase;
+  color: #023e88;
+  padding-top: 100px;
+}
+
+@media only all and (max-width:30em) {
+	h1 {
+		position: static;
+		padding-top: 1em;
+	}
+	
+	h2 {
+		position: static;
+	}
+	
+	
+}
