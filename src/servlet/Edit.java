@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import database.Product;
 
 /**
- * Servlet implementation class Add
+ * Servlet implementation class Edit
  */
-@WebServlet("/Add")
-public class Add extends HttpServlet {
+@WebServlet("/Edit")
+public class Edit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Add() {
+    public Edit() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,8 +29,7 @@ public class Add extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("welcome.jsp").include(request, response);
-		return;
+		// TODO Auto-generated method stub
 	}
 
 	/**
@@ -44,7 +43,7 @@ public class Add extends HttpServlet {
 			response.setHeader("error_message", "Ungültige Anfrage.");
 			return;
 		}
-		System.out.println("I am in Add Servlet");
+		System.out.println("I am in Edit Servlet");
 		
 		if(parameter.equals("product")) {
 			System.out.println("I am adding a new Product");
@@ -56,7 +55,6 @@ public class Add extends HttpServlet {
 		} else if(parameter.equals("truck")) {
 			
 		}
-		
 	}
 
 }

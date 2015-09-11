@@ -30,7 +30,7 @@ function sendProductToServer(product_string) {
 		type: "POST",
 		url: "Add",
 		data: { type: "product",
-				product: product_string },
+				object: product_string },
 		cache: false,
 		success: function(data, settings, xhr) {
 			alert("success");

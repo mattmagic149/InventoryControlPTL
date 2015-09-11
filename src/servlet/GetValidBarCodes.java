@@ -51,6 +51,7 @@ public class GetValidBarCodes extends HttpServlet {
 			
 			response.setStatus(401);
 			response.setHeader("error_message", "Ungültige Anfrage.");
+			return;
 		}
 		
 		

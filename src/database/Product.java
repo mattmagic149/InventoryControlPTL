@@ -16,6 +16,9 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import utils.BarCodeUtils;
 import utils.HibernateSupport;
@@ -63,7 +66,9 @@ public class Product implements ISaveAndDelete {
 		this.id = Integer.parseInt(tmp[4]);
 	}
 	
-	public Product(String name, String description, int minimum_limit, List<Truck> trucks_to_restrict,
+	public Product(String name, String description, int minimum_limit,
+								String unity,
+								List<Truck> trucks_to_restrict,
 								TruckRestriction restriction) {
 		
 		this.id = this.getNextId();
@@ -76,8 +81,112 @@ public class Product implements ISaveAndDelete {
 		this.trucks_to_restrict = trucks_to_restrict;	
 	}
 	
+	public Product(int id, String name, String description, int minimum_limit,
+			String unity,
+			List<Truck> trucks_to_restrict,
+			TruckRestriction restriction) {
+
+		this.id = id;
+		this.product_elements = new ArrayList<ProductElement>();
+		this.trucks_to_restrict = new ArrayList<Truck>();
+		this.name = name;
+		this.description = description;
+		this.minimum_limit = minimum_limit;
+		this.restriction = restriction;
+		this.trucks_to_restrict = trucks_to_restrict;	
+	}
+	
 	public String getBarCodeEncoding() {
 		return "P-" + BarCodeUtils.getBarCodeEncoding(id);
+	}
+	
+	public static boolean createProductFromJSON(String object) {
+		
+		Product parsed_product = convertProductFromJSON(object);
+		if(parsed_product == null) {
+			return false;
+		}
+		
+		Product product = Product.createProduct(parsed_product.getName(),
+				parsed_product.getDescription(),
+				parsed_product.getMinimumLimit(),
+				parsed_product.getUnity(),
+				parsed_product.getTrucksToRestrict(),
+				parsed_product.getRestriction());
+		
+		if(product == null) {
+			System.out.println("couldn't create Product");
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public static boolean editProduct(String object) {
+		
+		Product parsed_product = convertProductFromJSON(object);
+		if(parsed_product == null) {
+			return false;
+		}
+		
+		Product old_product = HibernateSupport.readOneObjectByLongID(Product.class, parsed_product.getId());
+		
+		old_product.setName(parsed_product.getName());
+		old_product.setDescription(parsed_product.getDescription());
+		old_product.setMinimumLimit(parsed_product.getMinimumLimit());
+		old_product.setUnity(parsed_product.getUnity());
+		old_product.setTrucksToRestrict(parsed_product.getTrucksToRestrict());
+		if(parsed_product.getTrucksToRestrict().size() > 0) {
+			old_product.setRestriction(TruckRestriction.YES);
+		} else {
+			old_product.setRestriction(TruckRestriction.NO);
+		}
+		
+		old_product.setName(parsed_product.getName());
+		old_product.setName(parsed_product.getName());
+		
+		return true;
+	}
+	
+	private static Product convertProductFromJSON(String object) {
+		
+		JSONObject obj;
+		JSONArray arr;
+		Truck truck;
+		int truck_id;
+		List<Truck> trucks = new ArrayList<Truck>();
+		TruckRestriction restriction = TruckRestriction.NO;
+		
+		int id;
+		String name;
+		String description;
+		int minimum_limit;
+		String unity;
+		
+		try {
+			obj = new JSONObject(object);
+			id = BarCodeUtils.decodeBarCode(obj.get("id").toString());
+			name = obj.get("name").toString();
+			description = obj.get("description").toString();
+			minimum_limit = Integer.parseInt(obj.get("minimum_limit").toString());
+			unity = obj.get("unity").toString();
+			arr = obj.getJSONArray("lkw_ids");
+			for(int i = 0; i < arr.length(); i++) {
+				System.out.println(arr.get(i));
+				truck_id = arr.getInt(i);
+				if(truck_id > 0 && 
+						(truck = HibernateSupport.readOneObjectByID(Truck.class, truck_id)) != null) {
+					
+					trucks.add(truck);
+					restriction = TruckRestriction.YES;
+				}
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		return new Product(id, name, description, minimum_limit, unity, trucks, restriction);
 	}
 	
 	private int getNextId() {
@@ -111,6 +220,34 @@ public class Product implements ISaveAndDelete {
 		return minimum_limit;
 	}
 	
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setMinimumLimit(int minimum_limit) {
+		this.minimum_limit = minimum_limit;
+	}
+
+	public void setUnity(String unity) {
+		this.unity = unity;
+	}
+
+	public void setRestriction(TruckRestriction restriction) {
+		this.restriction = restriction;
+	}
+
+	public void setProductElements(List<ProductElement> product_elements) {
+		this.product_elements = product_elements;
+	}
+
+	public void setTrucksToRestrict(List<Truck> trucks_to_restrict) {
+		this.trucks_to_restrict = trucks_to_restrict;
+	}
+
 	public boolean addProductElement(ProductElement elem) {
 		boolean success = false;
 		
@@ -125,8 +262,11 @@ public class Product implements ISaveAndDelete {
 		return success;
 	}
 	
-	public static Product createProduct(String name, String description, int minimum_limit,
-			List<Truck> trucks_to_restrict, TruckRestriction restriction) {		
+	public static Product createProduct(String name, String description, 
+										int minimum_limit,
+										String unity,
+										List<Truck> trucks_to_restrict, 
+										TruckRestriction restriction) {		
 		// Check, if product already exists
 		Product product = Product.getProduct(name, description);
 		
@@ -135,11 +275,15 @@ public class Product implements ISaveAndDelete {
 			return null;
 		}
 		
-		// create a new product and set it's parameter
-		Product new_product = new Product(name, description, minimum_limit, trucks_to_restrict, restriction);
-		
-		// Store the created product in the DB and return it's object, in case of a successful writing.
 		HibernateSupport.beginTransaction();
+			// create a new product and set it's parameter
+			Product new_product = new Product(name, description, 
+												minimum_limit, 
+												unity, 
+												trucks_to_restrict, 
+												restriction);
+			
+			// Store the created product in the DB and return it's object, in case of a successful writing.
 			boolean success = new_product.saveToDB();
 		HibernateSupport.commitTransaction();
 		
@@ -187,7 +331,7 @@ public class Product implements ISaveAndDelete {
 		return product_elements;
 	}
 
-	public List<Truck> getTrucks_to_restrict() {
+	public List<Truck> getTrucksToRestrict() {
 		return trucks_to_restrict;
 	}
 
