@@ -3,21 +3,34 @@
 <head>
 	<meta charset="UTF-8">
 	<title></title>
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="js/JsBarcodeGenCODE128.js"></script>
-    <script src="js/JsBarcodeGen.js"></script>
-	
 	<link rel="stylesheet" type="text/css" href="print.css" media="print" />
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="js/JsBarcodeGenCODE128.js" type="text/javascript"></script>
+	<script src="js/JsBarcodeGen.js" type="text/javascript"></script>
 	
 	<script>
 		$(document).ready(function(){
-			for (var i = 0; i < 10; i++) {
+		
+			var barcode_options = {
+					width:  2,
+					height: 100,
+					quite: 10,
+					format: "CODE128",
+					displayValue: true,
+					font:"monospace",
+					textAlign:"center",
+					fontSize: 17,
+					backgroundColor:"",
+					lineColor:"#000"
+			}
+		
+			for (var i = 1; i < 30; i++) {
 				var date = new Date();
 				var new_img = $("<img/>");
 				var barcode_options = {
 								width:  2,
 								height: 100,
-								quite: 10,
+								quite: 30,
 								format: "CODE128",
 								displayValue: true,
 								font:"monospace",
@@ -26,13 +39,14 @@
 								backgroundColor:"",
 								lineColor:"#000"
 							}
-				new_img.JsBarcode("12345" +date.getSeconds(), barcode_options);
+				new_img.JsBarcode("" + i * 13459, barcode_options);
 				$("#barcodes").append(new_img);
 			}
 		});
 	</script>
 </head>
 <body>
+asdf
 <div id="barcodes">
 </div>
 </body>

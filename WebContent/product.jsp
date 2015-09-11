@@ -26,7 +26,7 @@
 	<div id="distance"></div>
 	<div id="wrapper">
     <a href="Logout"><button id="logout" class="color_discreet">Logout</button></a>
-    <a href="welcome.html"><button id="back" class="color_discreet">&#060&#060 Übersicht</button></a>
+    <a href="Welcome"><button id="back" class="color_discreet">&#060&#060 Übersicht</button></a>
     <button id="edit" class="color" >Bearbeiten</button>
 
 	<div id="scanning_container">

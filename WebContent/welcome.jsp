@@ -18,17 +18,17 @@
 <body>
 	<div id="distance"></div>
 	<div id="wrapper">
-    <a href="login.html"><button id="logout" class="color_discreet">Logout</button></a>
+    <a href="Logout"><button id="logout" class="color_discreet">Logout</button></a>
     
     <h1>Willkommen<span></span>!</h1>
 	<img src="img/logo.png" style="position: absolute; top: 10px; left: 10px; width: 200px;"/>
 
 	<div id="admin_links">
-      <a href="ProductDetails.html"><div class="color">Scannen<img src="img/scanning_icon.png"/></div></a>
-      <a href="LKWs.html"><div class="color">LKWs<img src="img/lieferwagen_icon.png"/></div></a>
-      <a href="Lager.html"><div class="color">Lager<img src="img/lager_icon.png"/></div></a>
-      <a href="Products.html"><div class="color">Produkte<img src="img/product_icon.png"/></div></a>
-      <a href="Persons.html"><div class="color">Personen<img src="img/personen_icon.png"/></div></a>
+      <a href="Product"><div class="color">Scannen<img src="img/scanning_icon.png"/></div></a>
+      <a href="LKWs"><div class="color">LKWs<img src="img/lieferwagen_icon.png"/></div></a>
+      <a href="Lager"><div class="color">Lager<img src="img/lager_icon.png"/></div></a>
+      <a href="Products"><div class="color">Produkte<img src="img/product_icon.png"/></div></a>
+      <a href="Personen"><div class="color">Personen<img src="img/personen_icon.png"/></div></a>
     </div>
         
     <section id="pop_up_wrapper">

@@ -51,8 +51,27 @@ function startReadingBarcode() {
         var code = result.codeResult.code;
 		$("#product_id").text(code);
 //		toggleScanningAndDetails();
-		printProductDetails();
+		sendRequestToServer(code);
     });
+}
+
+function sendRequestToServer(code) {
+	$.ajax({
+		type: "POST",
+		url: "Display",
+		data: { type: "Product",
+				id: code },
+		cache: false,
+		success: function(data, settings, xhr) {
+			alert("success");
+			var content = xhr.getResponseHeader('content');
+			printProductDetails(content);			
+		},
+		error: function(data, settings, xhr) {
+			alert("error");
+//			$("#pop_up_message").html(xhr.getResponseHeader('error_message'));
+		}
+	});
 }
 
 function printProductDetails() {
@@ -79,9 +98,6 @@ function printProductDetails() {
 	Quagga.stop();
 }
 
-function handleBarcodeIdentified() {
-	
-}
 
 function toggleScanningAndDetails() {
 	$("#product_details_container").toggleClass("toggle");

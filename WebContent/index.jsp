@@ -11,7 +11,7 @@
   	<script src="js/index.js" type="text/javascript"></script>
   	<script src="js/ajax_loader.js" type="text/javascript"></script>
 	
-	<title>OADTurk</title>
+	<title>PTL - Login</title>
     
 </head>
 <body>
@@ -19,7 +19,7 @@
 	<div id="wrapper">
     <a href="Register"><button id="registration" class="color">Registrieren</button></a>
       	
-  	<h1><span>OAD</span>-Turk</h1>
+  	<h1><span>PTL</span>-Lagerverwaltung</h1>
 	  <form id="login_form">
       <input type="text" name="email" id="email" placeholder="E-Mail" maxlength="30" required="reguired">
       <input type="password" name="password" id="password" maxlength="30" required="reguired"

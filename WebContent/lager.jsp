@@ -9,39 +9,35 @@
   <script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
   <script type="text/javascript" src="js/inline_edit/jquery.inlineedit.js"></script>
   <script src="js/editable.js" type="text/javascript"></script>
-  <script src="js/lkws.js" type="text/javascript"></script>
+  <script src="js/lager.js" type="text/javascript"></script>
 
-	<title>PTL - LKWs</title>
+	<title>PTL - Lager</title>
     
 </head>
 <body>
 	<div id="distance"></div>
 	<div id="wrapper">
     <a href="Logout"><button id="logout" class="color_discreet">Logout</button></a>
-    <a href="welcome.html"><button id="back" class="color_discreet">&#060&#060 Übersicht</button></a>
+    <a href="Welcome"><button id="back" class="color_discreet">&#060&#060 Übersicht</button></a>
     <button id="edit" class="color" >Bearbeiten</button>
       
-  	<h1>LKWs</h1>
+  	<h1>Lager</h1>
 	<div id="list">
     	<div class="list_entry color">
         <a href="#">
-          <p>GU PTL 1</p>
+          <p>Lager 1</p>
         </a>
         <section class='close_button'></section>
 		</div>
     	<div class="list_entry color">
         <a href="#">
-          <p>
-            GU PTL 2
-          </p>
+          <p>Lager 2</p>
         </a>
         <section class='close_button'></section>
 		</div>
     	<div class="list_entry color">
         <a href="#">
-          <p>
-            GU PTL 3
-          </p>
+          <p>Lager 3</p>
         </a>
         <section class='close_button'></section>
 		</div>
