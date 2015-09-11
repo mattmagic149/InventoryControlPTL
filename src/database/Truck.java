@@ -44,6 +44,9 @@ public class Truck extends Location implements ISaveAndDelete {
 		this.brand = tmp[2];
 	}
 	
+	public String getBarCodeEncoding() {
+		return "L-" + BarCodeUtils.getBarCodeEncoding(id);
+	}
 		
 	public String getLicenceTag() {
 		return licence_tag;

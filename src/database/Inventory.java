@@ -3,6 +3,8 @@ package database;
 
 import javax.persistence.*;
 
+import utils.BarCodeUtils;
+
 /**
  * The Class Truck.
  */
@@ -21,6 +23,10 @@ public class Inventory extends Location {
 		this.id = this.getNextId();
 		this.name = name;
 		this.location = location;
+	}
+	
+	public String getBarCodeEncoding() {
+		return "I-" + BarCodeUtils.getBarCodeEncoding(id);
 	}
 	
 	public String getName() {

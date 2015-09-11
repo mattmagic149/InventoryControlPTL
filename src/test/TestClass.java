@@ -2,15 +2,19 @@ package test;
 
 import java.util.ArrayList;
 
+import com.orsoncharts.util.json.JSONArray;
+
 import database.*;
+import utils.BarCodeUtils;
 import utils.HibernateSupport;
 
 public class TestClass {
 
 	public static void main(String[] args) throws InterruptedException {
-				
+
+		System.out.println(BarCodeUtils.getAllTrucksAndLocationBarCodes(false, true, true));
 		
-		String username = "rene";
+		/*String username = "rene";
 		String password = "123456";
 		
 		Truck truck1 = Truck.getTruck("GU PTL 12");
@@ -49,7 +53,7 @@ public class TestClass {
 		HibernateSupport.commitTransaction();
 		
 		User user = User.login(username, password);
-		System.out.println(user.moveNumberOfProductElements(6, product, truck2, truck1));
+		System.out.println(user.moveNumberOfProductElements(6, product, truck2, truck1));*/
 		
 	}
 

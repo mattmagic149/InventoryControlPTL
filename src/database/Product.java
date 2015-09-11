@@ -17,6 +17,7 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
+import utils.BarCodeUtils;
 import utils.HibernateSupport;
 
 @Entity
@@ -73,6 +74,10 @@ public class Product implements ISaveAndDelete {
 		this.minimum_limit = minimum_limit;
 		this.restriction = restriction;
 		this.trucks_to_restrict = trucks_to_restrict;	
+	}
+	
+	public String getBarCodeEncoding() {
+		return "P-" + BarCodeUtils.getBarCodeEncoding(id);
 	}
 	
 	private int getNextId() {
