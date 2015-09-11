@@ -18,10 +18,7 @@
 		product_unity = product.getUnity();
 		
 //		product_lager_quantity = " " + product.getUnity()
-	}
-	product_description = "asdfasdfasdf";
-	product_unity = "Liter";
-	
+	}	
 %>
 
 <!DOCTYPE html>

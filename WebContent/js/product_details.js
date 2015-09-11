@@ -52,6 +52,8 @@ function activateProductEditing() {
 				'<option value="Stück">Stück</option>' +
 				'<option value="Liter">Liter</option>' +
 				'<option value="Paar">Paar</option>' +
+				'<option value="Packung">Packung</option>' +
+				'<option value="Rolle">Rolle</option>' +
 				'</select>');
 	content.insertAfter("#barcode_picture");
 	
