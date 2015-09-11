@@ -11,7 +11,7 @@ $(document).ready(function() {
 
 var has_valid_id_list = false;
 var quagga_is_ready = false;
-var valid_ids = [];
+var valid_ids;
 
 function startReadingBarcode() {
 	var App = {
@@ -109,18 +109,19 @@ function getValidIdsFromServer() {
 	$.ajax({
 		type: "POST",
 		url: "GetValidBarCodes",
-		data: { products: true,
-				trucks: true,
-				inventories: true },
+		data: { products: "true",
+				trucks: "true",
+				inventories: "true" },
 		cache: false,
 		success: function(data, settings, xhr) {
 			alert("success");
-			var list = xhr.getResponseHeader('list');
+			valid_ids = xhr.getResponseHeader('list');
 			alert("list = " + list);
-			var json = jQuery.parseJSON(list);
-			alert("json = " + json);
-			valid_ids = json.list;
+			//var asdf = ["P-000002", "asdf"];
 			alert("valid_ids = " + valid_ids);
+//			alert("is valid = " + isValidCode("P-000002"));
+//			alert("is valid = " + isValidCode("P-00002"));
+			
 		},
 		error: function(data, settings, xhr) {
 			alert("error");
