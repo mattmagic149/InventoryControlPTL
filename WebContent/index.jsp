@@ -17,10 +17,12 @@
 <body>
 	<div id="distance"></div>
 	<div id="wrapper">
-    <a href="Register"><button id="registration" class="color">Registrieren</button></a>
-      	
-  	<h1><span>PTL</span>-Lagerverwaltung</h1>
-	  <form id="login_form">
+    <!-- <a href="Register"><button id="registration" class="color">Registrieren</button></a> -->
+    
+  	<h1>Lagerverwaltung</h1>
+	<img src="img/logo.png" style="position: absolute; top: 10px; left: 10px; width: 200px;"/>
+	
+	<form id="login_form">
       <input type="text" name="email" id="email" placeholder="E-Mail" maxlength="30" required="reguired">
       <input type="password" name="password" id="password" maxlength="30" required="reguired"
       			 placeholder="&#9679&#9679&#9679&#9679&#9679&#9679&#9679&#9679&#9679&#9679">

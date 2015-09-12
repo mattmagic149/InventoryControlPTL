@@ -22,10 +22,13 @@ button {
 
 /*Allgemeine Formatierungen*/
 h1 {
-	position: relative;
-	top: 80px;
+	position: static;
+	margin-top: 2.5em;
+	margin-bottom: 1em;
+	padding: 0 0 0 0;
 	text-align: center;
 	font-size: 2em;
+	width: 100%;
 }
 h1 span {
 	color: #023e88;
@@ -96,14 +99,16 @@ input[type="submit"], #login_button {
 #interactive {
 	position: static;
 	top: 0;
-	margin-top: 1.5em;
+	margin-top: 0;
+	padding-top: 0;
 	right: 0;
 	width: 100%;
 }
 #interactive  video{
 	position: static;
 	left: 0;
-	margin-left: 0;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
 	min-width: 100%;
 	max-height: 100%;
 }
@@ -235,9 +240,10 @@ input[type="submit"], #login_button {
 
 /*Speziell für die Login-Seite. Sollten wir auslagern*/
 #login_form, #register_form{
-	position: relative;
+	position: static;
+	padding-top: 0em;
 	width: 100%;
-	margin: 0 auto;
+	margin: 0 0;
 	text-align: center;
 }
 
@@ -257,7 +263,7 @@ input[type="submit"], #login_button {
 	margin: 0 0 10px 0;
 }
 #login_button {
-  width: 199px !important;
+  width: 100% !important;
   cursor:pointer;
 }
 
@@ -286,9 +292,7 @@ input[type="submit"], #login_button {
 
 #admin_links {
 	width: 100%;
-	height: 130px;
-	top: 100px;
-	position: relative;
+	position: static;
 	margin: 0 auto;
 }
 
@@ -307,7 +311,7 @@ input[type="submit"], #login_button {
 	max-height: 1.5em;
 	position: relative;
 	left: 0.8em;
-	bottom: -0.02em;
+	bottom: -0.3em;
 }
 
 #wrapper {

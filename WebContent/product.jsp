@@ -50,7 +50,7 @@
 	
 	<div id="product_details_container">
 		<div id="product">
-			<img id="barcode_picture" />
+			<img id="barcode_picture" class="hideinmobile"/>
 			<div class="description">Produkt ID:</div>
 			<div class="value" id="product_id"><%=product_id %></div>
 			<div class="description">Produktname:</div>

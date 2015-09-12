@@ -24,9 +24,8 @@
     <a href="Logout"><button id="logout" class="color_discreet">Logout</button></a>
     <a href="Welcome"><button id="back" class="color_discreet">&#060&#060 Übersicht</button></a>
 
+	<h1>Scanning<span></span>!</h1>
 	<div id="scanning_container">
-		<h1>Scanning<span></span>!</h1>
-		<h2 id="error_message"></h2>
 		<div id="interactive" class="viewport"></div>
 	</div>
 	

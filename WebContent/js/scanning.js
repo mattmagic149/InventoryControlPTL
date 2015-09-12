@@ -14,7 +14,8 @@ function startReadingBarcode() {
             var self = this;
             Quagga.init(this.state, function(err) {
                 if (err) {
-					$("#error_message").text("Leider konnte keine Kamera gefunden werden... :(");
+                	var new_error_obj = $('<h2 id="error_message">Leider konnte keine Kamera gefunden werden... :(</h2>');
+                	new_error_obj.insertBefore("#scanning_container");
                     return self.handleError(err);
                 }
                 App.attachListeners();
