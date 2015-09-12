@@ -326,7 +326,7 @@ input[type="submit"], #login_button {
 	width: 50%;
 }
 
-#pop_up_wrapper, .pop_up, footer, #distance, #edit{
+.hideinmobile, #pop_up_wrapper, .pop_up, footer, #distance, #edit{
 	display: none;
 }
 

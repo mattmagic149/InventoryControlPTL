@@ -9,7 +9,6 @@
 
   <script src="js/JsBarcodeReader/jquery-1.9.0.min.js" type="text/javascript"></script>
   <script src="js/JsBarcodeReader/quagga.js" type="text/javascript"></script>
-  <script src="js/JsBarcodeRead.js" type="text/javascript"></script>
   
   <script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
