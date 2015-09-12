@@ -1,28 +1,21 @@
 package test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.hibernate.criterion.Criterion;
-
-import com.orsoncharts.util.json.JSONArray;
-
 import database.*;
-import servlet.ProductDetail;
-import utils.BarCodeUtils;
-import utils.HibernateSupport;
+import database.Wheel.TyreType;
 
 public class TestClass {
 
 	public static void main(String[] args) throws InterruptedException {
 		
-		System.out.println(HibernateSupport.readMoreObjects(Product.class, new ArrayList<Criterion>()).size());
+		/*System.out.println(HibernateSupport.readMoreObjects(Product.class, new ArrayList<Criterion>()).size());
 
 		String object = "{\"id\":\"P-000045\",\"name\":\"Samsung Handy Neu Galaxy S4 mini\","
 				+ "\"description\":\"Beschreibung...\",\"minimum_limit\":\"10\",\"lkw_ids\":[1,2,3], \"unity\":\"Stück\"}";
 
 		System.out.println(Product.editProduct(object));
-		System.out.println(HibernateSupport.readMoreObjects(Product.class, new ArrayList<Criterion>()).size());
+		System.out.println(HibernateSupport.readMoreObjects(Product.class, new ArrayList<Criterion>()).size());*/
+		
+		System.out.println(new Wheel(TyreType.RADIAL, 195, 70, 15).getTyreInfos());
 		
 		/*String username = "rene";
 		String password = "123456";
