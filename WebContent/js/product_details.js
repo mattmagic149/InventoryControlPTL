@@ -1,19 +1,23 @@
 // JavaScript Document
 
 var product = new Object();
+is_new_product = false;
 
 $(document).ready(function() {
 	generateBarCode();
 	
-	$("#ingoing").on("click", handleIngoing);
-	$("#outgoing").on("click", handleOutgoing);
-	
-	$("#edit").on("click", activateProductEditing);
-	$("#wrapper").on("click", "#ok", confirmProductEditing);
-	$("#ok").hide();
+	if ($("#barcode_picture").hasClass("hidden")) {
+		is_new_product = true;
+		activateProductEditing();
+	} else {
+		$("#ingoing").on("click", handleIngoing);
+		$("#outgoing").on("click", handleOutgoing);	
+		$("#edit").on("click", activateProductEditing);		
+		fillProductWithDataBecauseOfTextFields();
+	}
 
-	
-	fillProductWithDataBecauseOfTextFields();
+	$("#wrapper").on("click", "#ok", confirmProductEditing);
+
 });
 
 function fillProductWithDataBecauseOfTextFields() {
@@ -89,14 +93,17 @@ function showProductBecauseOfData() {
 function confirmProductEditing() {
 	$("#ok").hide();
 
-	if ($("#product_id").text() == "") {
+	if (is_new_product) {
 		product.id = "P-000000";
 		alert("product_id was nothing and is now = "+ product.id);
+		fillProductWithDataBecauseOfInputFields();
 	}
 
 	var product_string = JSON.stringify(product);
 	sendProductToServer(product_string);
-	showProductBecauseOfData();
+	if (is_new_product) {
+		showProductBecauseOfData();		
+	}
 }
 
 
@@ -112,9 +119,14 @@ function sendProductToServer(product_string) {
 			alert("success");
 			var content = xhr.getResponseHeader('content');
 			
+			if (is_new_product) {
+				var new_id = "1";
+				location.href = "ProductDetail?id=" + new_id;
+			}
 		},
 		error: function(data, settings, xhr) {
-			alert("error message = " + xhr.getResponseHeader('error_message'));
+			alert("error");
+//			alert("error message = " + xhr.getResponseHeader('error_message'));
 //			$("#pop_up_message").html(xhr.getResponseHeader('error_message'));
 		}
 	});

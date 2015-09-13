@@ -74,6 +74,10 @@ h2{
 	display: hide;
 }
 
+.hidden {
+	display: none;
+}
+
 @media only all and (max-width:70em) {
 	
 	
@@ -94,16 +98,19 @@ h2{
 	}
 	
 	input[type="text"], textarea {
-		width: 100%;
+		width: 90%;
 		margin: 0;
 	}
 	
 	#product_name, #product_description , #product textarea{
-		width: 100%;
+		width: 90%;
 	}
 	
 	#product_minimum_limit {
-		width: 100%;
+		width: 45%;
+	}
+	#product select {
+		width: 45%;
 	}
 	
 	#ingoing, #outgoing {
