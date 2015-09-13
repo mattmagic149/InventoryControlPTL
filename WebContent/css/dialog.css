@@ -107,7 +107,8 @@
 	
 	#confirm_pop_up_button, #cancel_pop_up_button {
 		width: 44%;
-		line-height: 1.8em;
+		line-height: 1;
+		padding: 1em 0;
 		border-radius: 5px;
 		text-align: center;
 		margin-left: 5%;
@@ -126,7 +127,7 @@
 	#pop_up_field_container {
 		margin-left: 5%;
 		margin-right: 5%;
-		margin-bottom: 3em;
+		margin-bottom: 4em;
 	}
 	#pop_up_field_container select {
 		width: 100%;
