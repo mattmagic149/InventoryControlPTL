@@ -42,7 +42,7 @@ public class Product implements ISaveAndDelete {
 	private String unity;
 	
 	private TruckRestriction restriction;
-	
+		
 	@OneToMany
 	@JoinColumn(name="product")
 	private List<ProductElement> product_elements;
@@ -79,6 +79,7 @@ public class Product implements ISaveAndDelete {
 		this.minimum_limit = minimum_limit;
 		this.restriction = restriction;
 		this.trucks_to_restrict = trucks_to_restrict;	
+		
 	}
 	
 	public Product(int id, String name, String description, int minimum_limit,
@@ -100,11 +101,11 @@ public class Product implements ISaveAndDelete {
 		return "P-" + BarCodeUtils.getBarCodeEncoding(id);
 	}
 	
-	public static boolean createProductFromJSON(String object) {
+	public static int createProductFromJSON(String object) {
 		
 		Product parsed_product = convertProductFromJSON(object);
 		if(parsed_product == null) {
-			return false;
+			return -1;
 		}
 		
 		Product product = Product.createProduct(parsed_product.getName(),
@@ -116,16 +117,17 @@ public class Product implements ISaveAndDelete {
 		
 		if(product == null) {
 			System.out.println("couldn't create Product");
-			return false;
+			return -1;
 		}
 		
-		return true;
+		return product.getId();
 	}
 	
 	public static boolean editProduct(String object) {
 		
 		Product parsed_product = convertProductFromJSON(object);
 		if(parsed_product == null) {
+			System.out.println("Parsing product failed...");
 			return false;
 		}
 		
@@ -133,6 +135,7 @@ public class Product implements ISaveAndDelete {
 		
 		System.out.println("parsed_product.id = " + parsed_product.getId());
 		if(old_product == null) {
+			System.out.println("Fetching old_product failed...");
 			return false;
 		}
 		

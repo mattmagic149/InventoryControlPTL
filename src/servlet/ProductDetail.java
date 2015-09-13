@@ -55,6 +55,14 @@ public class ProductDetail extends HttpServlet {
 			return;
 		}
 		
+		if(id == 0) {
+			session.setAttribute("is_new", true);
+			request.getRequestDispatcher("product.jsp").include(request, response);
+			return;
+		} else {
+			session.setAttribute("is_new", false);
+		}
+		
 		System.out.println("id = " + id);
 		Product product = HibernateSupport.readOneObjectByID(Product.class, id);
 

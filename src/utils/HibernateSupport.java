@@ -88,6 +88,11 @@ public class HibernateSupport {
 		configuration.addAnnotatedClass(ProductElement.class);
 		configuration.addAnnotatedClass(User.class);
 		configuration.addAnnotatedClass(Transaction.class);
+		
+		configuration.addAnnotatedClass(TruckService.class);
+		configuration.addAnnotatedClass(Wheel.class);
+		configuration.addAnnotatedClass(TruckBrand.class);
+		configuration.addAnnotatedClass(RepairShop.class);
 
 		configuration.configure(configFile);
 		

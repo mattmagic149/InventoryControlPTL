@@ -10,7 +10,7 @@
 	String product_lager_quantity = "3";
 	String product_unity = "";
 
-	boolean is_new = false;
+	boolean is_new = (boolean)session.getAttribute("is_new");
 	String hidden_in_new = "";		
 	if (is_new) {
 		hidden_in_new = "hidden";
