@@ -46,11 +46,11 @@
 	<div id="wrapper">
     <a href="Logout"><button id="logout" class="color_discreet">Logout</button></a>
     <a href="Welcome"><button id="back" class="color_discreet">&#060&#060 Übersicht</button></a>
-    <button id="edit" class="color" >Bearbeiten</button>
+    <button id="edit" class="color hideinmobile" >Bearbeiten</button>
 	
 	<div id="product_details_container">
 		<div id="product">
-			<img id="barcode_picture" class="hideinmobile"/>
+			<img id="barcode_picture"/>
 			<div class="description">Produkt ID:</div>
 			<div class="value" id="product_id"><%=product_id %></div>
 			<div class="description">Produktname:</div>
@@ -61,15 +61,12 @@
 			<div class="value editable" > <span id="product_minimum_limit"><%=product_min_quantity %></span> <span class="product_unity"><%=product_unity %></span></div>
 			<div class="description">Lagerbestand:</div>
 			<div class="value editable"><span id="product_lager_quantity"><%=product_lager_quantity %></span> <span class="product_unity"><%=product_unity %></span></div>
-
-			<button id="ingoing" class="color">Eingang<img src="img/lager_icon_in.png"/></button>
-			<button id="outgoing" class="color">Ausgang<img src="img/lager_icon_out.png"/></button>
 		</div>
+		<button id="ingoing" class="color">Eingang<img src="img/lager_icon_in.png"/></button>
+		<button id="outgoing" class="color">Ausgang<img src="img/lager_icon_out.png"/></button>
 	</div>
 	<button id="ok" class="color">OK</button>
 	
-    <footer></footer>
-    			
 	</div>
 
 </body>

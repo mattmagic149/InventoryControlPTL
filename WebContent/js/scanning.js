@@ -63,7 +63,7 @@ function startReadingBarcode() {
 			var servlet = getCorrectServlet(code);
 			var id = getId(code);
 			var link = servlet + "?id=" + id;
-			alert("referring to " + link);
+			//alert("referring to " + link);
 			location.href = link;
 		}		
     });
@@ -88,13 +88,13 @@ function startQuaggaIfListAndQuaggaIsReady() {
 }
 
 function getCorrectServlet(code) {
-	var first_two_char = code.substring(0, 1);
+	var first_two_char = code.substring(0, 2);
 	if (first_two_char == "P-") {
-		return "Product";
+		return "ProductDetail";
 	} else if (first_two_char == "L-") {
-		return "LKW";
+		return "LkwDetail";
 	} else if (first_two_char == "I-") {
-		return "Lager";
+		return "LagerDetail";
 	} else {
 		return "Unknown";
 	}

@@ -10,6 +10,8 @@ $(document).ready(function() {
 	
 	$("#edit").on("click", activateProductEditing);
 	$("#wrapper").on("click", "#ok", confirmProductEditing);
+	$("#ok").hide();
+
 	
 	fillProductWithDataBecauseOfTextFields();
 });
@@ -33,6 +35,8 @@ function fillProductWithDataBecauseOfInputFields() {
 }
 
 function activateProductEditing() {
+	
+	$("#ok").show();
 	fillProductWithDataBecauseOfTextFields();
 	$("#product").find(".description").remove();
 	$("#product").find(".value").remove();
@@ -83,6 +87,8 @@ function showProductBecauseOfData() {
 }
 
 function confirmProductEditing() {
+	$("#ok").hide();
+
 	if ($("#product_id").text() == "") {
 		product.id = "P-000000";
 		alert("product_id was nothing and is now = "+ product.id);

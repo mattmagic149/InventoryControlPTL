@@ -13,7 +13,27 @@ html, body {
 	width: 100%;
 	font-family: Terminal-Dosis-Medium, Verdana, Geneva, sans-serif;
 	font-size: 5vw;
+	background-image: none;
+	background-color: white;
 }
+
+#wrapper {
+	margin: 0 0;
+	padding: 0 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	background-color: white;
+	clear: left;
+	box-shadow: 0px 0px 0px transparent;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	border: 0px solid transparent;
+}
+#wrapper a {
+	width: 50%;
+}
+
 
 button {
 	border: none;	
@@ -23,9 +43,9 @@ button {
 /*Allgemeine Formatierungen*/
 h1 {
 	position: static;
+	padding: 0;
 	margin-top: 2.5em;
 	margin-bottom: 1em;
-	padding: 0 0 0 0;
 	text-align: center;
 	font-size: 2em;
 	width: 100%;
@@ -51,13 +71,13 @@ p {
 textarea,input[type="text"],input[type="number"], input[type="checkbox"], input[type="password"], select {
 	font-family: Terminal-Dosis-Medium, Verdana, Geneva, sans-serif;
 	font-size:1em;
-    line-height:1.3em;
+    line-height:3em;
 	padding:4px 6px;
     color:#555;
-	-webkit-border-radius:3px;
-	-moz-border-radius:3px;
-	border-radius:3px;
-	border:1px solid #ccc;
+	-webkit-border-radius:0.1em;
+	-moz-border-radius:0.1em;
+	border-radius:0.1em;
+	border:0.05em solid #ccc;
 	-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.075);
 	-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,0.075);
 	box-shadow:inset 0 1px 1px rgba(0,0,0,0.075);
@@ -71,21 +91,6 @@ textarea:focus,input[type="text"]:focus,input[type="number"]:focus input[type="p
 	box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6)
 }
 
-input[type="submit"], #login_button {
-  line-height: 1.3em;
-  padding:4px 6px;
-  border: 0;
-  font-size: 1em;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-#login_button {
-	padding: 4px 0 !important;
-	margin: 0 0 5px 0 !important;
-}
-
-
 /*Allgemeine Positionierungen/Formatierungen der Container*/
 #distance {
 	width: 0;
@@ -93,8 +98,6 @@ input[type="submit"], #login_button {
 	margin-bottom: 0;
 	float: left;
 }
-
-
 
 #interactive {
 	position: static;
@@ -124,7 +127,7 @@ input[type="submit"], #login_button {
 /*BUTTONS*/
 /*Was alle gemeinsam haben:*/
 #registration, #logout, #back, #forward, #edit, #ok, #cancel, #remove_button, #ingoing, #outgoing {
-  line-height: 1.2em;
+  line-height: 1.8em;
   text-align: center;
   font-size: 0.9em;
   border: 0;
@@ -241,32 +244,44 @@ input[type="submit"], #login_button {
 /*Speziell für die Login-Seite. Sollten wir auslagern*/
 #login_form, #register_form{
 	position: static;
-	padding-top: 0em;
-	width: 100%;
-	margin: 0 0;
+	padding-top: 0;
+	width: 88%;
+	margin: 0 5%;
 	text-align: center;
 }
 
 #login_form a {
 	text-decoration: none;
 }
-#login_form input, #register_form input, #search_form input[type="text"] {
-	margin: 5px auto 15px auto;
-	width: 100%;
+#login_form input, #login_form input[type="text"], #register_form input, #search_form input[type="text"] {
+	margin: 0 0;
+	margin-bottom: 0.5em;
+	width: 95%;
 	display: block;
 }
 
-#forgotten p {
-	text-decoration: underline;
-	text-align: center;
-	font-size: 0.8em;
-	margin: 0 0 10px 0;
-}
 #login_button {
+  line-height: 3em;
+  font-size: 1em;
+  border: 0;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 0 0 !important;
+  margin: 0 0 0 0 !important;
   width: 100% !important;
   cursor:pointer;
 }
 
+
+#forgotten p {
+	position: static;
+	text-decoration: underline;
+	text-align: center;
+	padding-top: 0.8em;
+	font-size: 0.8em;
+	margin: 0 0 1em 0;
+}
 
 #loader {
 	background-color: #000;
@@ -291,14 +306,15 @@ input[type="submit"], #login_button {
 }
 
 #admin_links {
-	width: 100%;
+	width: 88%;
 	position: static;
 	margin: 0 auto;
 }
 
 #admin_links div {
 	text-align: center;
-	line-height:2em;
+	text-size: 1em;
+	line-height:3em;
 	display:table-cell;
 	vertical-align: middle;
 	margin: 2% 0 0 2%;
@@ -314,21 +330,6 @@ input[type="submit"], #login_button {
 	bottom: -0.3em;
 }
 
-#wrapper {
-	margin: 0 auto;
-	position: static;
-	height: 99%;
-	width: auto;
-	background-color: #FFF;
-	clear: left;
-	box-shadow: 4px 4px 10px #000;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	border: 1px solid #023e88;
-}
-#wrapper a {
-	width: 50%;
-}
 
 .hideinmobile, #pop_up_wrapper, .pop_up, footer, #distance, #edit{
 	display: none;

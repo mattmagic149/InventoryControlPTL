@@ -55,53 +55,61 @@ h2{
 }
 
 #ingoing , #outgoing{
-	margin-top: 40px;
+	margin-top: 3em;
 	width: 49%;
 	height: 3em;
     border-radius: 5px;
 }
 
 #ingoing img, #outgoing img {
-	margin-bottom: -13px;
-	max-width: 60px;
-	max-height: 40px;
+	margin-bottom: -1em;
+	max-width: 4.5em;
+	max-height: 3em;
 	position: relative;
-	left: 12px;
-	top: -5px;
+	left: 1em;
+	top: -0.4em;
+}
+
+#ok {
+	display: hide;
 }
 
 @media only all and (max-width:70em) {
 	
-	input[type="text"], textarea {
-		width: 100%;
-		margin: 0;
-	}
 	
 	h1 {
 	  padding-top: 0px;
 	}
 	
 	#product_details_container {
-	  margin: 0 0;
 	  padding: 0 0;
-	  margin-top: 5em;
+	  margin: 0 0;
 	  position: static;
 	  width: 100%;
 	}
 	
+	#product {
+		margin: 0 5%;
+		margin-top: 4em;
+	}
+	
+	input[type="text"], textarea {
+		width: 100%;
+		margin: 0;
+	}
 	
 	#product_name, #product_description , #product textarea{
-	  width: 650px;
+		width: 100%;
 	}
 	
 	#product_minimum_limit {
-		width: 200px;
+		width: 100%;
 	}
 	
 	#ingoing, #outgoing {
-		width: 100%;
+		margin: 0 5%;
+		width: 88%;
 		margin-top: 0.5em;
-		
 	}
 	
 	#ok {
@@ -110,4 +118,5 @@ h2{
 		margin-bottom: 1em;
 		float: right;
 	}
+	
 }
