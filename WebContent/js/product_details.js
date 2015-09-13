@@ -1,14 +1,15 @@
 // JavaScript Document
 
 var product = new Object();
-is_new_product = false;
+var is_new_product = false;
 
 $(document).ready(function() {
 	generateBarCode();
 	
 	if ($("#barcode_picture").hasClass("hidden")) {
 		is_new_product = true;
-		activateProductEditing();
+		$("#ok").show();
+//		activateProductEditing();
 	} else {
 		$("#ingoing").on("click", handleIngoing);
 		$("#outgoing").on("click", handleOutgoing);	
@@ -31,15 +32,16 @@ function fillProductWithDataBecauseOfTextFields() {
 }
 
 function fillProductWithDataBecauseOfInputFields() {
+	product.id = $("#product_id").text();
 	product.name = $("#product_name").val();
 	product.description = $("#product_description").val();
 	product.minimum_limit = $("#product_minimum_limit").val();
 	product.lkw_ids = [1,2,3];
 	product.unity = $("#product_unity").val();
+	//alert("unity = " + product.unity);
 }
 
 function activateProductEditing() {
-	
 	$("#ok").show();
 	fillProductWithDataBecauseOfTextFields();
 	$("#product").find(".description").remove();
@@ -91,42 +93,41 @@ function showProductBecauseOfData() {
 }
 
 function confirmProductEditing() {
-	$("#ok").hide();
-
+	fillProductWithDataBecauseOfInputFields();
 	if (is_new_product) {
 		product.id = "P-000000";
-		alert("product_id was nothing and is now = "+ product.id);
-		fillProductWithDataBecauseOfInputFields();
-	}
-
-	var product_string = JSON.stringify(product);
-	sendProductToServer(product_string);
-	if (is_new_product) {
-		showProductBecauseOfData();		
+		var product_string = JSON.stringify(product);
+		alert("product add = " + product_string);
+		sendProductToServer("Add", product_string);
+	} else {
+		alert("is NOT new product");
+		var product_string = JSON.stringify(product);
+		alert("product edit = " + product_string);
+		sendProductToServer("Edit", product_string);		
 	}
 }
 
 
-function sendProductToServer(product_string) {
+function sendProductToServer(servlet, product_string) {
 	
 	$.ajax({
 		type: "POST",
-		url: "Add",
+		url: servlet,
 		data: { type: "product",
 				object: product_string },
 		cache: false,
 		success: function(data, settings, xhr) {
-			alert("success");
+			//alert("success");
 			var content = xhr.getResponseHeader('content');
-			
 			if (is_new_product) {
 				var new_id = "1";
 				location.href = "ProductDetail?id=" + new_id;
 			}
+			$("#ok").hide();
+			showProductBecauseOfData();		
 		},
 		error: function(data, settings, xhr) {
 			alert("error");
-//			alert("error message = " + xhr.getResponseHeader('error_message'));
 //			$("#pop_up_message").html(xhr.getResponseHeader('error_message'));
 		}
 	});

@@ -12,24 +12,5 @@ function handleClickOnDetailsButton(e) {
 }
 
 function handleClickOnNewProductButton(e) {
-	location.href = 'ProductNew.html';
+	location.href = 'ProductDetail?id=0';
 }
-/*
-function sendPermissionChangeToServer(obj) {
-
-	var new_permission = obj.val();
-
-	var user_id = obj.prop("name");
-	
-	$.ajax({
-		type: "POST",
-		url: "UserAdministration",
-		data: { new_permission: new_permission, user_id: user_id },
-		cache: false,
-		success: function(response){
-			//$("#person_list").append(response);
-		}
-	});
-	
-}
-*/

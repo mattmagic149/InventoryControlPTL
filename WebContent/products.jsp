@@ -56,28 +56,6 @@
 	<%
       	}	
 	%>
-		<section class="item color_discreet" id="">
-			<div class="name"> </div>
-			<div class="name"> </div>
-			<div class="name"> </div>
-			<div class="name"> </div>
-			<div class="name"> </div>
-		</section>
-		<section class="item color_discreet" id="">
-			<div class="name"> </div>
-			<div class="name"> </div>
-			<div class="name"> </div>
-			<div class="name"> </div>
-			<div class="name"> </div>
-		</section>
-		<section class="item color_discreet" id="">
-			<div class="name"> </div>
-			<div class="name"> </div>
-			<div class="name"> </div>
-			<div class="name"> </div>
-			<div class="name"> </div>
-		</section>
-
 	</section>
 	
 	<section id='add_button' class='color'></section>

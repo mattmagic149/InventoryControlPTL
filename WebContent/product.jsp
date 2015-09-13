@@ -9,8 +9,14 @@
 	String product_min_quantity = "";
 	String product_lager_quantity = "3";
 	String product_unity = "";
+
+	boolean is_new = false;
+	String hidden_in_new = "";		
+	if (is_new) {
+		hidden_in_new = "hidden";
+	}
 	
-	if (product != null) {
+	if (product != null && !is_new) {
 		product_id = product.getBarCodeEncoding();
 		product_name = product.getName();
 		product_description = product.getDescription();
@@ -20,11 +26,6 @@
 //		product_lager_quantity = " " + product.getUnity()
 	}	
 	
-	boolean is_new = false;
-	String hidden_in_new = "";		
-	if (is_new) {
-		hidden_in_new = "hidden";
-	}
 %>
 
 <!DOCTYPE html>
