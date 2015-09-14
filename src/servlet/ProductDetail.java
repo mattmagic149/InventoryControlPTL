@@ -58,6 +58,7 @@ public class ProductDetail extends HttpServlet {
 		if(id == 0) {
 			session.setAttribute("is_new", true);
 			request.getRequestDispatcher("product.jsp").include(request, response);
+			request.setCharacterEncoding("UTF-8");
 			return;
 		} else {
 			session.setAttribute("is_new", false);

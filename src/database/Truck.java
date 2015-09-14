@@ -11,8 +11,10 @@ import javax.persistence.*;
 
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
+import org.javatuples.Pair;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import database.Wheel.TyreType;
 import utils.*;
@@ -59,7 +61,7 @@ public class Truck extends Location implements ISaveAndDelete {
 	
 	private float loading_space_height; //Ladefläche höhe in m.
 	
-	private float loading_space_width;
+	private float loading_space_length;
 	
 	@OneToMany
 	@JoinColumn(name="service")
@@ -82,8 +84,8 @@ public class Truck extends Location implements ISaveAndDelete {
 				String fin,
 				Wheel wheels_front,
 				Wheel wheels_rear,
-				float loading_space_height,
-				float loading_space_width) {
+				float loading_space_length,
+				float loading_space_height) {
 		
 		this.services = new ArrayList<TruckService>();
 		this.products_consumeable = new ArrayList<Product>();
@@ -105,7 +107,7 @@ public class Truck extends Location implements ISaveAndDelete {
 		this.wheels_front = wheels_front;
 		this.wheels_rear = wheels_rear;
 		this.loading_space_height = loading_space_height;
-		this.loading_space_width = loading_space_width;
+		this.loading_space_length = loading_space_length;
 	}
 	
 	public Truck(String serialized_truck) {
@@ -189,7 +191,7 @@ public class Truck extends Location implements ISaveAndDelete {
 	}
 
 	public float getLoadingSpaceWidth() {
-		return loading_space_width;
+		return loading_space_length;
 	}
 
 	public List<TruckService> getServices() {
@@ -198,6 +200,26 @@ public class Truck extends Location implements ISaveAndDelete {
 
 	public List<Product> getProductsConsumeable() {
 		return products_consumeable;
+	}
+
+	public void setTruckBrand(TruckBrand truck_brand) {
+		this.truck_brand = truck_brand;
+	}
+
+	public void setWheelsFront(Wheel wheels_front) {
+		this.wheels_front = wheels_front;
+	}
+
+	public void setWheelsRear(Wheel wheels_rear) {
+		this.wheels_rear = wheels_rear;
+	}
+
+	public void setServices(List<TruckService> services) {
+		this.services = services;
+	}
+
+	public void setProductsConsumeable(List<Product> products_consumeable) {
+		this.products_consumeable = products_consumeable;
 	}
 
 	public static Truck createTruck(String licence_tag, 
@@ -218,8 +240,8 @@ public class Truck extends Location implements ISaveAndDelete {
 									int size_in_mm_rear,
 									int height_in_percent_rear,
 									float size_in_inch_rear,
-									float loading_space_height,
-									float loading_space_width) {		
+									float loading_space_width,
+									float loading_space_lenght) {		
 
 		// Check, if truck already exists
 		Truck truck = Truck.getTruck(licence_tag);
@@ -239,7 +261,7 @@ public class Truck extends Location implements ISaveAndDelete {
 			// create a new truck and set it's parameter
 			Truck new_truck = new Truck(licence_tag, truck_brand, type, initial_registration, new_vehicle_since,
 										payload, type_of_fuel, performance, emission_standard, fin,
-										wheels_front, wheels_rear, loading_space_height, loading_space_width);
+										wheels_front, wheels_rear, loading_space_lenght, loading_space_width);
 		
 			// Store the created truck in the DB and return it's object, in case of a successful writing.
 			boolean success = new_truck.saveToDB();
@@ -281,10 +303,26 @@ public class Truck extends Location implements ISaveAndDelete {
 				this.wheels_rear.getSizeInmm() + "\t" + this.wheels_rear.getHeightInPercent() + "\t" +
 				this.wheels_rear.getSizeInInch() + "\t" + this.loading_space_height + "\t" +
 				this.loading_space_width;*/
-		Gson gson = new Gson();
-		String json = gson.toJson(this.licence_tag);
 		
-		return json;
+		List<Pair<Class<?>, List<String>>> fields_to_skip = 
+				new ArrayList<Pair<Class<?>, List<String>>>();
+	
+		List<String> fields = new ArrayList<String>();
+		fields.add("trucks_to_restrict");
+		fields_to_skip.add(new Pair<Class<?>, List<String>>(Product.class, fields));
+		
+		fields.clear();
+		fields.add("trucks");
+		fields_to_skip.add(new Pair<Class<?>, List<String>>(TruckBrand.class, fields));
+				
+	
+		Gson gson = new GsonBuilder()
+						.addSerializationExclusionStrategy(new ProductExclusionStrategy(fields_to_skip))
+						//.setPrettyPrinting()
+						.create();
+
+		return gson.toJson(this);
+		
 	}
 
 

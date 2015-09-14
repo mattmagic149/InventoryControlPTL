@@ -1,3 +1,5 @@
+ <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+
 <%@page import="database.Product"%>
 
 <%
@@ -27,7 +29,6 @@
 	}	
 	
 %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,7 +53,7 @@
 	<div id="distance"></div>
 	<div id="wrapper">
     <a href="Logout"><button id="logout" class="color_discreet">Logout</button></a>
-    <a href="Welcome"><button id="back" class="color_discreet">&#060&#060 Übersicht</button></a>
+    <a href="Welcome"><button id="back" class="color_discreet">&#060&#060 Ãbersicht</button></a>
     <button id="edit" class="color hideinmobile <%=hidden_in_new %>" >Bearbeiten</button>
 	
 	<div id="product_details_container">
@@ -80,7 +81,7 @@
 			<div class="description">Mindestmenge im Lager:</div>
 			<input type="number" class="value editable" id="product_minimum_limit" value=""></input>
 			<select class="value" id="product_unity">
-				<option value="St�ck">St�ck</option>
+				<option value="Stück">Stück</option>
 				<option value="Liter">Liter</option>
 				<option value="Paar">Paar</option>
 				<option value="Packung">Packung</option>

@@ -30,6 +30,9 @@ import java.util.List;
 
 import org.hibernate.criterion.Criterion;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import database.*;
 
 // TODO: Auto-generated Javadoc
@@ -142,13 +145,14 @@ public class SaveLoadDatabase {
 	public boolean loadDataBase() {
 		System.out.println("Starting to load database!");
 		
-		if(!loadProducts()) {
-			System.out.println("ERROR: Couldn't load products!");
-			return false;
-		}
-		
 		if(!loadTrucks()) {
 			System.out.println("ERROR: Couldn't load trucks!");
+			return false;
+		}
+	
+		
+		if(!loadProducts()) {
+			System.out.println("ERROR: Couldn't load products!");
 			return false;
 		}
 		
@@ -163,13 +167,25 @@ public class SaveLoadDatabase {
 		System.out.println("Starting to load products.");
 		FileReader file_reader;
 		Product product;
+		Gson gson = new GsonBuilder().create();
+
 		try {
 			file_reader = new FileReader(directory + product_string + file_extension);
 			BufferedReader buffered_reader = new BufferedReader(file_reader);
 			String line = null;
 			HibernateSupport.beginTransaction();
 			while ((line = buffered_reader.readLine()) != null) {
-				product = new Product(line);
+				product = gson.fromJson(line, Product.class);
+				
+				//save ProductElements
+				for(int i = 0; i < product.getProductElements().size(); i++) {
+					product.getProductElements().get(i).saveToDB();
+				}
+				
+				for(int i = 0; i < product.getTrucksToRestrict().size(); i++) {
+					product.getTrucksToRestrict().get(i).saveToDB();
+				}
+				
 				product.saveToDB();	
 			}
 			HibernateSupport.commitTransaction();
@@ -188,16 +204,27 @@ public class SaveLoadDatabase {
 		System.out.println("Starting to load trucks.");
 		FileReader file_reader;
 		Truck truck;
+		Gson gson = new GsonBuilder().create();
 		try {
 			file_reader = new FileReader(directory + truck_string + file_extension);
 			BufferedReader buffered_reader = new BufferedReader(file_reader);
 			String line = null;
-			HibernateSupport.beginTransaction();
 			while ((line = buffered_reader.readLine()) != null) {
-				truck = new Truck(line);
-				truck.saveToDB();	
+				truck = gson.fromJson(line, Truck.class);
+				
+				System.out.println(truck.getBrand().getName());
+				System.out.println(truck.getWheelsRear().getId());
+
+				truck.setTruckBrand(TruckBrand.getTruckBrand(truck.getBrand().getName()));
+				truck.setWheelsFront(new Wheel(truck.getWheelsFront()));
+				truck.setWheelsRear(new Wheel(truck.getWheelsRear()));
+				
+				HibernateSupport.beginTransaction();
+				truck.getWheelsFront().saveToDB();
+				truck.getWheelsRear().saveToDB();
+				truck.saveToDB();
+				HibernateSupport.commitTransaction();
 			}
-			HibernateSupport.commitTransaction();
 			buffered_reader.close();
 		} catch (IOException e) {
 			e.printStackTrace();

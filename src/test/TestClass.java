@@ -35,53 +35,29 @@ public class TestClass {
 		
 		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yy");
 		
-		Truck truck = Truck.createTruck("GU PTL 11", 
-				"Mercedes Benz", 
-				"Actros",
-				format.parse("26.09.13"),
+		Truck truck = Truck.createTruck("GU PKT 10", 
+				"Peugeot", 
+				"Boxkw3000L1H1",
 				format.parse("21.11.14"),
-				23500,
+				format.parse("21.11.14"),
+				991,
 				Truck.FuelType.DIESEL,
-				350,
-				6,
-				"WDB9634031L803044",
+				81,
+				5,
+				"VF3YASMFA12632646",
 				Wheel.TyreType.RADIAL,
-				385,
-				55,
-				22.5f,
-				Wheel.TyreType.RADIAL,
-				315,
+				215,
 				70,
-				22.5f,
-				13.6f,
-				2.73f);
+				15f,
+				Wheel.TyreType.RADIAL,
+				215,
+				70,
+				15f,
+				2.4f,
+				1.073f);
 		
-		truck = Truck.getTruck("GU PTL 11");
-		Product product = Product.getProduct(44);
 		
 		
-		
-		List<Pair<Class<?>, List<String>>> fields_to_skip = 
-					new ArrayList<Pair<Class<?>, List<String>>>();
-		
-		List<String> fields = new ArrayList<String>();
-		fields.add("product_elements");
-		fields_to_skip.add(new Pair<Class<?>, List<String>>(Product.class, fields));
-				
-		fields.clear();
-		fields.add("products_consumeable");
-		fields_to_skip.add(new Pair<Class<?>, List<String>>(Truck.class, fields));
-
-		Gson gson = new GsonBuilder()
-						.addSerializationExclusionStrategy(new ProductExclusionStrategy(fields_to_skip))
-						.setPrettyPrinting()
-						.create();
-		//System.out.println(gson.toJson(truck));
-		System.out.println(gson.toJson(product));
-		String json = gson.toJson(product);
-		
-		Product deserialized_product = gson.fromJson(json, Product.class);
-		System.out.println(deserialized_product.getTrucksToRestrict().size());
 		
 		
 		/*String username = "rene";

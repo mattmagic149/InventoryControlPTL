@@ -16,12 +16,17 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.javatuples.Pair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import utils.BarCodeUtils;
 import utils.HibernateSupport;
+import utils.ProductExclusionStrategy;
 
 @Entity
 public class Product implements ISaveAndDelete {
@@ -63,7 +68,7 @@ public class Product implements ISaveAndDelete {
 		this.description = tmp[1];
 		this.unity = tmp[2];
 		this.minimum_limit = Integer.parseInt(tmp[3]);
-		this.id = Integer.parseInt(tmp[4]);
+		this.id = this.getNextId();
 	}
 	
 	public Product(String name, String description, int minimum_limit,
@@ -346,8 +351,26 @@ public class Product implements ISaveAndDelete {
 
 	@Override
 	public String serialize() {
-		return this.name + "\t" + this.description + "\t" +  this.unity + "\t" + 
-				this.minimum_limit + "\t" + this.id;
+		/*return this.name + "\t" + this.description + "\t" +  this.unity + "\t" + 
+				this.minimum_limit + "\t" + this.id;*/
+		
+		List<Pair<Class<?>, List<String>>> fields_to_skip = 
+				new ArrayList<Pair<Class<?>, List<String>>>();
+	
+		List<String> fields = new ArrayList<String>();
+		fields.add("product_elements");
+		fields_to_skip.add(new Pair<Class<?>, List<String>>(Product.class, fields));
+				
+		fields.clear();
+		fields.add("products_consumeable");
+		fields_to_skip.add(new Pair<Class<?>, List<String>>(Truck.class, fields));
+	
+		Gson gson = new GsonBuilder()
+						.addSerializationExclusionStrategy(new ProductExclusionStrategy(fields_to_skip))
+						//.setPrettyPrinting()
+						.create();
+
+		return gson.toJson(this);
 	}
 	
 	/* (non-Javadoc)

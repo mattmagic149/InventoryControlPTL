@@ -41,6 +41,13 @@ public class Wheel implements ISaveAndDelete {
 		
 	}
 	
+	public Wheel(Wheel wheel) {
+		this.tyre_type = wheel.tyre_type;
+		this.size_in_mm = wheel.size_in_mm;
+		this.height_in_percent = wheel.height_in_percent;
+		this.size_in_inch = wheel.size_in_inch;
+	}
+	
 	public Wheel(TyreType tyre_type, int size_in_mm, int height_in_percent, float size_in_inch) {
 		this.tyre_type = tyre_type;
 		this.size_in_mm = size_in_mm;
@@ -88,5 +95,9 @@ public class Wheel implements ISaveAndDelete {
 	@Override
 	public void deleteFromDB(Object obj) {
 		HibernateSupport.deleteObject(this);	
+	}
+
+	public int getId() {
+		return id;
 	}
 }
