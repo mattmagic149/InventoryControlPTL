@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.google.gson.annotations.Expose;
+
 import utils.HibernateSupport;
 
 @Entity
@@ -23,13 +25,28 @@ public class Wheel implements ISaveAndDelete {
 	private int id;
 	
 	@Enumerated(value=EnumType.ORDINAL)
+	@Expose(serialize = true)
 	private TyreType tyre_type;
 	
+	@Expose(serialize = true)
 	private int size_in_mm; //size in mm
 	
+	@Expose(serialize = true)
 	private int height_in_percent; //in percent to size in mm
 	
+	@Expose(serialize = true)
 	private float size_in_inch; //size in inch
+	
+	public Wheel() {
+		
+	}
+	
+	public Wheel(Wheel wheel) {
+		this.tyre_type = wheel.tyre_type;
+		this.size_in_mm = wheel.size_in_mm;
+		this.height_in_percent = wheel.height_in_percent;
+		this.size_in_inch = wheel.size_in_inch;
+	}
 	
 	public Wheel(TyreType tyre_type, int size_in_mm, int height_in_percent, float size_in_inch) {
 		this.tyre_type = tyre_type;
@@ -46,6 +63,18 @@ public class Wheel implements ISaveAndDelete {
 		return result;
 	}
 	
+	public int getSizeInmm() {
+		return size_in_mm;
+	}
+
+	public int getHeightInPercent() {
+		return height_in_percent;
+	}
+
+	public float getSizeInInch() {
+		return size_in_inch;
+	}
+
 	@Override
 	public String serialize() {
 		// TODO Auto-generated method stub
@@ -66,5 +95,9 @@ public class Wheel implements ISaveAndDelete {
 	@Override
 	public void deleteFromDB(Object obj) {
 		HibernateSupport.deleteObject(this);	
+	}
+
+	public int getId() {
+		return id;
 	}
 }

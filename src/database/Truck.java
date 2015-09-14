@@ -11,6 +11,10 @@ import javax.persistence.*;
 
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
+import org.javatuples.Pair;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import database.Wheel.TyreType;
 import utils.*;
@@ -27,7 +31,9 @@ public class Truck extends Location implements ISaveAndDelete {
 	
 	private String licence_tag;
 	
-	private String brand;
+	@ManyToOne
+	@JoinColumn(name="truck_brand",updatable=false) ///TODO: nullable?!?!
+	private TruckBrand truck_brand;
 	
 	private String type;
 	
@@ -46,16 +52,16 @@ public class Truck extends Location implements ISaveAndDelete {
 	private String fin;
 	
 	@ManyToOne
-	@JoinColumn(name="wheel_front",updatable=false) ///TODO: nullable?!?!
+	@JoinColumn(name="wheel_front") ///TODO: nullable?!?!
 	private Wheel wheels_front;
 	
 	@ManyToOne
-	@JoinColumn(name="wheel_rear",updatable=false) ///TODO: nullable?!?!
+	@JoinColumn(name="wheel_rear") ///TODO: nullable?!?!
 	private Wheel wheels_rear;
 	
 	private float loading_space_height; //Ladefläche höhe in m.
 	
-	private float loading_space_width;
+	private float loading_space_length;
 	
 	@OneToMany
 	@JoinColumn(name="service")
@@ -67,7 +73,7 @@ public class Truck extends Location implements ISaveAndDelete {
 	public Truck() {}
 	
 	public Truck(String licence_tag, 
-				String brand, 
+				TruckBrand truck_brand, 
 				String type,
 				Date initial_registration,
 				Date new_vehicle_since,
@@ -76,20 +82,21 @@ public class Truck extends Location implements ISaveAndDelete {
 				int performance,
 				int emission_standard,
 				String fin,
-				TyreType tyre_type_front,
-				int size_in_mm_front,
-				int height_in_percent_front,
-				float size_in_inch_front,
-				TyreType tyre_type_rear,
-				int size_in_mm_rear,
-				int height_in_percent_rear,
-				float size_in_inch_rear,
-				float loading_space_height,
-				float loading_space_width) {
+				Wheel wheels_front,
+				Wheel wheels_rear,
+				float loading_space_length,
+				float loading_space_height) {
+		
+		this.services = new ArrayList<TruckService>();
+		this.products_consumeable = new ArrayList<Product>();
 		
 		this.id = this.getNextId();
 		this.licence_tag = licence_tag;
-		this.brand = brand;
+		this.type = type;
+		
+		this.truck_brand = truck_brand;
+		this.truck_brand.addTruck(this);
+		
 		this.initial_registration = initial_registration;
 		this.new_vehicle_since = new_vehicle_since;
 		this.payload = payload;
@@ -97,17 +104,30 @@ public class Truck extends Location implements ISaveAndDelete {
 		this.performance = performance;
 		this.emission_standard = emission_standard;
 		this.fin = fin;
-		this.wheels_front = new Wheel(tyre_type_front, size_in_mm_front, height_in_percent_front, size_in_inch_front);
-		this.wheels_rear = new Wheel(tyre_type_rear, size_in_mm_rear, height_in_percent_rear, size_in_inch_rear);
+		this.wheels_front = wheels_front;
+		this.wheels_rear = wheels_rear;
 		this.loading_space_height = loading_space_height;
-		this.loading_space_width = loading_space_width;
+		this.loading_space_length = loading_space_length;
 	}
 	
 	public Truck(String serialized_truck) {
+		/*this.licence_tag + "\t" + this.brand + "\t" + this.type + "\t" +
+				this.initial_registration + "\t" + this.new_vehicle_since + "\t" +
+				this.payload + "\t" + this.type_of_fuel + "\t" + this.performance + "\t" +
+				this.emission_standard + "\t" + this.fin + "\t" + this.wheels_front.getTyreInfos() + "\t" +
+				this.wheels_front.getSizeInmm() + "\t" + this.wheels_front.getHeightInPercent() + "\t" +
+				this.wheels_front.getSizeInInch() + "\t" + this.wheels_rear.getTyreInfos() + "\t" +
+				this.wheels_rear.getSizeInmm() + "\t" + this.wheels_rear.getHeightInPercent() + "\t" +
+				this.wheels_rear.getSizeInInch() + "\t" + this.loading_space_height + "\t" +
+				this.loading_space_width;*/
+		
+		
 		String[] tmp = serialized_truck.split("\t");
-		this.licence_tag = tmp[0];
-		this.id = Integer.parseInt(tmp[1]);
-		this.brand = tmp[2];
+		this.id = Integer.parseInt(tmp[0]);
+		this.licence_tag = tmp[1];
+		this.truck_brand = TruckBrand.getTruckBrand(tmp[2]);
+		this.type = tmp[3];
+		//this = tmp[3];
 	}
 	
 	public String getBarCodeEncoding() {
@@ -126,8 +146,8 @@ public class Truck extends Location implements ISaveAndDelete {
 		return licence_tag;
 	}
 
-	public String getBrand() {
-		return brand;
+	public TruckBrand getBrand() {
+		return truck_brand;
 	}
 
 	public String getType() {
@@ -171,7 +191,7 @@ public class Truck extends Location implements ISaveAndDelete {
 	}
 
 	public float getLoadingSpaceWidth() {
-		return loading_space_width;
+		return loading_space_length;
 	}
 
 	public List<TruckService> getServices() {
@@ -180,6 +200,26 @@ public class Truck extends Location implements ISaveAndDelete {
 
 	public List<Product> getProductsConsumeable() {
 		return products_consumeable;
+	}
+
+	public void setTruckBrand(TruckBrand truck_brand) {
+		this.truck_brand = truck_brand;
+	}
+
+	public void setWheelsFront(Wheel wheels_front) {
+		this.wheels_front = wheels_front;
+	}
+
+	public void setWheelsRear(Wheel wheels_rear) {
+		this.wheels_rear = wheels_rear;
+	}
+
+	public void setServices(List<TruckService> services) {
+		this.services = services;
+	}
+
+	public void setProductsConsumeable(List<Product> products_consumeable) {
+		this.products_consumeable = products_consumeable;
 	}
 
 	public static Truck createTruck(String licence_tag, 
@@ -200,8 +240,8 @@ public class Truck extends Location implements ISaveAndDelete {
 									int size_in_mm_rear,
 									int height_in_percent_rear,
 									float size_in_inch_rear,
-									float loading_space_height,
-									float loading_space_width) {		
+									float loading_space_width,
+									float loading_space_lenght) {		
 
 		// Check, if truck already exists
 		Truck truck = Truck.getTruck(licence_tag);
@@ -211,15 +251,19 @@ public class Truck extends Location implements ISaveAndDelete {
 			return null;
 		}
 		
-		// create a new truck and set it's parameter
-		Truck new_truck = new Truck(licence_tag, brand, type, initial_registration, new_vehicle_since,
-									payload, type_of_fuel, performance, emission_standard,  fin,
-									tyre_type_front, size_in_mm_front, height_in_percent_front, size_in_inch_front,
-									tyre_type_rear, size_in_mm_rear, height_in_percent_rear, size_in_inch_rear,
-									loading_space_height, loading_space_width);
-		
-		// Store the created truck in the DB and return it's object, in case of a successful writing.
+		TruckBrand truck_brand = TruckBrand.getTruckBrand(brand);
+		Wheel wheels_front = new Wheel(tyre_type_front, size_in_mm_front, height_in_percent_front, size_in_inch_front);
+		Wheel wheels_rear = new Wheel(tyre_type_rear, size_in_mm_rear, height_in_percent_rear, size_in_inch_rear);
 		HibernateSupport.beginTransaction();
+			wheels_front.saveToDB();
+			wheels_rear.saveToDB();
+		
+			// create a new truck and set it's parameter
+			Truck new_truck = new Truck(licence_tag, truck_brand, type, initial_registration, new_vehicle_since,
+										payload, type_of_fuel, performance, emission_standard, fin,
+										wheels_front, wheels_rear, loading_space_lenght, loading_space_width);
+		
+			// Store the created truck in the DB and return it's object, in case of a successful writing.
 			boolean success = new_truck.saveToDB();
 		HibernateSupport.commitTransaction();
 		
@@ -250,7 +294,35 @@ public class Truck extends Location implements ISaveAndDelete {
 	 */
 	@Override
 	public String serialize() {
-		return this.licence_tag + "\t" + this.id + "\t" + this.brand;
+		/*return this.id + "\t" + this.licence_tag + "\t" + this.truck_brand.getName() + "\t" + this.type + "\t" +
+				this.initial_registration + "\t" + this.new_vehicle_since + "\t" +
+				this.payload + "\t" + this.type_of_fuel + "\t" + this.performance + "\t" +
+				this.emission_standard + "\t" + this.fin + "\t" + this.wheels_front.getTyreInfos() + "\t" +
+				this.wheels_front.getSizeInmm() + "\t" + this.wheels_front.getHeightInPercent() + "\t" +
+				this.wheels_front.getSizeInInch() + "\t" + this.wheels_rear.getTyreInfos() + "\t" +
+				this.wheels_rear.getSizeInmm() + "\t" + this.wheels_rear.getHeightInPercent() + "\t" +
+				this.wheels_rear.getSizeInInch() + "\t" + this.loading_space_height + "\t" +
+				this.loading_space_width;*/
+		
+		List<Pair<Class<?>, List<String>>> fields_to_skip = 
+				new ArrayList<Pair<Class<?>, List<String>>>();
+	
+		List<String> fields = new ArrayList<String>();
+		fields.add("trucks_to_restrict");
+		fields_to_skip.add(new Pair<Class<?>, List<String>>(Product.class, fields));
+		
+		fields.clear();
+		fields.add("trucks");
+		fields_to_skip.add(new Pair<Class<?>, List<String>>(TruckBrand.class, fields));
+				
+	
+		Gson gson = new GsonBuilder()
+						.addSerializationExclusionStrategy(new ProductExclusionStrategy(fields_to_skip))
+						//.setPrettyPrinting()
+						.create();
+
+		return gson.toJson(this);
+		
 	}
 
 

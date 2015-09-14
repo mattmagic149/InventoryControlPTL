@@ -45,12 +45,15 @@ public class Add extends HttpServlet {
 			return;
 		}
 		System.out.println("I am in Add Servlet");
-		
+		int id;
 		if(parameter.equals("product")) {
 			System.out.println("I am adding a new Product");
-			if(!Product.createProductFromJSON(object)) {
+			if((id = Product.createProductFromJSON(object)) == -1) {
 				response.setStatus(401);
 				response.setHeader("error_message", "Produkt konnte nicht hinzugefügt werden.");
+				return;
+			} else {
+				response.setHeader("id", String.valueOf(id));
 				return;
 			}
 		} else if(parameter.equals("truck")) {
