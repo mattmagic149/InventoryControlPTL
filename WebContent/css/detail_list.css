@@ -113,8 +113,7 @@ p {
 }
 
 #item_list .item:last-of-type {
-	margin-bottom: 4em;
-	
+	margin-bottom: 4em;	
 }
 
 button.details {
