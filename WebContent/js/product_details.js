@@ -23,7 +23,7 @@ $(document).ready(function() {
 });
 
 function fillProductWithDataBecauseOfTextFields() {
-	product.id = $("#product_id").text();
+	product.id = $("#product").attr("value");
 	product.name = $("#product_name").text();
 	product.description = $("#product_description").text();
 	product.minimum_limit = $("#product_minimum_limit").text();
@@ -33,7 +33,7 @@ function fillProductWithDataBecauseOfTextFields() {
 }
 
 function fillProductWithDataBecauseOfInputFields() {
-	product.id = $("#product_id").text();
+	product.id = $("#product").attr("value");
 	product.name = $("#product_name").val();
 	product.description = $("#product_description").val();
 	product.minimum_limit = $("#product_minimum_limit").val();
@@ -56,9 +56,11 @@ function fillProductWithDataBecauseOfInputFields() {
 	product.trucks_to_restrict = restrictions_array;
 	
 	if ($("#no_restriction").is(":checked")){
+		alert("no_restriction...");
 		product.restriction = "NO";
 		product.trucks_to_restrict = [];
 	} else {
+		alert("RRRRRestriction...");
 		product.restriction = "YES";
 	}
 	
@@ -98,7 +100,7 @@ function activateProductEditing() {
 	} else {
 		$("#product_state").prop("checked", false);		
 	}
-	var restrictions = $("#restrictions").children().clone();
+	var restrictions = $("#restrictions").children();
 	restrictions.insertAfter("#product_restrictions_container");
 	
 	$("#product_unity").val(product.unity).change();
