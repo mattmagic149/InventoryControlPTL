@@ -212,8 +212,7 @@ public class SaveLoadDatabase {
 			while ((line = buffered_reader.readLine()) != null) {
 				truck = gson.fromJson(line, Truck.class);
 				
-				System.out.println(truck.getBrand().getName());
-				System.out.println(truck.getWheelsRear().getId());
+				System.out.println(truck.getTruckState());
 
 				truck.setTruckBrand(TruckBrand.getTruckBrand(truck.getBrand().getName()));
 				truck.setWheelsFront(new Wheel(truck.getWheelsFront()));
@@ -224,6 +223,8 @@ public class SaveLoadDatabase {
 				truck.getWheelsRear().saveToDB();
 				truck.saveToDB();
 				HibernateSupport.commitTransaction();
+				System.out.println(truck.getTruckState());
+
 			}
 			buffered_reader.close();
 		} catch (IOException e) {
