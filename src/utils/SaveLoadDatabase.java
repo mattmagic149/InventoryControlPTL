@@ -173,10 +173,8 @@ public class SaveLoadDatabase {
 			file_reader = new FileReader(directory + product_string + file_extension);
 			BufferedReader buffered_reader = new BufferedReader(file_reader);
 			String line = null;
-			HibernateSupport.beginTransaction();
 			while ((line = buffered_reader.readLine()) != null) {
 				product = gson.fromJson(line, Product.class);
-				
 				//save ProductElements
 				for(int i = 0; i < product.getProductElements().size(); i++) {
 					product.getProductElements().get(i).saveToDB();
@@ -185,10 +183,18 @@ public class SaveLoadDatabase {
 				for(int i = 0; i < product.getTrucksToRestrict().size(); i++) {
 					product.getTrucksToRestrict().get(i).saveToDB();
 				}
-				
+
+				Unity unity = Unity.getUnity(product.getUnity().getName());
+				HibernateSupport.beginTransaction();
+				unity.addProduct(product);
+				unity.saveToDB();
+				product.setUnity(unity);
+				System.out.println(product.getUnity().getId());;
+
 				product.saveToDB();	
+				HibernateSupport.commitTransaction();
+
 			}
-			HibernateSupport.commitTransaction();
 			buffered_reader.close();
 		} catch (IOException e) {
 			e.printStackTrace();

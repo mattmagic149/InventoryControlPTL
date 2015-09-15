@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.hibernate.Criteria;
@@ -38,7 +39,7 @@ public class Product implements ISaveAndDelete {
 	}
 	
 	public enum ProductState {
-		ACTIVE, INACTIVE
+		ACTIVE, INACTIVE, NEW
 	}
 
 	@Id
@@ -50,7 +51,9 @@ public class Product implements ISaveAndDelete {
 		
 	private int minimum_limit;
 	
-	private String unity;
+	@ManyToOne
+	@JoinColumn(name="unity", updatable=true)
+	private Unity unity;
 	
 	@Enumerated(value=EnumType.ORDINAL)
 	private TruckRestriction restriction;
@@ -76,13 +79,13 @@ public class Product implements ISaveAndDelete {
 		String[] tmp = serialized_product.split("\t");
 		this.name = tmp[0];
 		this.description = tmp[1];
-		this.unity = tmp[2];
+		this.unity = Unity.getUnity(tmp[2]);
 		this.minimum_limit = Integer.parseInt(tmp[3]);
 		this.id = this.getNextId();
 	}
 	
 	public Product(String name, String description, int minimum_limit,
-								String unity,
+								Unity unity,
 								List<Truck> trucks_to_restrict,
 								TruckRestriction restriction,
 								ProductState state) {
@@ -100,7 +103,7 @@ public class Product implements ISaveAndDelete {
 	}
 	
 	public Product(int id, String name, String description, int minimum_limit,
-			String unity,
+			Unity unity,
 			List<Truck> trucks_to_restrict,
 			TruckRestriction restriction) {
 
@@ -190,7 +193,7 @@ public class Product implements ISaveAndDelete {
 		String name;
 		String description;
 		int minimum_limit;
-		String unity;
+		Unity unity;
 		
 		try {
 			obj = new JSONObject(object);
@@ -198,7 +201,7 @@ public class Product implements ISaveAndDelete {
 			name = obj.get("name").toString();
 			description = obj.get("description").toString();
 			minimum_limit = Integer.parseInt(obj.get("minimum_limit").toString());
-			unity = obj.get("unity").toString();
+			unity = Unity.getUnity(obj.get("unity").toString());
 			arr = obj.getJSONArray("lkw_ids");
 			for(int i = 0; i < arr.length(); i++) {
 				System.out.println(arr.get(i));
@@ -265,7 +268,7 @@ public class Product implements ISaveAndDelete {
 		this.minimum_limit = minimum_limit;
 	}
 
-	public void setUnity(String unity) {
+	public void setUnity(Unity unity) {
 		this.unity = unity;
 	}
 
@@ -297,7 +300,7 @@ public class Product implements ISaveAndDelete {
 	
 	public static Product createProduct(String name, String description, 
 										int minimum_limit,
-										String unity,
+										Unity unity,
 										List<Truck> trucks_to_restrict, 
 										TruckRestriction restriction,
 										ProductState state
@@ -356,7 +359,7 @@ public class Product implements ISaveAndDelete {
 		return HibernateSupport.readOneObjectByID(Product.class, id);
 	}
 
-	public String getUnity() {
+	public Unity getUnity() {
 		return unity;
 	}
 
@@ -387,6 +390,10 @@ public class Product implements ISaveAndDelete {
 		fields.clear();
 		fields.add("products_consumeable");
 		fields_to_skip.add(new Pair<Class<?>, List<String>>(Truck.class, fields));
+		
+		fields.clear();
+		fields.add("products");
+		fields_to_skip.add(new Pair<Class<?>, List<String>>(Unity.class, fields));
 	
 		Gson gson = new GsonBuilder()
 						.addSerializationExclusionStrategy(new ProductExclusionStrategy(fields_to_skip))

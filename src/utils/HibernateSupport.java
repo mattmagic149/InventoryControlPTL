@@ -78,6 +78,7 @@ public class HibernateSupport {
 		configuration.addAnnotatedClass(Truck.class);
 		configuration.addAnnotatedClass(Inventory.class);
 		configuration.addAnnotatedClass(Product.class);
+		configuration.addAnnotatedClass(Unity.class);
 		configuration.addAnnotatedClass(ProductElement.class);
 		configuration.addAnnotatedClass(User.class);
 		configuration.addAnnotatedClass(Transaction.class);
