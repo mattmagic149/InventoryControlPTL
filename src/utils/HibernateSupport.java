@@ -69,13 +69,6 @@ public class HibernateSupport {
 		
 		File configFile = new File("/Users/matthiasivantsits/Documents/workspace/InventoryControlPTL/src/hibernate.cfg.xml");
 		//File configFile = new File("C:/xampp/htdocs/InventoryControlPTL/src/hibernate.cfg.xml");
-
-		
-		if(configFile.exists()) {
-			System.out.println("null...");
-		} else {
-			System.out.println("NOT null");
-		}
 		//File configFile = new File("/src/hibernate.cfg.xml");
 
 		Configuration configuration = new Configuration();

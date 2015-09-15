@@ -23,42 +23,20 @@ public class TestClass {
 
 	public static void main(String[] args) throws InterruptedException, ParseException {
 		
-		System.out.println(HibernateSupport.readMoreObjects(Product.class, new ArrayList<Criterion>()).size());
 
-		String object = "{\"id\":\"P-000044\",\"name\":\"Samsung Handy Neu Galaxy S4 mini\","
+		List<Truck> trucks = HibernateSupport.readMoreObjects(Truck.class, new ArrayList<Criterion>());
+		
+		for(Truck truck : trucks) {
+			System.out.println(truck.getTruckState());
+		}
+		
+		/*String object = "{\"id\":\"P-000044\",\"name\":\"Samsung Handy Neu Galaxy S4 mini\","
 				+ "\"description\":\"Beschreibung...\",\"minimum_limit\":\"10\",\"lkw_ids\":[1,2,3], \"unity\":\"Stück\"}";
 
 		System.out.println(Product.editProduct(object));
 		System.out.println(HibernateSupport.readMoreObjects(Product.class, new ArrayList<Criterion>()).size());
-		
+		*/
 		//System.out.println(new Wheel(TyreType.RADIAL, 195, 70, 15).getTyreInfos());
-		
-		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yy");
-		
-		Truck truck = Truck.createTruck("GU PKT 10", 
-				"Peugeot", 
-				"Boxkw3000L1H1",
-				format.parse("21.11.14"),
-				format.parse("21.11.14"),
-				991,
-				Truck.FuelType.DIESEL,
-				81,
-				5,
-				"VF3YASMFA12632646",
-				Wheel.TyreType.RADIAL,
-				215,
-				70,
-				15f,
-				Wheel.TyreType.RADIAL,
-				215,
-				70,
-				15f,
-				2.4f,
-				1.073f);
-		
-		
-		
-		
 		
 		/*String username = "rene";
 		String password = "123456";

@@ -29,6 +29,10 @@ public class Truck extends Location implements ISaveAndDelete {
 		DIESEL, PETROL
 	}
 	
+	public enum TruckState {
+		ACTIVE, SOLD
+	}
+	
 	private String licence_tag;
 	
 	@ManyToOne
@@ -50,6 +54,8 @@ public class Truck extends Location implements ISaveAndDelete {
 	private int emission_standard; //Abgasnorm: 0-6
 	
 	private String fin;
+	
+	private TruckState state;
 	
 	@ManyToOne
 	@JoinColumn(name="wheel_front") ///TODO: nullable?!?!
@@ -85,7 +91,9 @@ public class Truck extends Location implements ISaveAndDelete {
 				Wheel wheels_front,
 				Wheel wheels_rear,
 				float loading_space_length,
-				float loading_space_height) {
+				float loading_space_height,
+				TruckState state
+		) {
 		
 		this.services = new ArrayList<TruckService>();
 		this.products_consumeable = new ArrayList<Product>();
@@ -108,27 +116,9 @@ public class Truck extends Location implements ISaveAndDelete {
 		this.wheels_rear = wheels_rear;
 		this.loading_space_height = loading_space_height;
 		this.loading_space_length = loading_space_length;
+		this.state = state;
 	}
 	
-	public Truck(String serialized_truck) {
-		/*this.licence_tag + "\t" + this.brand + "\t" + this.type + "\t" +
-				this.initial_registration + "\t" + this.new_vehicle_since + "\t" +
-				this.payload + "\t" + this.type_of_fuel + "\t" + this.performance + "\t" +
-				this.emission_standard + "\t" + this.fin + "\t" + this.wheels_front.getTyreInfos() + "\t" +
-				this.wheels_front.getSizeInmm() + "\t" + this.wheels_front.getHeightInPercent() + "\t" +
-				this.wheels_front.getSizeInInch() + "\t" + this.wheels_rear.getTyreInfos() + "\t" +
-				this.wheels_rear.getSizeInmm() + "\t" + this.wheels_rear.getHeightInPercent() + "\t" +
-				this.wheels_rear.getSizeInInch() + "\t" + this.loading_space_height + "\t" +
-				this.loading_space_width;*/
-		
-		
-		String[] tmp = serialized_truck.split("\t");
-		this.id = Integer.parseInt(tmp[0]);
-		this.licence_tag = tmp[1];
-		this.truck_brand = TruckBrand.getTruckBrand(tmp[2]);
-		this.type = tmp[3];
-		//this = tmp[3];
-	}
 	
 	public String getBarCodeEncoding() {
 		return "L-" + BarCodeUtils.getBarCodeEncoding(id);
@@ -202,6 +192,10 @@ public class Truck extends Location implements ISaveAndDelete {
 		return products_consumeable;
 	}
 
+	public TruckState getTruckState() {
+		return state;
+	}
+
 	public void setTruckBrand(TruckBrand truck_brand) {
 		this.truck_brand = truck_brand;
 	}
@@ -241,10 +235,12 @@ public class Truck extends Location implements ISaveAndDelete {
 									int height_in_percent_rear,
 									float size_in_inch_rear,
 									float loading_space_width,
-									float loading_space_lenght) {		
+									float loading_space_lenght,
+									TruckState active
+		) {		
 
 		// Check, if truck already exists
-		Truck truck = Truck.getTruck(licence_tag);
+		Truck truck = Truck.getTruck(licence_tag, fin);
 		
 		// truck exists and can't be created again
 		if (truck != null) {
@@ -261,7 +257,8 @@ public class Truck extends Location implements ISaveAndDelete {
 			// create a new truck and set it's parameter
 			Truck new_truck = new Truck(licence_tag, truck_brand, type, initial_registration, new_vehicle_since,
 										payload, type_of_fuel, performance, emission_standard, fin,
-										wheels_front, wheels_rear, loading_space_lenght, loading_space_width);
+										wheels_front, wheels_rear, loading_space_lenght, 
+										loading_space_width, active);
 		
 			// Store the created truck in the DB and return it's object, in case of a successful writing.
 			boolean success = new_truck.saveToDB();
@@ -274,11 +271,13 @@ public class Truck extends Location implements ISaveAndDelete {
 		}
 	}
 	
-	public static Truck getTruck(String licence_tag){
+	public static Truck getTruck(String licence_tag, String fin){
 		
 		Truck truck = null;
 		List<Criterion>  criterions = new ArrayList<Criterion>();
 		criterions.add(Restrictions.eq("licence_tag", licence_tag));
+		criterions.add(Restrictions.eq("fin", fin));
+		
 		truck =  HibernateSupport.readOneObject(Truck.class, criterions);
 		return truck;
 

@@ -6,6 +6,8 @@ import java.util.List;
 import interfaces.ISaveAndDelete;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -34,6 +36,10 @@ public class Product implements ISaveAndDelete {
 	public enum TruckRestriction {
 		YES, NO
 	}
+	
+	public enum ProductState {
+		ACTIVE, INACTIVE
+	}
 
 	@Id
 	private int id;
@@ -46,7 +52,11 @@ public class Product implements ISaveAndDelete {
 	
 	private String unity;
 	
+	@Enumerated(value=EnumType.ORDINAL)
 	private TruckRestriction restriction;
+	
+	@Enumerated(value=EnumType.ORDINAL)
+	private ProductState state;
 		
 	@OneToMany
 	@JoinColumn(name="product")
@@ -74,7 +84,8 @@ public class Product implements ISaveAndDelete {
 	public Product(String name, String description, int minimum_limit,
 								String unity,
 								List<Truck> trucks_to_restrict,
-								TruckRestriction restriction) {
+								TruckRestriction restriction,
+								ProductState state) {
 		
 		this.id = this.getNextId();
 		this.product_elements = new ArrayList<ProductElement>();
@@ -84,6 +95,7 @@ public class Product implements ISaveAndDelete {
 		this.minimum_limit = minimum_limit;
 		this.restriction = restriction;
 		this.trucks_to_restrict = trucks_to_restrict;	
+		this.state = state;
 		
 	}
 	
@@ -96,6 +108,7 @@ public class Product implements ISaveAndDelete {
 		this.product_elements = new ArrayList<ProductElement>();
 		this.trucks_to_restrict = new ArrayList<Truck>();
 		this.name = name;
+		this.unity = unity;
 		this.description = description;
 		this.minimum_limit = minimum_limit;
 		this.restriction = restriction;
@@ -118,7 +131,8 @@ public class Product implements ISaveAndDelete {
 				parsed_product.getMinimumLimit(),
 				parsed_product.getUnity(),
 				parsed_product.getTrucksToRestrict(),
-				parsed_product.getRestriction());
+				parsed_product.getRestriction(),
+				parsed_product.getState());
 		
 		if(product == null) {
 			System.out.println("couldn't create Product");
@@ -144,6 +158,7 @@ public class Product implements ISaveAndDelete {
 			return false;
 		}
 		
+		System.out.println(parsed_product.getUnity());
 		old_product.setName(parsed_product.getName());
 		old_product.setDescription(parsed_product.getDescription());
 		old_product.setMinimumLimit(parsed_product.getMinimumLimit());
@@ -199,7 +214,7 @@ public class Product implements ISaveAndDelete {
 			e.printStackTrace();
 			return null;
 		}
-		
+		System.out.println("unit = " + unity);
 		return new Product(id, name, description, minimum_limit, unity, trucks, restriction);
 	}
 	
@@ -234,6 +249,10 @@ public class Product implements ISaveAndDelete {
 		return minimum_limit;
 	}
 	
+	public ProductState getState() {
+		return state;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -280,7 +299,9 @@ public class Product implements ISaveAndDelete {
 										int minimum_limit,
 										String unity,
 										List<Truck> trucks_to_restrict, 
-										TruckRestriction restriction) {		
+										TruckRestriction restriction,
+										ProductState state
+		) {		
 		// Check, if product already exists
 		Product product = Product.getProduct(name, description);
 		
@@ -295,7 +316,9 @@ public class Product implements ISaveAndDelete {
 												minimum_limit, 
 												unity, 
 												trucks_to_restrict, 
-												restriction);
+												restriction,
+												state
+											);
 			
 			// Store the created product in the DB and return it's object, in case of a successful writing.
 			boolean success = new_product.saveToDB();

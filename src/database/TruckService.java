@@ -31,8 +31,10 @@ public class TruckService implements ISaveAndDelete {
 	private int mileage; //Kilometerstand in km
 	
 	@ManyToOne
-	@JoinColumn(name="truck", updatable=false) ///TODO: nullable?!?!
+	@JoinColumn(name="truck") ///TODO: nullable?!?!
 	private Truck truck;
+	
+	public TruckService() {}
 	
 	public TruckService(Date date, String repair_shop_name, 
 								   String repair_shop_name_location,

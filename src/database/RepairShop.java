@@ -32,6 +32,8 @@ public class RepairShop implements ISaveAndDelete {
 	@JoinColumn(name="service")
 	private List<TruckService> services;
 	
+	public RepairShop() {}
+	
 	public RepairShop(String name, String location) {
 		this.name = name;
 		this.location = location;
