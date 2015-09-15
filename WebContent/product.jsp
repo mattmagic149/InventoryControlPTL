@@ -143,6 +143,7 @@
 			<div class="description">Aktives Produkt:<input type="checkbox" id="product_state" value=on ></input></div>
 			
 			<div class="description" id="product_restrictions_container">Produkt darf nur in folgende LKWs:</div>
+			<div class="value restriction_container" > Alle LKWs<input type="checkbox" class="restriction" lkw_id="0" id="no_restriction" checked></input></div>
 			<% for (Truck truck : Truck.getAllTrucks()) { %>
 				<div class="value restriction_container" ><%=truck.getLicenceTag() %> <input type="checkbox" class="restriction" lkw_id="<%=truck.getId() %>"></input></div>
 			<% } %>		

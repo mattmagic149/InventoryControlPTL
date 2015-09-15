@@ -38,7 +38,6 @@ function fillProductWithDataBecauseOfInputFields() {
 	product.name = $("#product_name").val();
 	product.description = $("#product_description").val();
 	product.minimum_limit = $("#product_minimum_limit").val();
-	product.lkw_ids = [1,2,3];
 	product.unity = $("#product_unity").val();
 	if ($("#product_state").is(":checked")) {
 		product.state = "ACTIVE";
@@ -131,7 +130,7 @@ function showProductBecauseOfData() {
 function confirmProductEditing() {
 	fillProductWithDataBecauseOfInputFields();
 	if (is_new_product) {
-		product.id = "P-000000";
+		product.id = "0";
 		var product_string = JSON.stringify(product);
 		sendProductToServer("Add", product_string);
 	} else {
