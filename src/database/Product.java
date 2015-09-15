@@ -129,20 +129,15 @@ public class Product implements ISaveAndDelete {
 			return -1;
 		}
 		
-		Product product = Product.createProduct(parsed_product.getName(),
-				parsed_product.getDescription(),
-				parsed_product.getMinimumLimit(),
-				parsed_product.getUnity(),
-				parsed_product.getTrucksToRestrict(),
-				parsed_product.getRestriction(),
-				parsed_product.getState());
+		Product product = Product.getProduct(parsed_product.getName(), parsed_product.getDescription());
 		
-		if(product == null) {
-			System.out.println("couldn't create Product");
-			return -1;
+		if(product != null) {
+			return product.getId();
 		}
+
+		parsed_product.id = parsed_product.getNextId();
 		
-		return product.getId();
+		return parsed_product.getId();
 	}
 	
 	public static boolean editProduct(String object) {
@@ -373,6 +368,31 @@ public class Product implements ISaveAndDelete {
 
 	public List<Truck> getTrucksToRestrict() {
 		return trucks_to_restrict;
+	}
+	
+	public List<Pair<Boolean, Truck>> getAllTrucksIncludingRestriction() {
+		
+		List<Pair<Boolean, Truck>> result = new ArrayList<Pair<Boolean, Truck>>();
+		List<Truck> all_trucks = Truck.getAllTrucks();
+		Truck truck;
+		
+		for(int i = 0; i < all_trucks.size(); i++) {
+			truck = all_trucks.get(i);
+			result.add(new Pair<Boolean, Truck>(this.isTruckRestricted(truck), truck));
+		}
+		
+		return null;
+	}
+	
+	private boolean isTruckRestricted(Truck truck) {
+		
+		for(int j = 0; j < this.trucks_to_restrict.size(); j++) {
+			if(truck.getId() == this.trucks_to_restrict.get(j).getId()) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	@Override
