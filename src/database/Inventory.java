@@ -1,7 +1,11 @@
 
 package database;
 
+
 import javax.persistence.*;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import utils.BarCodeUtils;
 
@@ -43,7 +47,10 @@ public class Inventory extends Location {
 	 */
 	@Override
 	public String serialize() {
-		return "fuck yeah";
+		
+		Gson gson = new GsonBuilder().create();
+
+		return gson.toJson(this);
 	}
 
 

@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import utils.HibernateSupport;
@@ -67,6 +68,8 @@ public abstract class Location implements ISaveAndDelete {
 				return false;
 			}
 		}
+		
+		System.out.println(success);
 		
 		return success;
 	}
@@ -167,6 +170,23 @@ public abstract class Location implements ISaveAndDelete {
 		}
 		
 		return success;
+	}
+	
+	
+	public long getQuantityOfSpecificProduct(int product_id) {
+		long result = 0;
+		HibernateSupport.beginTransaction();
+		Criteria c = HibernateSupport.getCurrentSession().createCriteria(Product.class);
+		c.createAlias("product_elements", "elements")
+			.add(Restrictions.eq("id", product_id))
+			.add(Restrictions.eq("elements.location.id", this.getId()))
+			.setProjection(Projections.rowCount());
+			
+		result = (long) c.uniqueResult();
+
+		HibernateSupport.commitTransaction();
+		
+		return result;
 	}
 	
 	

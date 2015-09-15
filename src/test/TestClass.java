@@ -23,12 +23,12 @@ public class TestClass {
 
 	public static void main(String[] args) throws InterruptedException, ParseException {
 		
-
-		List<Truck> trucks = HibernateSupport.readMoreObjects(Truck.class, new ArrayList<Criterion>());
 		
-		for(Truck truck : trucks) {
-			System.out.println(truck.getTruckState());
-		}
+		Product product = HibernateSupport.readOneObjectByID(Product.class, 10);
+		Location location = HibernateSupport.readOneObjectByID(Location.class, 10);
+		
+		System.out.println(product.getQuantityOfSpecificLocation(location.getId()));
+		System.out.println(location.getQuantityOfSpecificProduct(product.getId()));
 		
 		/*String object = "{\"id\":\"P-000044\",\"name\":\"Samsung Handy Neu Galaxy S4 mini\","
 				+ "\"description\":\"Beschreibung...\",\"minimum_limit\":\"10\",\"lkw_ids\":[1,2,3], \"unity\":\"Stück\"}";

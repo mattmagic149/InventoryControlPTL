@@ -45,11 +45,15 @@ public class Edit extends HttpServlet {
 		}
 		System.out.println("I am in Edit Servlet");
 		
+		int id = -1;
 		if(parameter.equals("product")) {
 			System.out.println("I am adding a new Product");
-			if(!Product.editProduct(object)) {
+			if((id = Product.editProduct(object)) == -1) {
 				response.setStatus(401);
 				response.setHeader("error_message", "Produkt konnte nicht bearbeitet werden.");
+				return;
+			} else {
+				response.setHeader("id", String.valueOf(id));
 				return;
 			}
 		} else if(parameter.equals("truck")) {

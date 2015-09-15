@@ -18,11 +18,9 @@ import javax.persistence.OneToMany;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.javatuples.Pair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -99,8 +97,7 @@ public class Product implements ISaveAndDelete {
 		this.minimum_limit = minimum_limit;
 		this.restriction = restriction;
 		this.trucks_to_restrict = trucks_to_restrict;	
-		this.state = state;
-		
+		this.state = state;	
 	}
 	
 	public Product(int id, String name, String description, int minimum_limit,
@@ -153,80 +150,35 @@ public class Product implements ISaveAndDelete {
 		return parsed_product.getId();
 	}
 	
-	public static boolean editProduct(String object) {
+	public static int editProduct(String object) {
 		
-		Product parsed_product = convertProductFromJSON(object);
-		if(parsed_product == null) {
-			System.out.println("Parsing product failed...");
-			return false;
+		Gson gson = new GsonBuilder().create();
+		Product parsed_product = null;
+		try {
+			parsed_product = gson.fromJson(object, Product.class);
+		} catch(JsonSyntaxException e) {
+			e.printStackTrace();
+			return -1;
 		}
+		
 		
 		Product old_product = HibernateSupport.readOneObjectByID(Product.class, parsed_product.getId());
 		
 		System.out.println("parsed_product.id = " + parsed_product.getId());
 		if(old_product == null) {
 			System.out.println("Fetching old_product failed...");
-			return false;
+			return -1;
 		}
 		
-		System.out.println(parsed_product.getUnity());
-		old_product.setName(parsed_product.getName());
-		old_product.setDescription(parsed_product.getDescription());
-		old_product.setMinimumLimit(parsed_product.getMinimumLimit());
-		old_product.setUnity(parsed_product.getUnity());
-		old_product.setTrucksToRestrict(parsed_product.getTrucksToRestrict());
-		if(parsed_product.getTrucksToRestrict().size() > 0) {
-			old_product.setRestriction(TruckRestriction.YES);
-		} else {
-			old_product.setRestriction(TruckRestriction.NO);
-		}
-		
+		Unity unity = Unity.getUnity(parsed_product.getUnity().getName());
 		HibernateSupport.beginTransaction();
-		old_product.saveToDB();
+		unity.saveToDB();
+		parsed_product.setUnity(unity);
+		
+		parsed_product.saveToDB();
 		HibernateSupport.commitTransaction();
 		
-		return true;
-	}
-	
-	private static Product convertProductFromJSON(String object) {
-		
-		JSONObject obj;
-		JSONArray arr;
-		Truck truck;
-		int truck_id;
-		List<Truck> trucks = new ArrayList<Truck>();
-		TruckRestriction restriction = TruckRestriction.NO;
-		
-		int id;
-		String name;
-		String description;
-		int minimum_limit;
-		Unity unity;
-		
-		try {
-			obj = new JSONObject(object);
-			id = BarCodeUtils.decodeBarCode(obj.get("id").toString());
-			name = obj.get("name").toString();
-			description = obj.get("description").toString();
-			minimum_limit = Integer.parseInt(obj.get("minimum_limit").toString());
-			unity = Unity.getUnity(obj.get("unity").toString());
-			arr = obj.getJSONArray("lkw_ids");
-			for(int i = 0; i < arr.length(); i++) {
-				System.out.println(arr.get(i));
-				truck_id = arr.getInt(i);
-				if(truck_id > 0 && 
-						(truck = HibernateSupport.readOneObjectByID(Truck.class, truck_id)) != null) {
-					
-					trucks.add(truck);
-					restriction = TruckRestriction.YES;
-				}
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return null;
-		}
-		System.out.println("unit = " + unity);
-		return new Product(id, name, description, minimum_limit, unity, trucks, restriction);
+		return parsed_product.getId();
 	}
 	
 	private int getNextId() {
@@ -394,7 +346,7 @@ public class Product implements ISaveAndDelete {
 			result.add(new Pair<Boolean, Truck>(this.isTruckRestricted(truck), truck));
 		}
 		
-		return null;
+		return result;
 	}
 	
 	private boolean isTruckRestricted(Truck truck) {
@@ -408,6 +360,22 @@ public class Product implements ISaveAndDelete {
 		return false;
 	}
 
+	public long getQuantityOfSpecificLocation(int location_id) {
+		long result = 0;
+		HibernateSupport.beginTransaction();
+		Criteria c = HibernateSupport.getCurrentSession().createCriteria(Product.class);
+		c.createAlias("product_elements", "elements")
+			.add(Restrictions.eq("id", this.getId()))
+			.add(Restrictions.eq("elements.location.id", location_id))
+			.setProjection(Projections.rowCount());
+			
+		result = (long) c.uniqueResult();
+
+		HibernateSupport.commitTransaction();
+		
+		return result;
+	}
+	
 	@Override
 	public String serialize() {
 		/*return this.name + "\t" + this.description + "\t" +  this.unity + "\t" + 

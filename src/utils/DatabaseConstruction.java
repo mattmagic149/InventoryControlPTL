@@ -76,16 +76,10 @@ public class DatabaseConstruction {
 		User user2 = User.register(username2, "Matt", "Nachname", "bla@gmail.com", password2, User.Permission.USER);
 
 		HibernateSupport.beginTransaction();
-		
-			Inventory inventory = new Inventory("Hauptlager", "1. Stock");
-			Inventory entry = new Inventory("Waren Eingang", "");
-		
 			user.saveToDB();
 			user2.saveToDB();
-
-			inventory.saveToDB();
-			entry.saveToDB();
 		HibernateSupport.commitTransaction();
+
 		
 		System.out.println("Finished");
 	}
