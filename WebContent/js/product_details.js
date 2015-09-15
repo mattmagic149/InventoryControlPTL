@@ -38,7 +38,9 @@ function fillProductWithDataBecauseOfInputFields() {
 	product.name = $("#product_name").val();
 	product.description = $("#product_description").val();
 	product.minimum_limit = $("#product_minimum_limit").val();
-	product.unity = $("#product_unity").val();
+	var u = new Object();
+	u.name = $("#product_unity").val();
+	product.unity = u;
 	if ($("#product_state").is(":checked")) {
 		product.state = "ACTIVE";
 	} else {
