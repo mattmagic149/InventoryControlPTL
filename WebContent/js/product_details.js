@@ -54,6 +54,14 @@ function fillProductWithDataBecauseOfInputFields() {
 		}
 	});
 	product.trucks_to_restrict = restrictions_array;
+	
+	if ($("#no_restriction").is(":checked")){
+		product.restriction = "NO";
+		product.trucks_to_restrict = [];
+	} else {
+		product.restriction = "YES";
+	}
+	
 	//alert("unity = " + product.unity);
 }
 

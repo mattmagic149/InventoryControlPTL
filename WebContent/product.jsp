@@ -96,6 +96,7 @@
 	<div id="possible_outgoing_locations" class="hidden"><%=possible_outgoing_locations %></div>
 	<div id="restrictions" class="hidden">
 	<% if (!is_new && truck_restrictions != null) { %>
+		<div class="value restriction_container" > Alle LKWs<input type="checkbox" class="restriction" lkw_id="0" id="no_restriction" checked></input></div>
  		<% for (Pair<Boolean, Truck> bool_truck : truck_restrictions) { %>	
  			<% if(bool_truck.getValue0()) { %>	
 	 			<div class="value restriction_container" ><%=bool_truck.getValue1().getLicenceTag() %> <input type="checkbox" class="restriction" lkw_id="<%=bool_truck.getValue1().getId() %>" checked></input></div>
