@@ -26,6 +26,7 @@ import org.json.JSONObject;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 
 import utils.BarCodeUtils;
 import utils.HibernateSupport;
@@ -124,8 +125,12 @@ public class Product implements ISaveAndDelete {
 	
 	public static int createProductFromJSON(String object) {
 		
-		Product parsed_product = convertProductFromJSON(object);
-		if(parsed_product == null) {
+		Gson gson = new GsonBuilder().create();
+		Product parsed_product = null;
+		try {
+			parsed_product = gson.fromJson(object, Product.class);
+		} catch(JsonSyntaxException e) {
+			e.printStackTrace();
 			return -1;
 		}
 		
@@ -135,7 +140,15 @@ public class Product implements ISaveAndDelete {
 			return product.getId();
 		}
 
+		parsed_product.state = ProductState.NEW;
+		Unity unity = Unity.getUnity(parsed_product.getUnity().getName());
+		HibernateSupport.beginTransaction();
+		unity.saveToDB();
+		parsed_product.setUnity(unity);
+		
 		parsed_product.id = parsed_product.getNextId();
+		parsed_product.saveToDB();
+		HibernateSupport.commitTransaction();
 		
 		return parsed_product.getId();
 	}
