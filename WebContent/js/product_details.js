@@ -154,14 +154,14 @@ function generateBarCode() {
 
 
 function handleIngoing() {
-	createTransactionPopUp("Eingang...", "Wo kommt es her?", "<option value='new'>Neue Ware...</option><option value='LKW1'>GU PTL 10</option><option value='LKW2'>GU PTL 12</option>");
+	createTransactionPopUp("Eingang...", "Wo kommt es her?", "<option value='0'>Neue Ware...</option><option value='LKW1'>GU PTL 10</option><option value='LKW2'>GU PTL 12</option>");
 //	createPopUp("Eingang...", "message");
 	createPopUpButtons("Verbuchen", "Abbrechen");
 	$("#confirm_pop_up_button").on("click", confirmIngoingTransaction);
 }
 
 function handleOutgoing() {
-	createTransactionPopUp("Ausgang...", "Wo geht es hin?", "<option value='selection'>Wählen Sie einen LKW aus!</option><option value='LKW1'>GU PTL 10</option><option value='LKW2'>GU PTL 12</option><option value='other'>Andere...</option>");
+	createTransactionPopUp("Ausgang...", "Wo geht es hin?", "<option value='selection'>Wählen Sie einen LKW aus!</option><option value='LKW1'>GU PTL 10</option><option value='LKW2'>GU PTL 12</option><option value='0'>Andere...</option>");
 	createPopUpButtons("Verbuchen", "Abbrechen");
 	$("#confirm_pop_up_button").on("click", confirmOutgoingTransaction);
 }
@@ -169,25 +169,27 @@ function handleOutgoing() {
 function confirmIngoingTransaction() {
 	$("#confirm_pop_up_button").off("click", confirmIngoingTransaction);
 	var quantity = $("#quantity").val();
-	var loc = $("#location").val();	
-	sendTransaction(quantity, loc, "true");
+	var from = $("#location").val();
+	var to = $("#current_location").text();
+	sendTransaction(quantity, from, to);
 	location.href = location.href;
 }
 function confirmOutgoingTransaction() {
 	$("#confirm_pop_up_button").off("click", confirmOutgoingTransaction);
 	var quantity = $("#quantity").val();
-	var loc = $("#location").val();
-	sendTransaction(quantity, loc, "false");
+	var from = $("#current_location").text();
+	var to = $("#location").val();
+	sendTransaction(quantity, from, to);
 	location.href = location.href;
 }
 
-function sendTransaction(quantity, loc, is_ingoing_transaction) {
+function sendTransaction(quantity, from, to) {
 	$.ajax({
 		type: "POST",
 		url: "CommitTransaction",
-		data: { quantity: quantity,
-				location: loc,
-				is_ingoing_transaction: is_ingoing_transaction},
+		data: { from: from,
+				to: to, 
+				quantity: quantity },
 		cache: false,
 		success: function(data, settings, xhr) {
 			alert("success, transaction was sent");

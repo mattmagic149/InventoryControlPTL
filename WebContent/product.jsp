@@ -4,6 +4,7 @@
 
 <%
 	Product product = (Product)session.getAttribute("current_product");
+	String current_location = "1";
 	
 	String product_id = "Wird automatisch generiert";
 	String product_name = "";
@@ -55,6 +56,8 @@
     <a href="Logout"><button id="logout" class="color_discreet">Logout</button></a>
     <a href="Welcome"><button id="back" class="color_discreet">&#060&#060 Ãbersicht</button></a>
     <button id="edit" class="color hideinmobile <%=hidden_in_new %>" >Bearbeiten</button>
+	
+	<div id="current_location" class="hidden"><%=current_location %></div>
 	
 	<div id="product_details_container">
 		<div id="product">
