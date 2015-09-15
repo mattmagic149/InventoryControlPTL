@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.Product;
+import database.Truck;
 
 /**
  * Servlet implementation class Add
@@ -57,7 +58,15 @@ public class Add extends HttpServlet {
 				return;
 			}
 		} else if(parameter.equals("truck")) {
-			
+			System.out.println("I am adding a new Truck");
+			if((id = Truck.createTruckFromJSON(object)) == -1) {
+				response.setStatus(401);
+				response.setHeader("error_message", "Lkw konnte nicht hinzugefügt werden.");
+				return;
+			} else {
+				response.setHeader("id", String.valueOf(id));
+				return;
+			}
 		}
 		
 	}

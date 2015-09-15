@@ -47,7 +47,7 @@ public class Edit extends HttpServlet {
 		
 		int id = -1;
 		if(parameter.equals("product")) {
-			System.out.println("I am adding a new Product");
+			System.out.println("I am editing a Product");
 			if((id = Product.editProduct(object)) == -1) {
 				response.setStatus(401);
 				response.setHeader("error_message", "Produkt konnte nicht bearbeitet werden.");
@@ -57,7 +57,15 @@ public class Edit extends HttpServlet {
 				return;
 			}
 		} else if(parameter.equals("truck")) {
-			
+			System.out.println("I am editing a Truck");
+			if((id = Product.editProduct(object)) == -1) {
+				response.setStatus(401);
+				response.setHeader("error_message", "Produkt konnte nicht bearbeitet werden.");
+				return;
+			} else {
+				response.setHeader("id", String.valueOf(id));
+				return;
+			}
 		}
 	}
 

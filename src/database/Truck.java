@@ -15,6 +15,7 @@ import org.javatuples.Pair;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 
 import database.Wheel.TyreType;
 import utils.*;
@@ -281,6 +282,65 @@ public class Truck extends Location implements ISaveAndDelete {
 		truck =  HibernateSupport.readOneObject(Truck.class, criterions);
 		return truck;
 
+	}
+	
+	public static int createTruckFromJSON(String object) {
+		
+		Gson gson = new GsonBuilder().create();
+		Truck parsed_truck = null;
+		try {
+			parsed_truck = gson.fromJson(object, Truck.class);
+		} catch(JsonSyntaxException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		
+		Truck truck = Truck.getTruck(parsed_truck.getLicenceTag(), parsed_truck.getFin());
+		
+		if(truck != null) {
+			return truck.getId();
+		}
+
+		TruckBrand brand = TruckBrand.getTruckBrand(parsed_truck.getBrand().getName());		
+		HibernateSupport.beginTransaction();
+		brand.saveToDB();
+		parsed_truck.setTruckBrand(brand);
+		
+		parsed_truck.id = parsed_truck.getNextId();
+		parsed_truck.saveToDB();
+		HibernateSupport.commitTransaction();
+		
+		return parsed_truck.getId();
+	}
+	
+	public static int editTruck(String object) {
+		
+		Gson gson = new GsonBuilder().create();
+		Truck parsed_truck = null;
+		try {
+			parsed_truck = gson.fromJson(object, Truck.class);
+		} catch(JsonSyntaxException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		
+		
+		Truck old_truck = HibernateSupport.readOneObjectByID(Truck.class, parsed_truck.getId());
+		
+		System.out.println("parsed_truck.id = " + parsed_truck.getId());
+		if(old_truck == null) {
+			System.out.println("Fetching old_truck failed...");
+			return -1;
+		}
+		
+		TruckBrand brand = TruckBrand.getTruckBrand(parsed_truck.getBrand().getName());
+		HibernateSupport.beginTransaction();
+		brand.saveToDB();
+		parsed_truck.setTruckBrand(brand);
+		parsed_truck.saveToDB();
+		HibernateSupport.commitTransaction();
+		
+		return parsed_truck.getId();
 	}
 	
 	public static List<Truck> getAllTrucks() {
