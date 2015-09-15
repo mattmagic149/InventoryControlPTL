@@ -25,7 +25,8 @@ function createPopUp(headline, message) {
 	$("#close").delay(duration).fadeIn(200);
 }
 
-function createTransactionPopUp(headline, options_description, options) {
+function createTransactionPopUp(headline, options_description, options_dom_element) {
+	$("#pop_up").remove();
 	$("#wrapper").append("<div id='pop_up'>" +
 		"<img src='images/close-icon.png' id='close' alt='close' title='close' />" +
 		"<h2 id='pop_up_headline'>" + headline + "</h2>" +
@@ -33,11 +34,14 @@ function createTransactionPopUp(headline, options_description, options) {
 			"<div class='description'>Anzahl</div>" +
 			"<input type='number' class='value' id='quantity'></input>" +
 			"<div class='description'>" + options_description + "</div>" +
-			"<select class='value' id='location'>" + options + 
+			"<select class='value' id='location'>" +
 			"</select>" +
 		"</div>" +
 	"</div>" +
 	"<div id='overlay'></div>");
+	
+	$("#location").append(options_dom_element.children().clone());
+	
 	/* OPTIONS 			  <option value="volvo">Volvo</option>
 			  <option value="saab">Saab</option>
 			  Wo kommt es her?

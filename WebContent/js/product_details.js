@@ -29,6 +29,7 @@ function fillProductWithDataBecauseOfTextFields() {
 	product.lkw_ids = [1,2,3];
 	product.lager_quantity = $("#product_lager_quantity").text();
 	product.unity = $(".product_unity").get(0).innerHTML;
+	product.state = $("#product_state").text();
 }
 
 function fillProductWithDataBecauseOfInputFields() {
@@ -38,6 +39,11 @@ function fillProductWithDataBecauseOfInputFields() {
 	product.minimum_limit = $("#product_minimum_limit").val();
 	product.lkw_ids = [1,2,3];
 	product.unity = $("#product_unity").val();
+	if ($("#product_state").is(":checked")) {
+		product.state = "ACTIVE";
+	} else {
+		product.state = "INACTIVE";
+	}
 	//alert("unity = " + product.unity);
 }
 
@@ -64,8 +70,15 @@ function activateProductEditing() {
 				'<option value="Paar">Paar</option>' +
 				'<option value="Packung">Packung</option>' +
 				'<option value="Rolle">Rolle</option>' +
-				'</select>');
+				'</select>' + 
+				'<div class="description">Aktives Produkt:<input type="checkbox" id="product_state"></input></div>'
+				);
 	content.insertAfter("#barcode_picture");
+	if (product.state == "ACTIVE") {
+		$("#product_state").prop("checked", true);		
+	} else {
+		$("#product_state").prop("checked", false);		
+	}
 	
 	$("#product_unity").val(product.unity).change();
 }
@@ -87,8 +100,10 @@ function showProductBecauseOfData() {
 				'<div class="description">Mindestmenge im Lager:</div>' +
 				'<div class="value editable"><span id="product_minimum_limit">' + product.minimum_limit + '</span><span class="product_unity">' + " " + product.unity + '</span></div>' +
 				'<div class="description">Lagerbestand:</div>' +
-				'<div class="value editable"><span id="product_lager_quantity">' + product.lager_quantity + '</span><span class="product_unity">' + " " + product.unity + '</span></div>');
-	
+				'<div class="value editable"><span id="product_lager_quantity">' + product.lager_quantity + '</span><span class="product_unity">' + " " + product.unity + '</span></div>' +
+				'<div class="hidden value" id="product_state">' + product.state +'</div>'
+				);
+				
 	content.insertAfter("#barcode_picture");
 }
 
@@ -154,14 +169,14 @@ function generateBarCode() {
 
 
 function handleIngoing() {
-	createTransactionPopUp("Eingang...", "Wo kommt es her?", "<option value='0'>Neue Ware...</option><option value='LKW1'>GU PTL 10</option><option value='LKW2'>GU PTL 12</option>");
+	createTransactionPopUp("Eingang...", "Wo kommt es her?",  $("#possible_ingoing_locations"));
 //	createPopUp("Eingang...", "message");
 	createPopUpButtons("Verbuchen", "Abbrechen");
 	$("#confirm_pop_up_button").on("click", confirmIngoingTransaction);
 }
 
 function handleOutgoing() {
-	createTransactionPopUp("Ausgang...", "Wo geht es hin?", "<option value='selection'>Wählen Sie einen LKW aus!</option><option value='LKW1'>GU PTL 10</option><option value='LKW2'>GU PTL 12</option><option value='0'>Andere...</option>");
+	createTransactionPopUp("Ausgang...", "Wo geht es hin?", $("#possible_outgoing_locations"));
 	createPopUpButtons("Verbuchen", "Abbrechen");
 	$("#confirm_pop_up_button").on("click", confirmOutgoingTransaction);
 }

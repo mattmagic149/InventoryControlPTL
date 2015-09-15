@@ -1,18 +1,45 @@
  <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 
 <%@page import="database.Product"%>
+<%@page import="database.Truck"%>
+<%@page import="java.util.List"%>
 
 <%
 	Product product = (Product)session.getAttribute("current_product");
 	String current_location = "1";
 	
+	List<Truck> trucks_for_outgoing = null;
+	if (product.getRestriction() == Product.TruckRestriction.YES) {
+		trucks_for_outgoing = product.getTrucksToRestrict();
+	} else {
+		trucks_for_outgoing = Truck.getAllTrucks();
+	}
+	List<Truck> trucks_for_ingoing = null;
+	
+	
+	String possible_outgoing_locations = "<option value='selection'>Wählen Sie einen LKW aus!</option>";
+	if (trucks_for_outgoing != null) {
+		for (Truck truck : trucks_for_outgoing) {
+			possible_outgoing_locations += "<option value='" + truck.getId() + "'>" + truck.getLicenceTag() + "</option>";
+		}
+	}
+	possible_outgoing_locations += "<option value='0'>Andere Location...</option>";
+	
+	String possible_ingoing_locations = "<option value='0'>Neue Ware...</option>";
+/*	if () {
+		for (Truck truck : trucks_for_ingoing) {
+			possible_ingoing_locations += "<option value='" + "'>" + "</option>";
+		}
+	}
+*/		
 	String product_id = "Wird automatisch generiert";
 	String product_name = "";
 	String product_description = "";
 	String product_min_quantity = "";
 	String product_lager_quantity = "3";
 	String product_unity = "";
-
+	Product.ProductState state = Product.ProductState.ACTIVE;
+	String state_string = "ACTIVE";
 	boolean is_new = (boolean)session.getAttribute("is_new");
 	String hidden_in_new = "";		
 	if (is_new) {
@@ -26,8 +53,12 @@
 		product_min_quantity = String.valueOf(product.getMinimumLimit());
 		product_unity = product.getUnity();
 		
+		if (state == Product.ProductState.INACTIVE) {
+			state_string = "INACTIVE";			
+		}
 //		product_lager_quantity = " " + product.getUnity()
-	}	
+	}
+	state_string = "INACTIVE";
 	
 %>
 <!DOCTYPE html>
@@ -58,6 +89,8 @@
     <button id="edit" class="color hideinmobile <%=hidden_in_new %>" >Bearbeiten</button>
 	
 	<div id="current_location" class="hidden"><%=current_location %></div>
+	<div id="possible_ingoing_locations" class="hidden"><%=possible_ingoing_locations %></div>
+	<div id="possible_outgoing_locations" class="hidden"><%=possible_outgoing_locations %></div>
 	
 	<div id="product_details_container">
 		<div id="product">
@@ -74,6 +107,7 @@
 			<div class="value editable" > <span id="product_minimum_limit"><%=product_min_quantity %></span> <span class="product_unity"><%=product_unity %></span></div>
 			<div class="description">Lagerbestand:</div>
 			<div class="value editable"><span id="product_lager_quantity"><%=product_lager_quantity %></span> <span class="product_unity"><%=product_unity %></span></div>
+			<div class="hidden value" id="product_state"><%=state_string %></div>
 			<% } else { %>
 			<div class="description">Produkt ID:</div>
 			<div class="value" id="product_id"><%=product_id %></div>
@@ -90,6 +124,7 @@
 				<option value="Packung">Packung</option>
 				<option value="Rolle">Rolle</option>
 			</select>
+			<div class="description">Aktives Produkt:<input type="checkbox" id="product_state" value=on ></input></div>
 			<% } %>		
 	
 		</div>
