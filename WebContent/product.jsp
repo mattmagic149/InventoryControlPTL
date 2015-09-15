@@ -14,9 +14,6 @@
 	} else {
 		trucks_for_outgoing = Truck.getAllTrucks();
 	}
-	List<Truck> trucks_for_ingoing = null;
-	
-	
 	String possible_outgoing_locations = "<option value='selection'>Wählen Sie einen LKW aus!</option>";
 	if (trucks_for_outgoing != null) {
 		for (Truck truck : trucks_for_outgoing) {
@@ -25,6 +22,7 @@
 	}
 	possible_outgoing_locations += "<option value='0'>Andere Location...</option>";
 	
+	List<Truck> trucks_for_ingoing = null;
 	String possible_ingoing_locations = "<option value='0'>Neue Ware...</option>";
 /*	if () {
 		for (Truck truck : trucks_for_ingoing) {
@@ -51,14 +49,15 @@
 		product_name = product.getName();
 		product_description = product.getDescription();
 		product_min_quantity = String.valueOf(product.getMinimumLimit());
-		product_unity = product.getUnity();
+		product_unity = product.getUnity().getName();
 		
 		if (state == Product.ProductState.INACTIVE) {
 			state_string = "INACTIVE";			
 		}
 //		product_lager_quantity = " " + product.getUnity()
 	}
-	state_string = "INACTIVE";
+	
+	
 	
 %>
 <!DOCTYPE html>
@@ -91,6 +90,12 @@
 	<div id="current_location" class="hidden"><%=current_location %></div>
 	<div id="possible_ingoing_locations" class="hidden"><%=possible_ingoing_locations %></div>
 	<div id="possible_outgoing_locations" class="hidden"><%=possible_outgoing_locations %></div>
+	<div id="restrictions" class="hidden">
+ 		<% for (Truck truck : Truck.getAllTrucks()) { %>
+ 			<div class="value restriction_container" ><%=truck.getLicenceTag() %> <input type="checkbox" class="restriction" lkw_id="<%=truck.getId() %>" checked></input></div>
+		<% } %>
+	</div>
+	
 	
 	<div id="product_details_container">
 		<div id="product">
@@ -125,8 +130,12 @@
 				<option value="Rolle">Rolle</option>
 			</select>
 			<div class="description">Aktives Produkt:<input type="checkbox" id="product_state" value=on ></input></div>
+			
+			<div class="description" id="product_restrictions_container">Produkt darf nur in folgende LKWs:</div>
+			<% for (Truck truck : Truck.getAllTrucks()) { %>
+				<div class="value restriction_container" ><%=truck.getLicenceTag() %> <input type="checkbox" class="restriction" lkw_id="<%=truck.getId() %>"></input></div>
 			<% } %>		
-	
+			<% } %>	
 		</div>
 		
 		<button id="ingoing" class="color <%=hidden_in_new %>">Eingang<img src="img/lager_icon_in.png"/></button>

@@ -2,6 +2,7 @@
 
 var product = new Object();
 var is_new_product = false;
+var restrictions_array = [];
 
 $(document).ready(function() {
 	generateBarCode();
@@ -44,6 +45,17 @@ function fillProductWithDataBecauseOfInputFields() {
 	} else {
 		product.state = "INACTIVE";
 	}
+	
+	alert("restrictions searching...");
+	$(".restriction").each(function( index ) {
+		if ($(this).is(":checked")) {
+			var truck = new Object();
+			truck.id = $(this).attr("lkw_id");
+			restrictions_array.push(truck);
+		}
+	});
+	product.restrictions = restrictions_array;
+	alert("restrictions" + product.restrictions);
 	//alert("unity = " + product.unity);
 }
 
@@ -71,7 +83,8 @@ function activateProductEditing() {
 				'<option value="Packung">Packung</option>' +
 				'<option value="Rolle">Rolle</option>' +
 				'</select>' + 
-				'<div class="description">Aktives Produkt:<input type="checkbox" id="product_state"></input></div>'
+				'<div class="description">Aktives Produkt:<input type="checkbox" id="product_state"></input></div>' +
+				'<div class="description" id="product_restrictions_container">Produkt darf nur in folgende LKWs:</div>'
 				);
 	content.insertAfter("#barcode_picture");
 	if (product.state == "ACTIVE") {
@@ -134,12 +147,8 @@ function sendProductToServer(servlet, product_string) {
 		success: function(data, settings, xhr) {
 			//alert("success");
 			var content = xhr.getResponseHeader('content');
-			if (is_new_product) {
-				var new_id = "1";
-				location.href = "ProductDetail?id=" + new_id;
-			}
-			$("#ok").hide();
-			showProductBecauseOfData();		
+			var id = xhr.getResponseHeader('id');
+			location.href = "ProductDetail?id=" + id;
 		},
 		error: function(data, settings, xhr) {
 			alert("error");

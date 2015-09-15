@@ -78,6 +78,10 @@ h2{
 	display: none;
 }
 
+.restriction_container {
+	float: left;
+}
+
 @media only all and (max-width:70em) {
 	
 	

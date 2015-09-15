@@ -49,8 +49,8 @@
 		<section class="item color_discreet" id="<%=products.get(i).getId() %>">
 			<div class="name"><%=products.get(i).getName() + "&nbsp;" %> </div>
 			<div class="name"><%=products.get(i).getDescription() + "&nbsp;"%></div>
-			<div class="name"><%=products.get(i).getMinimumLimit() + " " + products.get(i).getUnity()  + "&nbsp;"%></div>
-			<div class="name"><%=products.get(i).getProductElements().size() + " " + products.get(i).getUnity()  + "&nbsp;"%></div>
+			<div class="name"><%=products.get(i).getMinimumLimit() + " " + products.get(i).getUnity().getName()  + "&nbsp;"%></div>
+			<div class="name"><%=products.get(i).getProductElements().size() + " " + products.get(i).getUnity().getName()  + "&nbsp;"%></div>
 			<button class="details color"> &#062 &#062 </button>
 		</section>
 	<%
