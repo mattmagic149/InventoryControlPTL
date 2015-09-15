@@ -27,7 +27,6 @@ function fillProductWithDataBecauseOfTextFields() {
 	product.name = $("#product_name").text();
 	product.description = $("#product_description").text();
 	product.minimum_limit = $("#product_minimum_limit").text();
-	product.lkw_ids = [1,2,3];
 	product.lager_quantity = $("#product_lager_quantity").text();
 	product.unity = $(".product_unity").get(0).innerHTML;
 	product.state = $("#product_state").text();
