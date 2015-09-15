@@ -21,6 +21,7 @@ package utils;
 
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
+
 import database.*;
 
 
@@ -47,6 +48,7 @@ public class DatabaseConstruction {
 		configuration.addAnnotatedClass(Truck.class);
 		configuration.addAnnotatedClass(Inventory.class);
 		configuration.addAnnotatedClass(Product.class);
+		configuration.addAnnotatedClass(Unity.class);
 		configuration.addAnnotatedClass(ProductElement.class);
 		configuration.addAnnotatedClass(User.class);
 		configuration.addAnnotatedClass(Transaction.class);
