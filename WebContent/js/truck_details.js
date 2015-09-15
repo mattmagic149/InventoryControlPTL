@@ -216,13 +216,10 @@ function confirmOutgoingTransaction() {
 }
 
 function sendTransaction(quantity, from, to) {
-	var product_id = $("#product").attr("value");
-	
 	$.ajax({
 		type: "POST",
 		url: "CommitTransaction",
-		data: { product_id: product_id,
-				from: from,
+		data: { from: from,
 				to: to, 
 				quantity: quantity },
 		cache: false,

@@ -7,7 +7,7 @@
 
 <%
 	Product product = (Product)session.getAttribute("current_product");
-	String current_location = "1";
+	String current_location = "2";
 	
 	List<Truck> trucks_for_outgoing = null;
 	if (product != null && product.getRestriction() == Product.TruckRestriction.YES) {
@@ -21,10 +21,10 @@
 			possible_outgoing_locations += "<option value='" + truck.getId() + "'>" + truck.getLicenceTag() + "</option>";
 		}
 	}
-	possible_outgoing_locations += "<option value='0'>Andere Location...</option>";
+	possible_outgoing_locations += "<option value='3'>Andere Location...</option>";
 	
 	List<Truck> trucks_for_ingoing = null;
-	String possible_ingoing_locations = "<option value='0'>Neue Ware...</option>";
+	String possible_ingoing_locations = "<option value='1'>Neue Ware...</option>";
 /*	if () {
 		for (Truck truck : trucks_for_ingoing) {
 			possible_ingoing_locations += "<option value='" + "'>" + "</option>";
@@ -37,7 +37,6 @@
 	String product_min_quantity = "";
 	String product_lager_quantity = "3";
 	String product_unity = "";
-	Product.ProductState state = Product.ProductState.ACTIVE;
 	String state_string = "ACTIVE";
 	List<Pair<Boolean, Truck>> truck_restrictions = null;
 	boolean no_restriction = false;
@@ -55,7 +54,7 @@
 		product_min_quantity = String.valueOf(product.getMinimumLimit());
 		product_unity = product.getUnity().getName();
 		
-		if (state == Product.ProductState.INACTIVE) {
+		if (product.getState() == Product.ProductState.INACTIVE) {
 			state_string = "INACTIVE";			
 		}
 		
