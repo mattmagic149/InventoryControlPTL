@@ -286,6 +286,7 @@ public class Truck extends Location implements ISaveAndDelete {
 	public static List<Truck> getAllTrucks() {
 		return HibernateSupport.readMoreObjects(Truck.class, new ArrayList<Criterion>());
 	}
+
 	
 	public boolean addTruckService() {
 		
