@@ -41,9 +41,6 @@
 	String state_string = "ACTIVE";
 	List<Pair<Boolean, Truck>> truck_restrictions = null;
 	boolean no_restriction = false;
-	if (product.getRestriction() == Product.TruckRestriction.NO) {
-		no_restriction = true; 
-	}
 	
 	boolean is_new = (boolean)session.getAttribute("is_new");
 	String hidden_in_new = "";		
@@ -63,7 +60,10 @@
 		}
 		
 		truck_restrictions = product.getAllTrucksIncludingRestriction();	
-
+		if (product.getRestriction() == Product.TruckRestriction.NO) {
+			no_restriction = true; 
+		}
+		
 		//		product_lager_quantity = " " + product.getUnity()
 	}
 	
