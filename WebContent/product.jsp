@@ -40,6 +40,10 @@
 	Product.ProductState state = Product.ProductState.ACTIVE;
 	String state_string = "ACTIVE";
 	List<Pair<Boolean, Truck>> truck_restrictions = null;
+	boolean no_restriction = false;
+	if (product.getRestriction() == Product.TruckRestriction.NO) {
+		no_restriction = true; 
+	}
 	
 	boolean is_new = (boolean)session.getAttribute("is_new");
 	String hidden_in_new = "";		
@@ -95,11 +99,14 @@
 	<div id="possible_ingoing_locations" class="hidden"><%=possible_ingoing_locations %></div>
 	<div id="possible_outgoing_locations" class="hidden"><%=possible_outgoing_locations %></div>
 	<div id="restrictions" class="hidden">
-	<% if (!is_new && truck_restrictions != null) { %>
-		
-		<div class="value restriction_container" > Alle LKWs<input type="checkbox" class="restriction" lkw_id="0" id="no_restriction" ></input></div>
+	<% if (!is_new && truck_restrictions != null) { 
+		if (no_restriction) { %>
+			<div class="value restriction_container" > Alle LKWs<input type="checkbox" class="restriction" lkw_id="0" id="no_restriction" checked></input></div>
+ 		<% } else { %>
+			<div class="value restriction_container" > Alle LKWs<input type="checkbox" class="restriction" lkw_id="0" id="no_restriction" ></input></div>
+		<% } %>
  		<% for (Pair<Boolean, Truck> bool_truck : truck_restrictions) { %>	
- 			<% if(bool_truck.getValue0()) { %>	
+ 			<% if(bool_truck.getValue0() || no_restriction) { %>	
 	 			<div class="value restriction_container" ><%=bool_truck.getValue1().getLicenceTag() %> <input type="checkbox" class="restriction" lkw_id="<%=bool_truck.getValue1().getId() %>" checked></input></div>
 	 		<% } else { %>	
 	 			<div class="value restriction_container" ><%=bool_truck.getValue1().getLicenceTag() %> <input type="checkbox" class="restriction" lkw_id="<%=bool_truck.getValue1().getId() %>"></input></div>
