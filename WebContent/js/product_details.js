@@ -46,7 +46,6 @@ function fillProductWithDataBecauseOfInputFields() {
 		product.state = "INACTIVE";
 	}
 	
-	alert("restrictions searching...");
 	$(".restriction").each(function( index ) {
 		if ($(this).is(":checked")) {
 			var truck = new Object();
@@ -54,8 +53,7 @@ function fillProductWithDataBecauseOfInputFields() {
 			restrictions_array.push(truck);
 		}
 	});
-	product.restrictions = restrictions_array;
-	alert("restrictions" + product.restrictions);
+	product.trucks_to_restrict = restrictions_array;
 	//alert("unity = " + product.unity);
 }
 
@@ -92,6 +90,8 @@ function activateProductEditing() {
 	} else {
 		$("#product_state").prop("checked", false);		
 	}
+	var restrictions = $("#restrictions").children().clone();
+	restrictions.insertAfter("#product_restrictions_container");
 	
 	$("#product_unity").val(product.unity).change();
 }
@@ -125,10 +125,8 @@ function confirmProductEditing() {
 	if (is_new_product) {
 		product.id = "P-000000";
 		var product_string = JSON.stringify(product);
-		alert("product add = " + product_string);
 		sendProductToServer("Add", product_string);
 	} else {
-		alert("is NOT new product");
 		var product_string = JSON.stringify(product);
 		alert("product edit = " + product_string);
 		sendProductToServer("Edit", product_string);		

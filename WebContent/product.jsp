@@ -3,13 +3,14 @@
 <%@page import="database.Product"%>
 <%@page import="database.Truck"%>
 <%@page import="java.util.List"%>
+<%@page import="org.javatuples.Pair"%>
 
 <%
 	Product product = (Product)session.getAttribute("current_product");
 	String current_location = "1";
 	
 	List<Truck> trucks_for_outgoing = null;
-	if (product.getRestriction() == Product.TruckRestriction.YES) {
+	if (product != null && product.getRestriction() == Product.TruckRestriction.YES) {
 		trucks_for_outgoing = product.getTrucksToRestrict();
 	} else {
 		trucks_for_outgoing = Truck.getAllTrucks();
@@ -38,6 +39,8 @@
 	String product_unity = "";
 	Product.ProductState state = Product.ProductState.ACTIVE;
 	String state_string = "ACTIVE";
+	List<Pair<Boolean, Truck>> truck_restrictions = null;
+	
 	boolean is_new = (boolean)session.getAttribute("is_new");
 	String hidden_in_new = "";		
 	if (is_new) {
@@ -54,10 +57,11 @@
 		if (state == Product.ProductState.INACTIVE) {
 			state_string = "INACTIVE";			
 		}
-//		product_lager_quantity = " " + product.getUnity()
+		
+		truck_restrictions = product.getAllTrucksIncludingRestriction();	
+
+		//		product_lager_quantity = " " + product.getUnity()
 	}
-	
-	
 	
 %>
 <!DOCTYPE html>
@@ -91,9 +95,15 @@
 	<div id="possible_ingoing_locations" class="hidden"><%=possible_ingoing_locations %></div>
 	<div id="possible_outgoing_locations" class="hidden"><%=possible_outgoing_locations %></div>
 	<div id="restrictions" class="hidden">
- 		<% for (Truck truck : Truck.getAllTrucks()) { %>
- 			<div class="value restriction_container" ><%=truck.getLicenceTag() %> <input type="checkbox" class="restriction" lkw_id="<%=truck.getId() %>" checked></input></div>
+	<% if (!is_new && truck_restrictions != null) { %>
+ 		<% for (Pair<Boolean, Truck> bool_truck : truck_restrictions) { %>	
+ 			<% if(bool_truck.getValue0()) { %>	
+	 			<div class="value restriction_container" ><%=bool_truck.getValue1().getLicenceTag() %> <input type="checkbox" class="restriction" lkw_id="<%=bool_truck.getValue1().getId() %>" checked></input></div>
+	 		<% } else { %>	
+	 			<div class="value restriction_container" ><%=bool_truck.getValue1().getLicenceTag() %> <input type="checkbox" class="restriction" lkw_id="<%=bool_truck.getValue1().getId() %>"></input></div>
+			<% } %>
 		<% } %>
+	<% } %>
 	</div>
 	
 	
