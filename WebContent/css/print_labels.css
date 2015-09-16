@@ -1,0 +1,62 @@
+@charset "UTF-8";
+/* CSS Document */
+
+h1 {
+  text-transform: uppercase;
+  color: #023e88;
+  padding-top: 100px;
+}
+
+h2{
+  font-style: italic;
+}
+
+#wrapper {
+  line-height:1.25em;
+}
+
+#container {
+  position: relative;
+  top: 0px;
+  width: 700px;
+  height: 360px;
+  overflow-y: scroll;
+  margin: 0 auto;
+}
+
+.product {
+   margin-top: 0.5em;
+	width: 100%;
+	border-bottom: 1px solid #5576c7;
+}
+.product:last-of-type {
+   margin-top: 0.5em;
+	width: 100%;
+	border-bottom: 1px solid transparent;
+	padding-bottom: 1em;
+}
+.description {
+   margin-right: 1em;
+   font-size: 0.8em;
+   width: 75%;
+   float: left;
+}
+.name {
+   font-weight: bold;
+}
+
+.value {
+	width: 20%;
+	text-align: center;
+}
+
+input[type='number']::-webkit-inner-spin-button, 
+input[type='number']::-webkit-outer-spin-button { 
+    opacity: 1;
+}
+
+
+.hidden {
+	display: none;
+}
+
