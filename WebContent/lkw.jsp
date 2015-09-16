@@ -1,10 +1,14 @@
 <%@page import="database.Truck"%>
 
+
 <%
 	Object obj = session.getAttribute("current_truck");
-	if (obj == null) {
-		//weiterleitung
-	}
+	Object obj2 = session.getAttribute("is_new");
+	if (obj == null || obj2 == null) {%>
+		<jsp:forward page="welcome.jsp"/>
+
+	<%}
+	boolean is_new = (boolean)session.getAttribute("is_new");
 	Truck truck = (Truck)session.getAttribute("current_truck");
 	String truck_license_tag = "";
 	String truck_brand = "";
@@ -44,7 +48,6 @@
 		}
 	}
 	
-	boolean is_new = false; //(boolean)session.getAttribute("is_new");
 	String hidden_in_new = "";		
 	if (is_new) {
 		hidden_in_new = "hidden";

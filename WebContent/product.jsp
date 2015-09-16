@@ -6,6 +6,12 @@
 <%@page import="org.javatuples.Pair"%>
 
 <%
+	Object obj = session.getAttribute("current_product");
+	Object obj2 = session.getAttribute("is_new");
+	if (obj == null || obj2 == null) {%>
+		<jsp:forward page="welcome.jsp"/>
+	
+	<%}
 	Product product = (Product)session.getAttribute("current_product");
 	String current_location = "2";//id from the inventory
 	

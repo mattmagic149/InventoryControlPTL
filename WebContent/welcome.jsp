@@ -5,6 +5,11 @@
 <%@page import="org.javatuples.Pair"%>
 
 <%
+	Object obj = session.getAttribute("products_under_limit");
+	if (obj == null) {%>
+		<jsp:forward page="welcome.jsp"/>
+	
+	<%}
 	int products_under_limit = (int)session.getAttribute("products_under_limit");
 %>
 

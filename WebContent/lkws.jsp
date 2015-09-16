@@ -3,8 +3,12 @@
 <%@page import="java.util.List" %>
 
 <%
+	Object obj = session.getAttribute("trucks_list");
+	if (obj == null) {%>
+		<jsp:forward page="welcome.jsp"/>
+	
+	<%}
 	List<Truck> trucks = new ArrayList<Truck>((ArrayList) session.getAttribute("trucks_list"));
-	System.out.println("trucks size =" + trucks.size());
 %>
 
 <!DOCTYPE html>
