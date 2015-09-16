@@ -1,6 +1,5 @@
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@page import="database.Truck"%>
-
-
 <%
 	Object obj = session.getAttribute("current_truck");
 	Object obj2 = session.getAttribute("is_new");
@@ -79,7 +78,7 @@
 	<div id="distance"></div>
 	<div id="wrapper">
     <a href="Logout"><button id="logout" class="color_discreet">Logout</button></a>
-    <a href="Welcome"><button id="back" class="color_discreet">&#060&#060 Übersicht</button></a>
+    <a href="Welcome"><button id="back" class="color_discreet">&#060&#060 Übersicht</button></a>
     <button id="edit" class="color" >Bearbeiten</button>
 	
 	<div class="hidden" id="tyre_type_front"><%=truck.getWheelsFront().getTyreType().ordinal() %></div>
@@ -175,31 +174,31 @@
 				<input type="text" class="value" id="fin"></input>
 			</div>
 			<div class="entry one_row">
-				<div class="description">Ladefläche in Meter (Höhe / Länge):</div>
+				<div class="description">LadeflÃ¤che in Meter (HÃ¶he / LÃ¤nge):</div>
 				<input type="text" class="value split_in_two" id="loading_space_height"></input>
 				<input type="text" class="value split_in_two" id="loading_space_length"></input>
 			</div>
 			<div class="entry">
 				<div class="description">Reifen vorne:</div>
-				<div class="description">(Reifenart, Größe in mm):</div>
+				<div class="description">(Reifenart, GrÃ¶Ãe in mm):</div>
 				<select class="value split_in_two" id="tyre_type_front">
 					<option value="0">RADIAL</option>
 					<option value="1">DIAGONAL</option>
 				</select>
 				<input type="text" class="value split_in_two" id="size_in_mm_front"></input>
-				<div class="description">(Höhe in Prozent, Größe in Inch):</div>
+				<div class="description">(HÃ¶he in Prozent, GrÃ¶Ãe in Inch):</div>
 				<input type="text" class="value split_in_two" id="height_in_percent_front"></input>
 				<input type="text" class="value split_in_two" id="size_in_inch_front"></input>
 			</div>
 			<div class="entry">
 				<div class="description">Reifen hinten:</div>
-				<div class="description">(Reifenart, Größe in mm):</div>
+				<div class="description">(Reifenart, GrÃ¶Ãe in mm):</div>
 				<select class="value split_in_two" id="tyre_type_rear">
 					<option value="0">RADIAL</option>
 					<option value="1">DIAGONAL</option>
 				</select>
 				<input type="text" class="value split_in_two" id="size_in_mm_rear"></input>
-				<div class="description">(Höhe in Prozent, Größe in Inch):</div>
+				<div class="description">(HÃ¶he in Prozent, GrÃ¶Ãe in Inch):</div>
 				<input type="text" class="value split_in_two" id="height_in_percent_rear"></input>
 				<input type="text" class="value split_in_two" id="size_in_inch_rear"></input>
 			</div>

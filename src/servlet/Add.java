@@ -30,6 +30,7 @@ public class Add extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html; charset=UTF-8");
 		request.getRequestDispatcher("welcome.jsp").include(request, response);
 		return;
 	}
@@ -38,6 +39,7 @@ public class Add extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html; charset=UTF-8");
 		String parameter = request.getParameter("type");
 		String object = request.getParameter("object");
 		if(parameter == null || object == null) {

@@ -32,6 +32,7 @@ public class CommitTransaction extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html; charset=UTF-8");
 		request.getRequestDispatcher("welcome.jsp").include(request, response);
 		return;
 	}
@@ -40,7 +41,8 @@ public class CommitTransaction extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		response.setContentType("text/html; charset=UTF-8");
+
 		User user = User.login("rene", "123456");
 		if(user == null) {
 			System.out.println("User not logged in.");

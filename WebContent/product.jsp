@@ -1,5 +1,4 @@
- <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
-
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@page import="database.Product"%>
 <%@page import="database.Truck"%>
 <%@page import="java.util.List"%>
@@ -101,7 +100,7 @@
 	<div id="distance"></div>
 	<div id="wrapper">
     <a href="Logout"><button id="logout" class="color_discreet">Logout</button></a>
-    <a href="Welcome"><button id="back" class="color_discreet">&#060&#060 Ãbersicht</button></a>
+    <a href="Welcome"><button id="back" class="color_discreet">&#060&#060 Übersicht</button></a>
     <button id="edit" class="color hideinmobile <%=hidden_in_new %>" >Bearbeiten</button>
 	
 	<div id="current_location" class="hidden"><%=current_location %></div>

@@ -32,7 +32,7 @@ public class ProductDetail extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
-		
+		response.setContentType("text/html; charset=UTF-8");
 		/*if(session.getAttribute("currentUser") == null) {
 			request.getRequestDispatcher("index.jsp").include(request, response);
 			System.out.println("NOT logged in");
@@ -83,6 +83,7 @@ public class ProductDetail extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html; charset=UTF-8");
 		request.getRequestDispatcher("welcome.jsp").include(request, response);
 		return;
 	}

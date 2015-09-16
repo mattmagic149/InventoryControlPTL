@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernate.criterion.Criterion;
 
-import database.Inventory;
 import database.Product;
 import utils.HibernateSupport;
 
@@ -33,6 +32,7 @@ public class PrintLabels extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html; charset=UTF-8");
 		HttpSession session = request.getSession(true);
 		
 		/*if(session.getAttribute("currentUser") == null) {
@@ -60,6 +60,7 @@ public class PrintLabels extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html; charset=UTF-8");
 		request.getRequestDispatcher("welcome.jsp").include(request, response);
 		return;
 	}

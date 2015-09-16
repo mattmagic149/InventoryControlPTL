@@ -1,3 +1,4 @@
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@page import="database.Truck" %>
 <%@page import="java.util.ArrayList" %>
 <%@page import="java.util.List" %>
@@ -47,7 +48,7 @@
 		for (int i = 0; i < trucks.size(); i++) {
 	  %>
 		      <section class="item color_discreet" id="<%=trucks.get(i).getId() %>">
-		        <div class="name"><%=trucks.get(i).getLicenceTag() %>Ÿ</div>
+		        <div class="name"><%=trucks.get(i).getLicenceTag() %>ÂŸ</div>
 		        <div class="name">...</div>
 		        <div class="name">...</div>
 		        <div class="name">...</div>

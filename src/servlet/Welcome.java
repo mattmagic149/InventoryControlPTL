@@ -33,6 +33,7 @@ public class Welcome extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html; charset=UTF-8");
 		/*HttpSession session = request.getSession(true);
 		
 		if(session.getAttribute("currentUser") == null) {
@@ -56,6 +57,7 @@ public class Welcome extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html; charset=UTF-8");
 		request.getRequestDispatcher("welcome.jsp").include(request, response);
 		return;
 	}

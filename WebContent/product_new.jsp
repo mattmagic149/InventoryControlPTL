@@ -1,3 +1,4 @@
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +18,7 @@
 	<div id="distance"></div>
 	<div id="wrapper">
     <a href="Logout"><button id="logout" class="color_discreet">Logout</button></a>
-    <a href="Welcome"><button id="back" class="color_discreet">&#060&#060 Übersicht</button></a>
+    <a href="Welcome"><button id="back" class="color_discreet">&#060&#060 Übersicht</button></a>
 
     <div id="product">
 		<div class="description">Produktname:</div>
