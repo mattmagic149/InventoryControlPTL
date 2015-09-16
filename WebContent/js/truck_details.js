@@ -7,16 +7,40 @@ $(document).ready(function() {
 	generateBarCode();
 	
 	if ($("#barcode_picture").hasClass("hidden")) {
-		is_new_product = true;
+		is_new_truck = true;
 		$("#ok").show();
 	} else {
 		$("#edit").on("click", activateTruckEditing);		
-		fillProductWithDataBecauseOfTextFields();
+		fillTruckWithDataBecauseOfTextFields();
 	}
+
+	$("#wrapper").on("change", "#brand", handleChangeBrand);
+	$("#wrapper").on("change", "#type", handleChangeType);
 
 	$("#wrapper").on("click", "#ok", confirmTruckEditing);
 
 });
+
+function handleChangeBrand(e) {
+	if ($(this).val() == "NEW") {
+		$("#new_brand").removeClass("hidden");
+		$(this).addClass("split_in_two");		
+	} else {
+		$("#new_brand").addClass("hidden");
+		$(this).removeClass("split_in_two");		
+	}
+}
+
+function handleChangeType(e) {
+	if ($(this).val() == "NEW") {
+		$("#new_type").removeClass("hidden");
+		$(this).addClass("split_in_two");		
+	} else {
+		$("#new_type").addClass("hidden");
+		$(this).removeClass("split_in_two");				
+	}
+}
+
 
 function fillTruckWithDataBecauseOfTextFields() {
 	truck.id = $("#truck").attr("truck_id");
@@ -55,22 +79,82 @@ function fillTruckWithDataBecauseOfTextFields() {
 }
 
 function fillTruckWithDataBecauseOfInputFields() {
+	truck.id = $("#truck").attr("truck_id");
+	truck.license_tag = $("#license_tag").val();
+	truck.brand = $("#brand").val();
+	if (truck.brand == "NEW") {
+		truck.brand = $("#new_brand").val();
+	}
+	truck.type = $("#type").val();
+	if (truck.type == "NEW") {
+		truck.type = $("#new_type").val();
+	}
 	
+	truck.type_of_fuel = $("#type_of_fuel").val();
+	truck.payload = $("#payload").val();
+	truck.performance = $("#performance").val();
+	truck.emission_standard = $("#emission_standard").val();
+	truck.fin = $("#fin").val();
+	truck.loading_space_height = $("#loading_space_height").val();
+	truck.loading_space_length = $("#loading_space_length").val();
+	var wf = new Object();
+	wf.tyre_type = $("#tyre_type_front").val();
+	wf.size_in_mm = $("#size_in_mm_front").val();
+	wf.height_in_percent = $("#height_in_percent_front").val();
+	wf.size_in_inch = $("#size_in_inch_front").val();
+	truck.wheels_front = wf;
+	var wr = new Object();
+	wr.tyre_type = $("#tyre_type_rear").val();
+	wr.size_in_mm = $("#size_in_mm_rear").val();
+	wr.height_in_percent = $("#height_in_percent_rear").val();
+	wr.size_in_inch = $("#size_in_inch_rear").val();
+	truck.wheels_rear = wr;
+
+	truck.state = $("#state").val();
+
+	truck.initial_registration = $("#initial_registration").val();
+	truck.new_vehicle_since = $("#new_vehicle_since").val();
+	
+	
+	var truck_string = JSON.stringify(truck);
+	console.log("truck modified = " + truck_string);
 }
 
 function activateTruckEditing() {
 	$("#ok").show();
 	fillTruckWithDataBecauseOfTextFields();
+	$("#hidden_infos").remove();
+	$("h1").text("");
+	$("#truck_details_container").addClass("editing");
 	$("#truck").find(".description").remove();
 	$("#truck").find(".value").remove();
 	$("#barcode_picture").hide();
 
 	var content = $('<div class="entry one_row">' + 
-			'	<div class="description">Treibstoff:</div>' + 
-			'	<select class="value" id="type_of_fuel">' + 
-			'		<option value="Diesel">Diesel</option>' + 
-			'		<option value="Benzin">Benzin</option>' + 
+			'	<div class="description">Kennzeichen:</div>' + 
+			'	<input type="text" class="value" id="license_tag" value="'+ truck.license_tag +'"></input>' + 
+			'</div>' + 
+			'<div class="entry one_row">' + 
+			'	<div class="description">Marke:</div>' + 
+			'	<select class="value" id="brand">' + 
+			'		<option value="Audi">brand1</option>' + 
+			'		<option value="1">brand2</option>' + 
+			'		<option value="NEW">Neue Marke anlegen</option>' + 
 			'	</select>' + 
+			'	<input type="text" class="value hidden split_in_two" id="new_brand"></input>' + 
+			'</div>' + 
+			'<div class="entry one_row">' + 
+			'	<div class="description">Fahrzeug Identifikationsnummer:</div>' + 
+			'	<input type="text" class="value" id="fin" value="' + truck.fin + '"></input>' + 
+			'</div>' + 
+			'<div class="entry one_row">' + 
+			'	<div class="description">Type:</div>' + 
+			'	<select class="value" id="type">' + 
+			'		<option value="0">type1</option>' + 
+			'		<option value="1">type2</option>' + 
+			'		<option value="NEW">Neue Type anlegen</option>' + 
+			'	</select>' + 
+			'	<input type="text" class="value hidden split_in_two" id="new_type"></input>' + 
 			'</div>' + 
 			'<div class="entry one_row">' + 
 			'	<div class="description">Nutzlast:</div>' + 
@@ -79,6 +163,13 @@ function activateTruckEditing() {
 			'<div class="entry one_row">' + 
 			'	<div class="description">Leistung in KW:</div>' + 
 			'	<input type="text" class="value" id="performance" value="' + truck.performance + '"></input>' + 
+			'</div>' + 
+			'<div class="entry one_row">' + 
+			'	<div class="description">Treibstoff:</div>' + 
+			'	<select class="value" id="type_of_fuel">' + 
+			'		<option value="Diesel">Diesel</option>' + 
+			'		<option value="Benzin">Benzin</option>' + 
+			'	</select>' + 
 			'</div>' + 
 			'<div class="entry one_row">' + 
 			'	<div class="description">Abgasnorm (0-6):</div>' + 
@@ -93,14 +184,17 @@ function activateTruckEditing() {
 			'	</select>' + 
 			'</div>' + 
 			'<div class="entry one_row">' + 
-			'	<div class="description">Fahrzeug Identifikationsnummer:</div>' + 
-			'	<input type="text" class="value" id="fin" value="' + truck.fin + '"></input>' + 
-			'</div>' + 
-			'<div class="entry one_row">' + 
 			'	<div class="description">Ladefläche in Meter (Höhe / Länge):</div>' + 
 			'	<input type="text" class="value split_in_two" id="loading_space_height" value="' + truck.loading_space_height + '"></input>' + 
 			'	<input type="text" class="value split_in_two" id="loading_space_length" value="' + truck.loading_space_length + '"></input>' + 
 			'</div>' + 
+			'<div class="entry">' + 
+			'	<div class="description">Status des LKWs:</div>' + 
+			'	<select class="value" id="state">' + 
+			'		<option value="ACTIVE">Aktiv</option>' + 
+			'		<option value="SOLD">Verkauft</option>' + 
+			'	</select>' + 
+			'</div>' +
 			'<div class="entry">' + 
 			'	<div class="description">Reifen vorne:</div>' + 
 			'	<div class="description">(Reifenart, Größe in mm):</div>' + 
@@ -125,65 +219,31 @@ function activateTruckEditing() {
 			'	<input type="text" class="value split_in_two" id="height_in_percent_rear" value="' + truck.wheels_rear.height_in_percent + '"></input>' + 
 			'	<input type="text" class="value split_in_two" id="size_in_inch_rear" value="' + truck.wheels_rear.size_in_inch + '"></input>' + 
 			'</div>' + 
-			'<div class="entry hidden">' + 
-			'	<div class="description">Status des LKWs:</div>' + 
-			'	<div class="value">' + "STATE" + '</div>' + 
-			'</div>' + 
 			'<div class="entry">' + 
 			'	<div class="description">Erstmalige Zulassung:</div>' + 
-			'	<div class="value"></div>' + 
+		   	'   <input type="text" value="' + truck.initial_registration + '" placeholder="Erstzulassung" id="initial_registration"/>' +
 			'</div>' + 
 			'<div class="entry">' + 
 			'	<div class="description">Neufahrzeug seit:</div>' + 
-			'	<div class="value"></div>' + 
+		   	'   <input type="text" value="' + truck.new_vehicle_since + '" placeholder="Neuwagen seit" id="new_vehicle_since"/>' +
 			'</div>'
 			);
 	content.insertAfter("#barcode_picture");
 	
 	$("#type_of_fuel").val(truck.type_of_fuel).change();
 	$("#emission_standard").val(truck.emission_standard).change();
-	//$("#tyre_type_front").val(truck.wheels_front.tyre_type).change();
-	//$("#tyre_type_rear").val(truck.tyre_type_rear).change();
-/*	
-	if (product.state == "ACTIVE") {
-		$("#product_state").prop("checked", true);		
-	} else {
-		$("#product_state").prop("checked", false);		
-	}
-	var restrictions = $("#restrictions").children();
-	restrictions.insertAfter("#product_restrictions_container");
-	
-	$("#product_unity").val(product.unity).change();
-	*/
+	$("#brand").val(truck.brand).change();
+	$("#type").val(truck.type).change();
+	$("#state").val(truck.state).change();
+	$("#tyre_type_front").val("" + truck.wheels_front.tyre_type).change();
+	$("#tyre_type_rear").val("" + truck.wheels_rear.tyre_type).change();
+
 }
 
-function showProductBecauseOfData() {
-	fillProductWithDataBecauseOfInputFields();
-	$("#product").find(".description").remove();
-	$("#product").find(".value").remove();
-	$("#ingoing").show();
-	$("#outgoing").show();
-	$("#barcode_picture").show();
-
-	var content = $('<div class="description">Produkt ID:</div>' +
-				'<div class="value" id="product_id">' + product.id + '</div>' +
-				'<div class="description">Produktname:</div>' +
-				'<div class="value editable" id="product_name">' + product.name + '</div>' +
-				'<div class="description">Beschreibung:</div>' +
-				'<div class="value editable" id="product_description">' + product.description + '</div>' +
-				'<div class="description">Mindestmenge im Lager:</div>' +
-				'<div class="value editable"><span id="product_minimum_limit">' + product.minimum_limit + '</span><span class="product_unity">' + " " + product.unity + '</span></div>' +
-				'<div class="description">Lagerbestand:</div>' +
-				'<div class="value editable"><span id="product_lager_quantity">' + product.lager_quantity + '</span><span class="product_unity">' + " " + product.unity + '</span></div>' +
-				'<div class="hidden value" id="product_state">' + product.state +'</div>'
-				);
-				
-	content.insertAfter("#barcode_picture");
-}
 
 function confirmTruckEditing() {
 	fillTruckWithDataBecauseOfInputFields();
-	if (is_new_product) {
+	if (is_new_truck) {
 		truck.id = "0";
 		var truck_string = JSON.stringify(truck);
 		sendTruckToServer("Add", truck_string);
@@ -205,7 +265,6 @@ function sendTruckToServer(servlet, truck_string) {
 		cache: false,
 		success: function(data, settings, xhr) {
 			//alert("success");
-			var content = xhr.getResponseHeader('content');
 			var id = xhr.getResponseHeader('id');
 			location.href = "TruckDetail?id=" + id;
 		},
@@ -234,39 +293,3 @@ function generateBarCode() {
 		$("#barcode_picture").JsBarcode(id, barcode_options);			
 	}
 }
-
-
-function handleIngoing() {
-	createTransactionPopUp("Eingang...", "Wo kommt es her?",  $("#possible_ingoing_locations"));
-//	createPopUp("Eingang...", "message");
-	createPopUpButtons("Verbuchen", "Abbrechen");
-	$("#confirm_pop_up_button").on("click", confirmIngoingTransaction);
-}
-
-function handleOutgoing() {
-	createTransactionPopUp("Ausgang...", "Wo geht es hin?", $("#possible_outgoing_locations"));
-	createPopUpButtons("Verbuchen", "Abbrechen");
-	$("#confirm_pop_up_button").on("click", confirmOutgoingTransaction);
-}
-
-
-function sendTransaction(quantity, from, to) {
-	$.ajax({
-		type: "POST",
-		url: "CommitTransaction",
-		data: { from: from,
-				to: to, 
-				quantity: quantity },
-		cache: false,
-		success: function(data, settings, xhr) {
-			alert("success, transaction was sent");
-			var content = xhr.getResponseHeader('content');
-			
-		},
-		error: function(data, settings, xhr) {
-			alert("error message = " + xhr.getResponseHeader('error_message'));
-//			$("#pop_up_message").html(xhr.getResponseHeader('error_message'));
-		}
-	});
-}
-

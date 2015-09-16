@@ -60,7 +60,8 @@
   
   <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="css/dialog.css" type="text/css" media="screen" />
-  <link rel="stylesheet" href="css/truck_details.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/jquery.datetimepicker.css" type="text/css" />
+    <link rel="stylesheet" href="css/truck_details.css" type="text/css" media="screen" />
   
   <script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
 
@@ -69,6 +70,8 @@
   <script src="js/JsBarcodeGen.js" type="text/javascript"></script>
 
   <script src="js/dialog.js" type="text/javascript"></script>
+  
+  <script src="js/jquery.datetimepicker.js" type="text/javascript" charset="UTF-8"></script>
   <script src="js/truck_details.js" type="text/javascript"></script>
 
   <title>PTL - LKW</title>
@@ -81,15 +84,19 @@
     <a href="Welcome"><button id="back" class="color_discreet">&#060&#060 Übersicht</button></a>
     <button id="edit" class="color" >Bearbeiten</button>
 	
-	<div class="hidden" id="tyre_type_front"><%=truck.getWheelsFront().getTyreType().ordinal() %></div>
-	<div class="hidden" id="size_in_mm_front"><%=truck.getWheelsFront().getSizeInmm() %></div>
-	<div class="hidden" id="height_in_percent_front"><%=truck.getWheelsFront().getHeightInPercent() %></div>
-	<div class="hidden" id="size_in_inch_front"><%=truck.getWheelsFront().getSizeInInch() %></div>
-
-	<div class="hidden" id="tyre_type_rear"><%=truck.getWheelsRear().getTyreType().ordinal() %></div>
-	<div class="hidden" id="size_in_mm_rear"><%=truck.getWheelsRear().getSizeInmm() %></div>
-	<div class="hidden" id="height_in_percent_rear"><%=truck.getWheelsRear().getHeightInPercent() %></div>
-	<div class="hidden" id="size_in_inch_rear"><%=truck.getWheelsRear().getSizeInInch() %></div>
+	<div id="hidden_infos">
+		<div class="hidden" id="state"><%=truck.getTruckState().ordinal() %></div>
+		<div class="hidden" id="brand"><%=truck.getBrand().getName() %></div>
+		<div class="hidden" id="tyre_type_front"><%=truck.getWheelsFront().getTyreType().ordinal() %></div>
+		<div class="hidden" id="size_in_mm_front"><%=truck.getWheelsFront().getSizeInmm() %></div>
+		<div class="hidden" id="height_in_percent_front"><%=truck.getWheelsFront().getHeightInPercent() %></div>
+		<div class="hidden" id="size_in_inch_front"><%=truck.getWheelsFront().getSizeInInch() %></div>
+	
+		<div class="hidden" id="tyre_type_rear"><%=truck.getWheelsRear().getTyreType().ordinal() %></div>
+		<div class="hidden" id="size_in_mm_rear"><%=truck.getWheelsRear().getSizeInmm() %></div>
+		<div class="hidden" id="height_in_percent_rear"><%=truck.getWheelsRear().getHeightInPercent() %></div>
+		<div class="hidden" id="size_in_inch_rear"><%=truck.getWheelsRear().getSizeInInch() %></div>
+	</div>
 	
 	<div id="truck_details_container">
 		<h1><span id="license_tag"><%=truck_license_tag %></span> (<span id="brand"><%=truck_brand %></span>, <span id="type"><%=truck_type %></span>)</h1>
@@ -221,7 +228,6 @@
 		</div>
 	</div>
 	<button id="ok" class="color">OK</button>
-	
     <footer></footer>
     			
 	</div>

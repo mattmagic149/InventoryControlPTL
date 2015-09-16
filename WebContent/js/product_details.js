@@ -153,7 +153,6 @@ function sendProductToServer(servlet, product_string) {
 		cache: false,
 		success: function(data, settings, xhr) {
 			//alert("success");
-			var content = xhr.getResponseHeader('content');
 			var id = xhr.getResponseHeader('id');
 			location.href = "ProductDetail?id=" + id;
 		},
