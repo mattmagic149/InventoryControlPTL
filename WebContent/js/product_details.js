@@ -19,7 +19,6 @@ $(document).ready(function() {
 	}
 
 	$("#wrapper").on("click", "#ok", confirmProductEditing);
-
 });
 
 function fillProductWithDataBecauseOfTextFields() {
@@ -204,7 +203,6 @@ function confirmIngoingTransaction() {
 	var from = $("#location").val();
 	var to = $("#current_location").text();
 	sendTransaction(quantity, from, to);
-	location.href = location.href;
 }
 function confirmOutgoingTransaction() {
 	$("#confirm_pop_up_button").off("click", confirmOutgoingTransaction);
@@ -212,7 +210,6 @@ function confirmOutgoingTransaction() {
 	var from = $("#current_location").text();
 	var to = $("#location").val();
 	sendTransaction(quantity, from, to);
-	location.href = location.href;
 }
 
 function sendTransaction(quantity, from, to) {
@@ -227,12 +224,23 @@ function sendTransaction(quantity, from, to) {
 				quantity: quantity },
 		cache: false,
 		success: function(data, settings, xhr) {
-			alert("success, transaction was sent");
-			var content = xhr.getResponseHeader('content');
+			//alert("success, transaction was sent");
+			//var content = xhr.getResponseHeader('content');
+
+			var old_quantity = parseInt($("#product_lager_quantity").text());
+			var quantity_value = parseInt(quantity);
 			
+			if (from == $("#current_location").text()) {
+				//lagerabbau
+				$("#product_lager_quantity").text(old_quantity - quantity_value);
+			} else {
+				//lageraufbau
+				$("#product_lager_quantity").text("" + (old_quantity + quantity_value));				
+			}
 		},
 		error: function(data, settings, xhr) {
-			alert("error message = " + xhr.getResponseHeader('error_message'));
+			alert("error");
+//			alert("error message = " + xhr.getResponseHeader('error_message'));
 //			$("#pop_up_message").html(xhr.getResponseHeader('error_message'));
 		}
 	});
