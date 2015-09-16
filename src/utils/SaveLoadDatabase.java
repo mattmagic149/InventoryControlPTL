@@ -45,6 +45,8 @@ public class SaveLoadDatabase {
 	
 	private String truck_string = "truck_backup";
 
+	private String inventory_string = "inventory_backup";
+
 	private String file_extension = ".csv";
 	
 	private String directory = "data/backups/";
@@ -83,6 +85,11 @@ public class SaveLoadDatabase {
 		
 		if(!this.storeProducts()) {
 			System.out.println("ERROR: Couldn't write products to file!");
+			ret = false;
+		}
+		
+		if(!this.storeInventories()) {
+			System.out.println("ERROR: Couldn't write inventories to file!");
 			ret = false;
 		}
 		
@@ -141,6 +148,31 @@ public class SaveLoadDatabase {
 		return true;
 	}
 	
+	private boolean storeInventories() {
+		System.out.println("Starting to store inventories!");
+
+		try {
+			writer = new PrintWriter(directory + inventory_string + file_extension, "UTF-8");
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		List<Inventory> inventories = HibernateSupport.readMoreObjects(Inventory.class, new ArrayList<Criterion>());
+		Inventory inventory;
+		
+		while(inventories.size() > 0) {
+			inventory = inventories.get(0);
+			inventories.remove(0);
+			writer.println(inventory.serialize());
+		}
+		writer.close();
+
+		System.out.println("Finished storing inventories!");
+		
+		return true;
+	}
+	
 
 	public boolean loadDataBase() {
 		System.out.println("Starting to load database!");
@@ -153,6 +185,11 @@ public class SaveLoadDatabase {
 		
 		if(!loadProducts()) {
 			System.out.println("ERROR: Couldn't load products!");
+			return false;
+		}
+		
+		if(!loadInventories()) {
+			System.out.println("ERROR: Couldn't load inventories!");
 			return false;
 		}
 		
@@ -239,6 +276,36 @@ public class SaveLoadDatabase {
 		}
 		
 		System.out.println("Finished loading trucks.");
+		return true;
+
+	}
+	
+	private boolean loadInventories() {
+		System.out.println("Starting to load inventories.");
+		FileReader file_reader;
+		Inventory inventory;
+		Gson gson = new GsonBuilder().create();
+
+		try {
+			file_reader = new FileReader(directory + inventory_string + file_extension);
+			BufferedReader buffered_reader = new BufferedReader(file_reader);
+			String line = null;
+			while ((line = buffered_reader.readLine()) != null) {
+				inventory = gson.fromJson(line, Inventory.class);
+				//save ProductElements
+
+				HibernateSupport.beginTransaction();
+				inventory.saveToDB();	
+				HibernateSupport.commitTransaction();
+
+			}
+			buffered_reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		System.out.println("Finished loading inventories.");
 		return true;
 
 	}

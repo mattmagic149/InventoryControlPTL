@@ -106,9 +106,25 @@ public class User implements ISaveAndDelete {
 
 	}
 	
-	public boolean moveNumberOfProductElements(int number, Product product, Location dest, Location src) {
+	public boolean moveNumberOfProductElements(int quantity, Product product, Location dest, Location src) {
 		
-		List<ProductElement> elements = src.getNumberOfProductElementsFromProductCategory(number, product);
+		List<ProductElement> elements = new ArrayList<ProductElement>();
+		ProductElement elem;
+		if(src.getId() == 1) {
+			HibernateSupport.beginTransaction();
+
+				for(int i = 0; i < quantity; i++) {
+					elem = new ProductElement();
+					src.addProductElement(elem);
+					product.addProductElement(elem);
+				}
+				src.saveToDB();
+				product.saveToDB();
+			HibernateSupport.commitTransaction();
+		}
+		
+		elements = src.getNumberOfProductElementsFromProductCategory(quantity, product);
+		
 		if(elements == null) {
 			System.out.println("moveNumberOfProductElements elements == NULL");
 			return false;
@@ -117,7 +133,7 @@ public class User implements ISaveAndDelete {
 		return processTransaction(elements, dest, src);
 	}
 	
-	public boolean processTransaction(List<ProductElement> elements, Location dest, Location src) {
+	private boolean processTransaction(List<ProductElement> elements, Location dest, Location src) {
 		Date date = new Date();
 		
 		List<Location> locations = HibernateSupport.readMoreObjects(Location.class, 
