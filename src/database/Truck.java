@@ -181,7 +181,7 @@ public class Truck extends Location implements ISaveAndDelete {
 		return loading_space_height;
 	}
 
-	public float getLoadingSpaceWidth() {
+	public float getLoadingSpaceLength() {
 		return loading_space_length;
 	}
 

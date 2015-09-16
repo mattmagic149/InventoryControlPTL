@@ -11,5 +11,5 @@ function handleClickOnDetailsButton(e) {
 }
 
 function handleClickOnNewLkwButton(e){
-	alert("handleClickOnNewLkwButton");
+	location.href = "LkwDetail?id=0";
 }

@@ -63,6 +63,7 @@ public class Wheel implements ISaveAndDelete {
 		return result;
 	}
 	
+	
 	public int getSizeInmm() {
 		return size_in_mm;
 	}
@@ -73,6 +74,10 @@ public class Wheel implements ISaveAndDelete {
 
 	public float getSizeInInch() {
 		return size_in_inch;
+	}
+
+	public TyreType getTyreType() {
+		return tyre_type;
 	}
 
 	@Override
@@ -100,4 +105,6 @@ public class Wheel implements ISaveAndDelete {
 	public int getId() {
 		return id;
 	}
+	
+	
 }
