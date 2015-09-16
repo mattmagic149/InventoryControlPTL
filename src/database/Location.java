@@ -189,6 +189,24 @@ public abstract class Location implements ISaveAndDelete {
 		return result;
 	}
 	
+	public List<Product> getAllProductsUnderMinimumLimit() {
+		List<Product> products = HibernateSupport.readMoreObjects(Product.class, new ArrayList<Criterion>());
+		List<Product> result = new ArrayList<Product>();
+		long quantity;
+		
+		for(Product product : products) {
+			if(product.getState() == Product.ProductState.ACTIVE) {
+				quantity = product.getQuantityOfSpecificLocation(this.getId());
+				if(quantity <= product.getMinimumLimit()) {
+					result.add(product);
+				}
+			}
+			
+		}
+		
+		return result;
+	}
+	
 	
 	/* (non-Javadoc)
 	 * @see interfaces.ISaveAndDelete#serialize()

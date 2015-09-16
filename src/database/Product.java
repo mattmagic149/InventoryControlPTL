@@ -244,6 +244,10 @@ public class Product implements ISaveAndDelete {
 		this.trucks_to_restrict = trucks_to_restrict;
 	}
 
+	public void setState(ProductState state) {
+		this.state = state;
+	}
+
 	public boolean addProductElement(ProductElement elem) {
 		boolean success = false;
 		

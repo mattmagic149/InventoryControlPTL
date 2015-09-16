@@ -17,6 +17,8 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.mindrot.jbcrypt.BCrypt;
 
+import database.Product.ProductState;
+import utils.Email;
 import utils.HibernateSupport;
 
 @Entity
@@ -110,6 +112,8 @@ public class User implements ISaveAndDelete {
 		
 		List<ProductElement> elements = new ArrayList<ProductElement>();
 		ProductElement elem;
+		
+		//This is the inventory for newly created ProductElements
 		if(src.getId() == 1) {
 			HibernateSupport.beginTransaction();
 
@@ -118,6 +122,7 @@ public class User implements ISaveAndDelete {
 					src.addProductElement(elem);
 					product.addProductElement(elem);
 				}
+				product.setState(ProductState.ACTIVE);
 				src.saveToDB();
 				product.saveToDB();
 			HibernateSupport.commitTransaction();
@@ -130,7 +135,18 @@ public class User implements ISaveAndDelete {
 			return false;
 		}
 		
-		return processTransaction(elements, dest, src);
+		boolean success = processTransaction(elements, dest, src);
+		
+		//This is the main inventory
+		if(src.getId() == 2) {
+			long current_quantity = src.getQuantityOfSpecificProduct(product.getId());
+			if(current_quantity <= product.getMinimumLimit()) {
+				System.out.println("I will send an e-mail to all admins.");
+				Email.sendQuantityReminder(product, current_quantity);
+			}
+		}
+		
+		return success;
 	}
 	
 	private boolean processTransaction(List<ProductElement> elements, Location dest, Location src) {
@@ -212,6 +228,10 @@ public class User implements ISaveAndDelete {
 		return password_hash;
 	}
 
+
+	public Permission getPermission() {
+		return permission;
+	}
 
 	@Override
 	public String serialize() {

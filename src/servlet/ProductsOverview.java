@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernate.criterion.Criterion;
 
+import database.Inventory;
 import database.Product;
 import utils.HibernateSupport;
 
@@ -40,9 +41,17 @@ public class ProductsOverview extends HttpServlet {
 			return;
 		}*/
 		System.out.println("ProductsOverview has been called...");
-		List<Product> products = HibernateSupport.readMoreObjects(Product.class, new ArrayList<Criterion>());
-		System.out.println(products.size());
-		if(products != null && products.size() > 0) {
+
+		String minimum_string = request.getParameter("show_under_minimum_only");
+		List<Product> products;
+		if(minimum_string != null && minimum_string.equals("true")) {
+			Inventory inventory = HibernateSupport.readOneObjectByID(Inventory.class, 2);
+			products = inventory.getAllProductsUnderMinimumLimit();
+		} else {
+			products = HibernateSupport.readMoreObjects(Product.class, new ArrayList<Criterion>());
+		}
+				
+		if(products != null) {
 			session.setAttribute("products_list", products);
 			request.getRequestDispatcher("products.jsp").include(request, response);
 			return;

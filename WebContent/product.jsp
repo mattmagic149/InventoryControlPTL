@@ -35,7 +35,7 @@
 	String product_name = "";
 	String product_description = "";
 	String product_min_quantity = "";
-	String product_lager_quantity = "3";
+	String product_lager_quantity = "0";
 	String product_unity = "";
 	String state_string = "ACTIVE";
 	List<Pair<Boolean, Truck>> truck_restrictions = null;
@@ -53,6 +53,7 @@
 		product_description = product.getDescription();
 		product_min_quantity = String.valueOf(product.getMinimumLimit());
 		product_unity = product.getUnity().getName();
+		product_lager_quantity = String.valueOf(product.getQuantityOfSpecificLocation(2)); //this means the main inventory
 		
 		if (product.getState() == Product.ProductState.INACTIVE) {
 			state_string = "INACTIVE";			

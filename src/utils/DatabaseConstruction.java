@@ -69,7 +69,7 @@ public class DatabaseConstruction {
 
 		String username = "rene";
 		String password = "123456";
-		User user = User.register(username, "Rene", "Pellissier", "test@gmail.com", password, User.Permission.ADMIN);
+		User user = User.register(username, "Rene", "Pellissier", "matthiasivantsits@gmail.com", password, User.Permission.ADMIN);
 		
 		String username2 = "matt";
 		String password2 = "123456";

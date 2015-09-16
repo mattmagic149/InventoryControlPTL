@@ -1,3 +1,13 @@
+ <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@page import="database.Product"%>
+<%@page import="database.Truck"%>
+<%@page import="java.util.List"%>
+<%@page import="org.javatuples.Pair"%>
+
+<%
+	int products_under_limit = (int)session.getAttribute("products_under_limit");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,10 +39,12 @@
       <a href="ProductsOverview" class="hideinmobile"><div class="color">Produkte<img src="img/product_icon.png"/></div></a>
       <a href="PersonsDetail" class="hideinmobile"><div class="color">Personen<img src="img/personen_icon.png"/></div></a>
     </div>
-        
+    
+    <% if(products_under_limit > 0) { %>
     <section id="pop_up_wrapper" class="hideinmobile">
-  		<a href="#" title="Lagerbestand unter Mindestgröße"><div class="pop_up">3</div></a>
-    </section>    
+  		<a href="ProductsOverview?show_under_minimum_only=true" title="Lagerbestand unter Mindestgröße"><div class="pop_up"><%=products_under_limit %></div></a>
+    </section>   
+    <% } %> 
 	</div>
 </body>
 </html>
