@@ -54,6 +54,15 @@ public class LkwDetail extends HttpServlet {
 			return;
 		}
 		
+		if(id == 0) {
+			session.setAttribute("is_new", true);
+			request.getRequestDispatcher("lkw.jsp").include(request, response);
+			request.setCharacterEncoding("UTF-8");
+			return;
+		} else {
+			session.setAttribute("is_new", false);
+		}
+		
 		System.out.println("id = " + id);
 		Truck truck = HibernateSupport.readOneObjectByID(Truck.class, id);
 
