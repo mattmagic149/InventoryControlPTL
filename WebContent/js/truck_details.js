@@ -14,7 +14,7 @@ $(document).ready(function() {
 		fillProductWithDataBecauseOfTextFields();
 	}
 
-	$("#wrapper").on("click", "#ok", confirmProductEditing);
+	$("#wrapper").on("click", "#ok", confirmTruckEditing);
 
 });
 
@@ -181,33 +181,33 @@ function showProductBecauseOfData() {
 	content.insertAfter("#barcode_picture");
 }
 
-function confirmProductEditing() {
-	fillProductWithDataBecauseOfInputFields();
+function confirmTruckEditing() {
+	fillTruckWithDataBecauseOfInputFields();
 	if (is_new_product) {
-		product.id = "0";
-		var product_string = JSON.stringify(product);
-		sendProductToServer("Add", product_string);
+		truck.id = "0";
+		var truck_string = JSON.stringify(truck);
+		sendTruckToServer("Add", truck_string);
 	} else {
-		var product_string = JSON.stringify(product);
-		alert("product edit = " + product_string);
-		sendProductToServer("Edit", product_string);		
+		var truck_string = JSON.stringify(truck);
+		alert("truck edit = " + truck_string);
+		sendTruckToServer("Edit", truck_string);		
 	}
 }
 
 
-function sendProductToServer(servlet, product_string) {
+function sendTruckToServer(servlet, truck_string) {
 	
 	$.ajax({
 		type: "POST",
 		url: servlet,
-		data: { type: "product",
-				object: product_string },
+		data: { type: "truck",
+				object: truck_string },
 		cache: false,
 		success: function(data, settings, xhr) {
 			//alert("success");
 			var content = xhr.getResponseHeader('content');
 			var id = xhr.getResponseHeader('id');
-			location.href = "ProductDetail?id=" + id;
+			location.href = "TruckDetail?id=" + id;
 		},
 		error: function(data, settings, xhr) {
 			alert("error");
@@ -249,22 +249,6 @@ function handleOutgoing() {
 	$("#confirm_pop_up_button").on("click", confirmOutgoingTransaction);
 }
 
-function confirmIngoingTransaction() {
-	$("#confirm_pop_up_button").off("click", confirmIngoingTransaction);
-	var quantity = $("#quantity").val();
-	var from = $("#location").val();
-	var to = $("#current_location").text();
-	sendTransaction(quantity, from, to);
-	location.href = location.href;
-}
-function confirmOutgoingTransaction() {
-	$("#confirm_pop_up_button").off("click", confirmOutgoingTransaction);
-	var quantity = $("#quantity").val();
-	var from = $("#current_location").text();
-	var to = $("#location").val();
-	sendTransaction(quantity, from, to);
-	location.href = location.href;
-}
 
 function sendTransaction(quantity, from, to) {
 	$.ajax({

@@ -37,7 +37,8 @@
       <a href="LkwsDetail" class="hideinmobile"><div class="color">LKWs<img src="img/lieferwagen_icon.png"/></div></a>
       <a href="LagerDetail" class="hideinmobile"><div class="color">Lager<img src="img/lager_icon.png"/></div></a>
       <a href="ProductsOverview" class="hideinmobile"><div class="color">Produkte<img src="img/product_icon.png"/></div></a>
-      <a href="PersonsDetail" class="hideinmobile"><div class="color">Personen<img src="img/personen_icon.png"/></div></a>
+      <a href="PrintLabels" class="hideinmobile"><div class="color">Labels drucken<img src="img/labels_icon.png"/></div></a>
+<!--        <a href="PersonsDetail" class="hideinmobile"><div class="color">Personen<img src="img/personen_icon.png"/></div></a>-->
     </div>
     
     <% if(products_under_limit > 0) { %>

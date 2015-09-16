@@ -1,6 +1,10 @@
 <%@page import="database.Truck"%>
 
 <%
+	Object obj = session.getAttribute("current_truck");
+	if (obj == null) {
+		//weiterleitung
+	}
 	Truck truck = (Truck)session.getAttribute("current_truck");
 	String truck_license_tag = "";
 	String truck_brand = "";

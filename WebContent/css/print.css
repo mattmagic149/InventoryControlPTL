@@ -1,0 +1,21 @@
+@charset "UTF-8";
+/* CSS Document */
+html, body {
+	background: white;
+}
+
+.label {
+	float: left;
+	margin-left: 2em;
+	margin-right: 2em;
+	display: inline !important;
+	margin-bottom: 1em;
+}
+
+.label .description {
+	margin-bottom: 0.5em;
+}
+
+.not_to_print {
+	display: none !important;
+}
