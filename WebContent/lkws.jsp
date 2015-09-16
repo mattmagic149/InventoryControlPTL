@@ -37,9 +37,9 @@
 
     <section id="item_header" class="color_without_hover">
       <div class="name">Kennzeichen</div>
-      <div class="name">Anzahl Produkte</div>
-      <div class="name">...</div>
-      <div class="name">...</div>
+      <div class="name">Marke</div>
+      <div class="name">Nutzlast</div>
+      <div class="name">Höhe / Länge</div>
       <div class="details">Details</div>
     </section>
     
@@ -49,9 +49,9 @@
 	  %>
 		      <section class="item color_discreet" id="<%=trucks.get(i).getId() %>">
 		        <div class="name"><%=trucks.get(i).getLicenceTag() %></div>
-		        <div class="name">...</div>
-		        <div class="name">...</div>
-		        <div class="name">...</div>
+		        <div class="name"><%=trucks.get(i).getBrand().getName() %></div>
+		        <div class="name"><%=trucks.get(i).getPayload() %></div>
+		        <div class="name"><%=trucks.get(i).getLoadingSpaceHeight() + " m / " + trucks.get(i).getLoadingSpaceLength() + " m" %> </div>
 				<button class="details color">&#062 &#062</button>
 			  </section>			
 	  <%
