@@ -394,7 +394,7 @@ public class Product implements ISaveAndDelete {
 			result.add(new Pair<Boolean, Truck>(this.isTruckRestricted(truck), truck));
 		}
 		
-		return null;
+		return result;
 	}
 	
 	private boolean isTruckRestricted(Truck truck) {

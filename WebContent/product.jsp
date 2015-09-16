@@ -7,7 +7,7 @@
 
 <%
 	Product product = (Product)session.getAttribute("current_product");
-	String current_location = "2";
+	String current_location = "2";//id from the inventory
 	
 	List<Truck> trucks_for_outgoing = null;
 	if (product != null && product.getRestriction() == Product.TruckRestriction.YES) {
@@ -30,8 +30,9 @@
 			possible_ingoing_locations += "<option value='" + "'>" + "</option>";
 		}
 	}
-*/		
-	String product_id = "Wird automatisch generiert";
+*/	
+	String product_id = "0";
+	String product_barcode = "Wird automatisch generiert";
 	String product_name = "";
 	String product_description = "";
 	String product_min_quantity = "";
@@ -48,7 +49,8 @@
 	}
 	
 	if (product != null && !is_new) {
-		product_id = product.getBarCodeEncoding();
+		product_id = String.valueOf(product.getId());
+		product_barcode = product.getBarCodeEncoding();
 		product_name = product.getName();
 		product_description = product.getDescription();
 		product_min_quantity = String.valueOf(product.getMinimumLimit());
@@ -116,12 +118,12 @@
 	
 	
 	<div id="product_details_container">
-		<div id="product" value="<%=product.getId() %>">
+		<div id="product" value="<%=product_id %>">
 			<img id="barcode_picture" class="<%=hidden_in_new %>"/>
 			
 			<% if (!is_new) { %>
 			<div class="description">Produkt ID:</div>
-			<div class="value" id="product_id"><%=product_id %></div>
+			<div class="value" id="product_id"><%=product_barcode %></div>
 			<div class="description">Produktname:</div>
 			<div class="value editable" id="product_name"><%=product_name %></div>
 			<div class="description">Beschreibung:</div>
@@ -147,7 +149,7 @@
 				<option value="Packung">Packung</option>
 				<option value="Rolle">Rolle</option>
 			</select>
-			<div class="description">Aktives Produkt:<input type="checkbox" id="product_state" value=on ></input></div>
+			<div class="description">Aktives Produkt:<input type="checkbox" id="product_state" checked></input></div>
 			
 			<div class="description" id="product_restrictions_container">Produkt darf nur in folgende LKWs:</div>
 			<div class="value restriction_container" > Alle LKWs<input type="checkbox" class="restriction" lkw_id="0" id="no_restriction" checked></input></div>

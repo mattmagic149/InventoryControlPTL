@@ -1,8 +1,7 @@
 // JavaScript Document
 
-var product = new Object();
-var is_new_product = false;
-var restrictions_array = [];
+var truck = new Object();
+var is_new_truck = false;
 
 $(document).ready(function() {
 	generateBarCode();
@@ -10,11 +9,8 @@ $(document).ready(function() {
 	if ($("#barcode_picture").hasClass("hidden")) {
 		is_new_product = true;
 		$("#ok").show();
-//		activateProductEditing();
 	} else {
-		$("#ingoing").on("click", handleIngoing);
-		$("#outgoing").on("click", handleOutgoing);	
-		$("#edit").on("click", activateProductEditing);		
+		$("#edit").on("click", activateTruckEditing);		
 		fillProductWithDataBecauseOfTextFields();
 	}
 
@@ -22,79 +18,133 @@ $(document).ready(function() {
 
 });
 
-function fillProductWithDataBecauseOfTextFields() {
-	product.id = $("#product").attr("value");
-	product.name = $("#product_name").text();
-	product.description = $("#product_description").text();
-	product.minimum_limit = $("#product_minimum_limit").text();
-	product.lager_quantity = $("#product_lager_quantity").text();
-	product.unity = $(".product_unity").get(0).innerHTML;
-	product.state = $("#product_state").text();
+function fillTruckWithDataBecauseOfTextFields() {
+	truck.id = $("#truck").attr("truck_id");
+	truck.license_tag = $("#license_tag").text();
+	truck.brand = $("#brand").text();
+	truck.type = $("#type").text();
+	truck.type_of_fuel = $("#type_of_fuel").text();
+	truck.payload = $("#payload").text();
+	truck.performance = $("#performance").text();
+	truck.emission_standard = $("#emission_standard").text();
+	truck.fin = $("#fin").text();
+	truck.loading_space_height = $("#loading_space_height").text();
+	truck.loading_space_length = $("#loading_space_length").text();
+	var wf = new Object();
+	wf.tyre_type = $("#tyre_type_front").text();
+	wf.size_in_mm = $("#size_in_mm_front").text();
+	wf.height_in_percent = $("#height_in_percent_front").text();
+	wf.size_in_inch = $("#size_in_inch_front").text();
+	truck.wheels_front = wf;
+	var wr = new Object();
+	wr.tyre_type = $("#tyre_type_rear").text();
+	wr.size_in_mm = $("#size_in_mm_rear").text();
+	wr.height_in_percent = $("#height_in_percent_rear").text();
+	wr.size_in_inch = $("#size_in_inch_rear").text();
+	truck.wheels_rear = wr;
+	if ($("#state_string").text() == "Aktiv") {
+		truck.state = "ACTIVE";
+	} else {
+		truck.state = "SOLD";
+	}
+	truck.initial_registration = $("#initial_registration").text();
+	truck.new_vehicle_since = $("#new_vehicle_since").text();
+	
+	var truck_string = JSON.stringify(truck);
+	console.log("truck = " + truck_string);
 }
 
-function fillProductWithDataBecauseOfInputFields() {
-	product.id = $("#product").attr("value");
-	product.name = $("#product_name").val();
-	product.description = $("#product_description").val();
-	product.minimum_limit = $("#product_minimum_limit").val();
-	var u = new Object();
-	u.name = $("#product_unity").val();
-	product.unity = u;
-	if ($("#product_state").is(":checked")) {
-		product.state = "ACTIVE";
-	} else {
-		product.state = "INACTIVE";
-	}
+function fillTruckWithDataBecauseOfInputFields() {
 	
-	$(".restriction").each(function( index ) {
-		if ($(this).is(":checked")) {
-			var truck = new Object();
-			truck.id = $(this).attr("lkw_id");
-			restrictions_array.push(truck);
-		}
-	});
-	product.trucks_to_restrict = restrictions_array;
-	
-	if ($("#no_restriction").is(":checked")){
-		alert("no_restriction...");
-		product.restriction = "NO";
-		product.trucks_to_restrict = [];
-	} else {
-		alert("RRRRRestriction...");
-		product.restriction = "YES";
-	}
-	
-	//alert("unity = " + product.unity);
 }
 
-function activateProductEditing() {
+function activateTruckEditing() {
 	$("#ok").show();
-	fillProductWithDataBecauseOfTextFields();
-	$("#product").find(".description").remove();
-	$("#product").find(".value").remove();
-	$("#ingoing").hide();
-	$("#outgoing").hide();
+	fillTruckWithDataBecauseOfTextFields();
+	$("#truck").find(".description").remove();
+	$("#truck").find(".value").remove();
 	$("#barcode_picture").hide();
 
-	var content = $('<div class="description">Produkt ID:</div>' +
-				'<div class="value" id="product_id">' + product.id + '</div>' +
-				'<div class="description">Produktname:</div>' +
-				'<input type="text" class="value editable" id="product_name" value="'+ product.name +'"></input>' + 
-				'<div class="description">Beschreibung:</div>' +
-				'<textarea type="text" class="value editable" id="product_description">' + product.description + '</textarea>' +
-				'<div class="description">Mindestmenge im Lager:</div>' +
-				'<input type="number" class="value editable" id="product_minimum_limit" value="' + product.minimum_limit + '"></input>' +
-				'<select class="value" id="product_unity">' +
-				'<option value="Stück">Stück</option>' +
-				'<option value="Liter">Liter</option>' +
-				'<option value="Paar">Paar</option>' +
-				'<option value="Packung">Packung</option>' +
-				'<option value="Rolle">Rolle</option>' +
-				'</select>' + 
-				'<div class="description">Aktives Produkt:<input type="checkbox" id="product_state"></input></div>' +
-				'<div class="description" id="product_restrictions_container">Produkt darf nur in folgende LKWs:</div>'
-				);
+	var content = $('<div class="entry one_row">' + 
+			'	<div class="description">Treibstoff:</div>' + 
+			'	<select class="value" id="type_of_fuel">' + 
+			'		<option value="Diesel">Diesel</option>' + 
+			'		<option value="Benzin">Benzin</option>' + 
+			'	</select>' + 
+			'</div>' + 
+			'<div class="entry one_row">' + 
+			'	<div class="description">Nutzlast:</div>' + 
+			'	<input type="text" class="value" id="payload" value="'+ truck.payload +'"></input>' + 
+			'</div>' + 
+			'<div class="entry one_row">' + 
+			'	<div class="description">Leistung in KW:</div>' + 
+			'	<input type="text" class="value" id="performance" value="' + truck.performance + '"></input>' + 
+			'</div>' + 
+			'<div class="entry one_row">' + 
+			'	<div class="description">Abgasnorm (0-6):</div>' + 
+			'	<select class="value" id="emission_standard">' + 
+			'		<option value="0">0</option>' + 
+			'		<option value="1">1</option>' + 
+			'		<option value="2">2</option>' + 
+			'		<option value="3">3</option>' + 
+			'		<option value="4">4</option>' + 
+			'		<option value="5">5</option>' + 
+			'		<option value="6">6</option>' + 
+			'	</select>' + 
+			'</div>' + 
+			'<div class="entry one_row">' + 
+			'	<div class="description">Fahrzeug Identifikationsnummer:</div>' + 
+			'	<input type="text" class="value" id="fin" value="' + truck.fin + '"></input>' + 
+			'</div>' + 
+			'<div class="entry one_row">' + 
+			'	<div class="description">Ladefläche in Meter (Höhe / Länge):</div>' + 
+			'	<input type="text" class="value split_in_two" id="loading_space_height" value="' + truck.loading_space_height + '"></input>' + 
+			'	<input type="text" class="value split_in_two" id="loading_space_length" value="' + truck.loading_space_length + '"></input>' + 
+			'</div>' + 
+			'<div class="entry">' + 
+			'	<div class="description">Reifen vorne:</div>' + 
+			'	<div class="description">(Reifenart, Größe in mm):</div>' + 
+			'	<select class="value split_in_two" id="tyre_type_front">' + 
+			'		<option value="0">RADIAL</option>' + 
+			'		<option value="1">DIAGONAL</option>' + 
+			'	</select>' + 
+			'	<input type="text" class="value split_in_two" id="size_in_mm_front" value="' + truck.wheels_front.size_in_mm + '"></input>' + 
+			'	<div class="description">(Höhe in Prozent, Größe in Inch):</div>' + 
+			'	<input type="text" class="value split_in_two" id="height_in_percent_front" value="' + truck.wheels_front.height_in_percent + '"></input>' + 
+			'	<input type="text" class="value split_in_two" id="size_in_inch_front" value="' + truck.wheels_front.size_in_inch + '"></input>' + 
+			'</div>' + 
+			'<div class="entry">' + 
+			'	<div class="description">Reifen hinten:</div>' + 
+			'	<div class="description">(Reifenart, Größe in mm):</div>' + 
+			'	<select class="value split_in_two" id="tyre_type_rear">' + 
+			'		<option value="0">RADIAL</option>' + 
+			'		<option value="1">DIAGONAL</option>' + 
+			'	</select>' + 
+			'	<input type="text" class="value split_in_two" id="size_in_mm_rear" value="' + truck.wheels_rear.size_in_mm + '"></input>' + 
+			'	<div class="description">(Höhe in Prozent, Größe in Inch):</div>' + 
+			'	<input type="text" class="value split_in_two" id="height_in_percent_rear" value="' + truck.wheels_rear.height_in_percent + '"></input>' + 
+			'	<input type="text" class="value split_in_two" id="size_in_inch_rear" value="' + truck.wheels_rear.size_in_inch + '"></input>' + 
+			'</div>' + 
+			'<div class="entry hidden">' + 
+			'	<div class="description">Status des LKWs:</div>' + 
+			'	<div class="value">' + "STATE" + '</div>' + 
+			'</div>' + 
+			'<div class="entry">' + 
+			'	<div class="description">Erstmalige Zulassung:</div>' + 
+			'	<div class="value"></div>' + 
+			'</div>' + 
+			'<div class="entry">' + 
+			'	<div class="description">Neufahrzeug seit:</div>' + 
+			'	<div class="value"></div>' + 
+			'</div>'
+			);
 	content.insertAfter("#barcode_picture");
+	
+	$("#type_of_fuel").val(truck.type_of_fuel).change();
+	$("#emission_standard").val(truck.emission_standard).change();
+	//$("#tyre_type_front").val(truck.wheels_front.tyre_type).change();
+	//$("#tyre_type_rear").val(truck.tyre_type_rear).change();
+/*	
 	if (product.state == "ACTIVE") {
 		$("#product_state").prop("checked", true);		
 	} else {
@@ -104,6 +154,7 @@ function activateProductEditing() {
 	restrictions.insertAfter("#product_restrictions_container");
 	
 	$("#product_unity").val(product.unity).change();
+	*/
 }
 
 function showProductBecauseOfData() {
@@ -169,7 +220,7 @@ function generateBarCode() {
 	var barcode_options = {
 					width:  2,
 					height: 100,
-					quite: 10,
+					quite: 0,
 					format: "CODE128",
 					displayValue: true,
 					font:"monospace",
@@ -178,7 +229,7 @@ function generateBarCode() {
 					backgroundColor:"",
 					lineColor:"#000"
 				}
-	var id = $("#product_id").text();
+	var id = $("#truck").attr("barcode");
 	if (id != "") {
 		$("#barcode_picture").JsBarcode(id, barcode_options);			
 	}
