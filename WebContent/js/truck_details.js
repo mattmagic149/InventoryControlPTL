@@ -4,18 +4,20 @@ var truck = new Object();
 var is_new_truck = false;
 
 $(document).ready(function() {
-	generateBarCode();
 	
-	if ($("#barcode_picture").hasClass("hidden")) {
+	if ($("#truck").attr("truck_id") == 0) { //new truck
 		is_new_truck = true;
 		$("#ok").show();
+		truck.state = "ACTIVE";
+
+		$("#hidden_infos").remove();
+		$("#truck_details_container").addClass("editing");
 	} else {
 		$("#edit").on("click", activateTruckEditing);		
-		fillTruckWithDataBecauseOfTextFields();
+		generateBarCode();
 	}
 
 	$("#wrapper").on("change", "#brand", handleChangeBrand);
-	$("#wrapper").on("change", "#type", handleChangeType);
 
 	$("#wrapper").on("click", "#ok", confirmTruckEditing);
 
@@ -31,16 +33,6 @@ function handleChangeBrand(e) {
 	}
 }
 
-function handleChangeType(e) {
-	if ($(this).val() == "NEW") {
-		$("#new_type").removeClass("hidden");
-		$(this).addClass("split_in_two");		
-	} else {
-		$("#new_type").addClass("hidden");
-		$(this).removeClass("split_in_two");				
-	}
-}
-
 
 function fillTruckWithDataBecauseOfTextFields() {
 	truck.id = $("#truck").attr("truck_id");
@@ -48,24 +40,27 @@ function fillTruckWithDataBecauseOfTextFields() {
 	truck.brand = $("#brand").text();
 	truck.type = $("#type").text();
 	truck.type_of_fuel = $("#type_of_fuel").text();
+	if (truck.type_of_fuel == "Benzin") {
+		truck.type_of_fuel = "PETROL";
+	} else {
+		truck.type_of_fuel = "DIESEL";
+	}
 	truck.payload = $("#payload").text();
 	truck.performance = $("#performance").text();
 	truck.emission_standard = $("#emission_standard").text();
 	truck.fin = $("#fin").text();
 	truck.loading_space_height = $("#loading_space_height").text();
 	truck.loading_space_length = $("#loading_space_length").text();
-	var wf = new Object();
-	wf.tyre_type = $("#tyre_type_front").text();
-	wf.size_in_mm = $("#size_in_mm_front").text();
-	wf.height_in_percent = $("#height_in_percent_front").text();
-	wf.size_in_inch = $("#size_in_inch_front").text();
-	truck.wheels_front = wf;
-	var wr = new Object();
-	wr.tyre_type = $("#tyre_type_rear").text();
-	wr.size_in_mm = $("#size_in_mm_rear").text();
-	wr.height_in_percent = $("#height_in_percent_rear").text();
-	wr.size_in_inch = $("#size_in_inch_rear").text();
-	truck.wheels_rear = wr;
+	truck.wheels_front = new Object();
+	truck.wheels_front.tyre_type = $("#tyre_type_front").text();
+	truck.wheels_front.size_in_mm = $("#size_in_mm_front").text();
+	truck.wheels_front.height_in_percent = $("#height_in_percent_front").text();
+	truck.wheels_front.size_in_inch = $("#size_in_inch_front").text();
+	truck.wheels_rear = new Object();
+	truck.wheels_rear.tyre_type = $("#tyre_type_rear").text();
+	truck.wheels_rear.size_in_mm = $("#size_in_mm_rear").text();
+	truck.wheels_rear.height_in_percent = $("#height_in_percent_rear").text();
+	truck.wheels_rear.size_in_inch = $("#size_in_inch_rear").text();
 	if ($("#state_string").text() == "Aktiv") {
 		truck.state = "ACTIVE";
 	} else {
@@ -88,9 +83,6 @@ function fillTruckWithDataBecauseOfInputFields() {
 	}
 	truck.truck_brand = brand;
 	truck.type = $("#type").val();
-	if (truck.type == "NEW") {
-		truck.type = $("#new_type").val();
-	}
 	
 	truck.type_of_fuel = $("#type_of_fuel").val();
 	truck.payload = $("#payload").val();
@@ -99,24 +91,21 @@ function fillTruckWithDataBecauseOfInputFields() {
 	truck.fin = $("#fin").val();
 	truck.loading_space_height = $("#loading_space_height").val();
 	truck.loading_space_length = $("#loading_space_length").val();
-	var wf = new Object();
-	wf.tyre_type = $("#tyre_type_front").val();
-	wf.size_in_mm = $("#size_in_mm_front").val();
-	wf.height_in_percent = $("#height_in_percent_front").val();
-	wf.size_in_inch = $("#size_in_inch_front").val();
-	truck.wheels_front = wf;
-	var wr = new Object();
-	wr.tyre_type = $("#tyre_type_rear").val();
-	wr.size_in_mm = $("#size_in_mm_rear").val();
-	wr.height_in_percent = $("#height_in_percent_rear").val();
-	wr.size_in_inch = $("#size_in_inch_rear").val();
-	truck.wheels_rear = wr;
+	truck.wheels_front = new Object();
+	truck.wheels_front.tyre_type = $("#tyre_type_front").val();
+	truck.wheels_front.size_in_mm = $("#size_in_mm_front").val();
+	truck.wheels_front.height_in_percent = $("#height_in_percent_front").val();
+	truck.wheels_front.size_in_inch = $("#size_in_inch_front").val();
+	truck.wheels_rear = new Object();
+	truck.wheels_rear.tyre_type = $("#tyre_type_rear").val();
+	truck.wheels_rear.size_in_mm = $("#size_in_mm_rear").val();
+	truck.wheels_rear.height_in_percent = $("#height_in_percent_rear").val();
+	truck.wheels_rear.size_in_inch = $("#size_in_inch_rear").val();
 
 	truck.state = $("#state").val();
 
 	truck.initial_registration = $("#initial_registration").val();
 	truck.new_vehicle_since = $("#new_vehicle_since").val();
-	
 	
 	var truck_string = JSON.stringify(truck);
 	console.log("truck modified = " + truck_string);
@@ -125,9 +114,11 @@ function fillTruckWithDataBecauseOfInputFields() {
 function activateTruckEditing() {
 	$("#ok").show();
 	fillTruckWithDataBecauseOfTextFields();
+
 	$("#hidden_infos").remove();
-	$("h1").text("");
 	$("#truck_details_container").addClass("editing");
+
+	$("h1").text("");
 	$("#truck").find(".description").remove();
 	$("#truck").find(".value").remove();
 	$("#barcode_picture").hide();
@@ -151,12 +142,7 @@ function activateTruckEditing() {
 			'</div>' + 
 			'<div class="entry one_row">' + 
 			'	<div class="description">Type:</div>' + 
-			'	<select class="value" id="type">' + 
-			'		<option value="0">type1</option>' + 
-			'		<option value="1">type2</option>' + 
-			'		<option value="NEW">Neue Type anlegen</option>' + 
-			'	</select>' + 
-			'	<input type="text" class="value hidden split_in_two" id="new_type"></input>' + 
+			'	<input type="text" class="value" id="type" value="' + truck.type + '"></input>' + 
 			'</div>' + 
 			'<div class="entry one_row">' + 
 			'	<div class="description">Nutzlast:</div>' + 
@@ -169,8 +155,8 @@ function activateTruckEditing() {
 			'<div class="entry one_row">' + 
 			'	<div class="description">Treibstoff:</div>' + 
 			'	<select class="value" id="type_of_fuel">' + 
-			'		<option value="Diesel">Diesel</option>' + 
-			'		<option value="Benzin">Benzin</option>' + 
+			'		<option value="DIESEL">Diesel</option>' + 
+			'		<option value="PETROL">Benzin</option>' + 
 			'	</select>' + 
 			'</div>' + 
 			'<div class="entry one_row">' + 
@@ -235,7 +221,6 @@ function activateTruckEditing() {
 	$("#type_of_fuel").val(truck.type_of_fuel).change();
 	$("#emission_standard").val(truck.emission_standard).change();
 	$("#brand").val(truck.brand).change();
-	$("#type").val(truck.type).change();
 	$("#state").val(truck.state).change();
 	$("#tyre_type_front").val("" + truck.wheels_front.tyre_type).change();
 	$("#tyre_type_rear").val("" + truck.wheels_rear.tyre_type).change();

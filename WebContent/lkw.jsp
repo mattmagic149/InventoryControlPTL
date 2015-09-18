@@ -5,11 +5,12 @@
 	Object obj2 = session.getAttribute("is_new");
 	if (obj == null || obj2 == null) {%>
 		<jsp:forward page="welcome.jsp"/>
-
 	<%}
 	boolean is_new = (boolean)session.getAttribute("is_new");
 	Truck truck = (Truck)session.getAttribute("current_truck");
 	String truck_license_tag = "";
+	String truck_id = "";
+	String truck_barcode = "";
 	String truck_brand = "";
 	String truck_type = "";
 	String initial_registration = "";
@@ -25,12 +26,23 @@
 	String loading_space_length = "";
 	String state_string = "Aktiv";
 	
+	String truck_state = "";
+	String truck_brand_name = "";
+	String tyre_type_front = "1";
+	String size_in_mm_front = "2";
+	String height_in_percent_front = "3";
+	String size_in_inch_front = "4";
+	String tyre_type_rear = "5";
+	String size_in_mm_rear = "6";
+	String height_in_percent_rear = "7";
+	String size_in_inch_rear = "8";
+	
 	if (truck != null) {
 		truck_license_tag = truck.getLicenceTag();
+		truck_id = String.valueOf(truck.getId());
+		truck_barcode = truck.getBarCodeEncoding();
 		truck_brand = truck.getBrand().getName();
 		truck_type = truck.getType();
-		//initial_registration = truck.getFormattedInitialRegistration();
-		//new_vehicle_since = truck.getNewVehicleSince();
 		payload = String.valueOf(truck.getPayload());
 		if (truck.getTypeOfFuel() == Truck.FuelType.PETROL) {
 			type_of_fuel_string = "Benzin";
@@ -42,14 +54,40 @@
 		wheels_rear_string = truck.getWheelsRear().getTyreInfos();
 		loading_space_height = String.valueOf(truck.getLoadingSpaceHeight());
 		loading_space_length = String.valueOf(truck.getLoadingSpaceLength());
+		initial_registration = String.valueOf(truck.getInitialRegistration());
+		new_vehicle_since = String.valueOf(truck.getNewVehicleSince());
+		
 		if (truck.getTruckState() == Truck.TruckState.SOLD) {
 			state_string = "Verkauft";	
 		}
+		
+		truck_state = String.valueOf(truck.getTruckState().ordinal());
+		if (truck.getBrand() != null) {
+			truck_brand_name = truck.getBrand().getName();
+		}
+		if (truck.getWheelsFront() != null) {
+			if (truck.getWheelsFront().getTyreType() != null) {
+				tyre_type_front = "" + truck.getWheelsFront().getTyreType().ordinal();
+			}
+			size_in_mm_front = "" + truck.getWheelsFront().getSizeInmm();
+			height_in_percent_front = "" + truck.getWheelsFront().getHeightInPercent();
+			size_in_inch_front = "" + truck.getWheelsFront().getSizeInInch();
+		}
+		
+		if (truck.getWheelsRear() != null) {
+			if (truck.getWheelsRear().getTyreType() != null) {
+				tyre_type_rear = String.valueOf(truck.getWheelsRear().getTyreType().ordinal());
+			}
+			size_in_mm_rear = String.valueOf(truck.getWheelsRear().getSizeInmm());
+			height_in_percent_rear = String.valueOf(truck.getWheelsRear().getHeightInPercent());
+			size_in_inch_rear = String.valueOf(truck.getWheelsRear().getSizeInInch());
+		}	
 	}
 	
 	String hidden_in_new = "";		
 	if (is_new) {
 		hidden_in_new = "hidden";
+		truck_id = "0";
 	}
 %>
 
@@ -82,28 +120,28 @@
 	<div id="wrapper">
     <a href="Logout"><button id="logout" class="color_discreet">Logout</button></a>
     <a href="Welcome"><button id="back" class="color_discreet">&#060&#060 Übersicht</button></a>
-    <button id="edit" class="color" >Bearbeiten</button>
+    <button id="edit" class="color <%=hidden_in_new %>" >Bearbeiten</button>
 	
 	<div id="hidden_infos">
-		<div class="hidden" id="state"><%=truck.getTruckState().ordinal() %></div>
-		<div class="hidden" id="brand"><%=truck.getBrand().getName() %></div>
-		<div class="hidden" id="tyre_type_front"><%=truck.getWheelsFront().getTyreType().ordinal() %></div>
-		<div class="hidden" id="size_in_mm_front"><%=truck.getWheelsFront().getSizeInmm() %></div>
-		<div class="hidden" id="height_in_percent_front"><%=truck.getWheelsFront().getHeightInPercent() %></div>
-		<div class="hidden" id="size_in_inch_front"><%=truck.getWheelsFront().getSizeInInch() %></div>
+		<div class="hidden" id="state"><%=truck_state %></div>
+		<div class="hidden" id="brand"><%=truck_brand %></div>
+		<div class="hidden" id="tyre_type_front"><%=tyre_type_front %></div>
+		<div class="hidden" id="size_in_mm_front"><%=size_in_mm_front %></div>
+		<div class="hidden" id="height_in_percent_front"><%=height_in_percent_front  %></div>
+		<div class="hidden" id="size_in_inch_front"><%=size_in_inch_front %></div>
 	
-		<div class="hidden" id="tyre_type_rear"><%=truck.getWheelsRear().getTyreType().ordinal() %></div>
-		<div class="hidden" id="size_in_mm_rear"><%=truck.getWheelsRear().getSizeInmm() %></div>
-		<div class="hidden" id="height_in_percent_rear"><%=truck.getWheelsRear().getHeightInPercent() %></div>
-		<div class="hidden" id="size_in_inch_rear"><%=truck.getWheelsRear().getSizeInInch() %></div>
+		<div class="hidden" id="tyre_type_rear"><%=tyre_type_rear %></div>
+		<div class="hidden" id="size_in_mm_rear"><%=size_in_mm_rear %></div>
+		<div class="hidden" id="height_in_percent_rear"><%=height_in_percent_rear %></div>
+		<div class="hidden" id="size_in_inch_rear"><%=size_in_inch_rear %></div>
 	</div>
 	
 	<div id="truck_details_container">
-		<h1><span id="license_tag"><%=truck_license_tag %></span> (<span id="brand"><%=truck_brand %></span>, <span id="type"><%=truck_type %></span>)</h1>
-		<div id="truck" truck_id="<%=truck.getId() %>" barcode="<%=truck.getBarCodeEncoding() %>">
-			<img id="barcode_picture" class="<%=hidden_in_new %>"/>
+		<div id="truck" truck_id="<%=truck_id %>" barcode="<%=truck_barcode %>">
 			
 			<% if (!is_new) { %>
+			<h1><span id="license_tag"><%=truck_license_tag %></span> (<span id="brand"><%=truck_brand %></span>, <span id="type"><%=truck_type %></span>)</h1>
+			<img id="barcode_picture" class="<%=hidden_in_new %>"/>
 			<div class="entry">
 				<div class="description">Treibstoff:</div>
 				<div class="value" id="type_of_fuel"><%=type_of_fuel_string %></div>
@@ -142,87 +180,106 @@
 			</div>
 			<div class="entry">
 				<div class="description">Erstmalige Zulassung:</div>
-				<div class="value" id="initial_registration"><%=truck.getInitialRegistration() %></div>
+				<div class="value" id="initial_registration"><%=initial_registration %></div>
 			</div>
 			<div class="entry">
 				<div class="description">Neufahrzeug seit:</div>
-				<div class="value" id="new_vehicle_since"><%=truck.getNewVehicleSince() %></div>
+				<div class="value" id="new_vehicle_since"><%=new_vehicle_since %></div>
 			</div>
 			<% } else { %>
+			<h1>Neuer LKW:</h1>
 			<div class="entry one_row">
-				<div class="description" id="type_of_fuel">Treibstoff:</div>
-				<select class="value" id="type_of_fuel">
-					<option value="Diesel">Diesel</option>
-					<option value="Benzin">Benzin</option>
+				<div class="description">Kennzeichen:</div>
+				<input type="text" class="value" id="license_tag" value=""></input>
+			</div> 
+			<div class="entry one_row"> 
+				<div class="description">Marke:</div> 
+				<select class="value" id="brand"> 
+					<option value="Audi">brand1</option> 
+					<option value="1">brand2</option> 
+					<option value="NEW">Neue Marke anlegen</option> 
 				</select>
+				<input type="text" class="value hidden split_in_two" id="new_brand"></input> 
 			</div>
-			<div class="entry one_row">
-				<div class="description">Nutzlast:</div>
-				<input type="text" class="value" id="payload"></input>
-			</div>
-			<div class="entry one_row">
-				<div class="description">Leistung in KW:</div>
-				<input type="text" class="value" id="performance"></input>
-			</div>
-			<div class="entry one_row">
-				<div class="description">Abgasnorm (0-6):</div>
-				<select class="value" id="emission_standard">
-					<option value="0">0</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-				</select>
-			</div>
-			<div class="entry one_row">
-				<div class="description">Fahrzeug Identifikationsnummer:</div>
-				<input type="text" class="value" id="fin"></input>
-			</div>
-			<div class="entry one_row">
-				<div class="description">LadeflÃ¤che in Meter (Höhe / Länge):</div>
-				<input type="text" class="value split_in_two" id="loading_space_height"></input>
-				<input type="text" class="value split_in_two" id="loading_space_length"></input>
-			</div>
+			<div class="entry one_row"> 
+				<div class="description">Fahrzeug Identifikationsnummer:</div> 
+				<input type="text" class="value" id="fin" value=""></input> 
+			</div> 
+			<div class="entry one_row"> 
+				<div class="description">Type:</div> 
+				<input type="text" class="value" id="type" value=""></input> 
+			</div> 
+			<div class="entry one_row"> 
+				<div class="description">Nutzlast:</div> 
+				<input type="text" class="value" id="payload" value=""></input> 
+			</div> 
+			<div class="entry one_row"> 
+				<div class="description">Leistung in KW:</div> 
+				<input type="text" class="value" id="performance" value=""></input> 
+			</div> 
+			<div class="entry one_row"> 
+				<div class="description">Treibstoff:</div> 
+				<select class="value" id="type_of_fuel"> 
+					<option value="DIESEL">Diesel</option> 
+					<option value="PETROL">Benzin</option> 
+				</select> 
+			</div> 
+			<div class="entry one_row"> 
+				<div class="description">Abgasnorm (0-6):</div> 
+				<select class="value" id="emission_standard"> 
+					<option value="0">0</option> 
+					<option value="1">1</option> 
+					<option value="2">2</option> 
+					<option value="3">3</option> 
+					<option value="4">4</option> 
+					<option value="5">5</option> 
+					<option value="6">6</option> 
+				</select> 
+			</div> 
+			<div class="entry one_row"> 
+				<div class="description">Ladefläche in Meter (Höhe / Länge):</div> 
+				<input type="text" class="value split_in_two" id="loading_space_height" value=""></input> 
+				<input type="text" class="value split_in_two" id="loading_space_length" value=""></input> 
+			</div> 
 			<div class="entry">
-				<div class="description">Reifen vorne:</div>
-				<div class="description">(Reifenart, Größe in mm):</div>
-				<select class="value split_in_two" id="tyre_type_front">
-					<option value="0">RADIAL</option>
-					<option value="1">DIAGONAL</option>
-				</select>
-				<input type="text" class="value split_in_two" id="size_in_mm_front"></input>
-				<div class="description">(Höhe in Prozent, Größe in Inch):</div>
-				<input type="text" class="value split_in_two" id="height_in_percent_front"></input>
-				<input type="text" class="value split_in_two" id="size_in_inch_front"></input>
+				<div class="description">Status des LKWs:</div> 
+				<select class="value" id="state"> 
+					<option value="ACTIVE">Aktiv</option> 
+					<option value="SOLD">Verkauft</option> 
+				</select> 
 			</div>
-			<div class="entry">
-				<div class="description">Reifen hinten:</div>
-				<div class="description">(Reifenart, Größe in mm):</div>
-				<select class="value split_in_two" id="tyre_type_rear">
-					<option value="0">RADIAL</option>
-					<option value="1">DIAGONAL</option>
-				</select>
-				<input type="text" class="value split_in_two" id="size_in_mm_rear"></input>
-				<div class="description">(Höhe in Prozent, Größe in Inch):</div>
-				<input type="text" class="value split_in_two" id="height_in_percent_rear"></input>
-				<input type="text" class="value split_in_two" id="size_in_inch_rear"></input>
+			<div class="entry"> 
+				<div class="description">Reifen vorne:</div> 
+				<div class="description">(Reifenart, Größe in mm):</div> 
+				<select class="value split_in_two" id="tyre_type_front"> 
+					<option value="0">RADIAL</option> 
+					<option value="1">DIAGONAL</option> 
+				</select> 
+				<input type="text" class="value split_in_two" id="size_in_mm_front" value=""></input> 
+				<div class="description">(Höhe in Prozent, Größe in Inch):</div> 
+				<input type="text" class="value split_in_two" id="height_in_percent_front" value=""></input> 
+				<input type="text" class="value split_in_two" id="size_in_inch_front" value=""></input> 
+			</div> 
+			<div class="entry"> 
+				<div class="description">Reifen hinten:</div> 
+				<div class="description">(Reifenart, Größe in mm):</div> 
+				<select class="value split_in_two" id="tyre_type_rear"> 
+					<option value="0">RADIAL</option> 
+					<option value="1">DIAGONAL</option> 
+				</select> 
+				<input type="text" class="value split_in_two" id="size_in_mm_rear" value=""></input> 
+				<div class="description">(Höhe in Prozent, Größe in Inch):</div> 
+				<input type="text" class="value split_in_two" id="height_in_percent_rear" value=""></input> 
+				<input type="text" class="value split_in_two" id="size_in_inch_rear" value=""></input> 
+			</div> 
+			<div class="entry"> 
+				<div class="description">Erstmalige Zulassung:</div> 
+		   	   <input type="text" value="" placeholder="Erstzulassung" id="initial_registration"/>
+			</div> 
+			<div class="entry"> 
+				<div class="description">Neufahrzeug seit:</div> 
+		   	   <input type="text" value="" placeholder="Neuwagen seit" id="new_vehicle_since"/>
 			</div>
-			<div class="entry hidden">
-				<div class="description">Status des LKWs:</div>
-				<div class="value"><%=state_string %></div>
-			</div>
-			<div class="entry">
-				<div class="description">Erstmalige Zulassung:</div>
-				<div class="value"><%=truck.getInitialRegistration() %></div>
-			</div>
-			<div class="entry">
-				<div class="description">Neufahrzeug seit:</div>
-				<div class="value"><%=truck.getNewVehicleSince() %></div>
-			</div>
-			
-			
 			<% } %>
 			
 		</div>
