@@ -81,10 +81,12 @@ function fillTruckWithDataBecauseOfTextFields() {
 function fillTruckWithDataBecauseOfInputFields() {
 	truck.id = $("#truck").attr("truck_id");
 	truck.license_tag = $("#license_tag").val();
-	truck.brand = $("#brand").val();
-	if (truck.brand == "NEW") {
-		truck.brand = $("#new_brand").val();
+	var brand = new Object();
+	brand.name = $("#brand").val();
+	if (brand.name == "NEW") {
+		brand.name = $("#new_brand").val();
 	}
+	truck.truck_brand = brand;
 	truck.type = $("#type").val();
 	if (truck.type == "NEW") {
 		truck.type = $("#new_type").val();
@@ -256,7 +258,7 @@ function confirmTruckEditing() {
 
 
 function sendTruckToServer(servlet, truck_string) {
-	
+
 	$.ajax({
 		type: "POST",
 		url: servlet,
@@ -266,7 +268,7 @@ function sendTruckToServer(servlet, truck_string) {
 		success: function(data, settings, xhr) {
 			//alert("success");
 			var id = xhr.getResponseHeader('id');
-			location.href = "TruckDetail?id=" + id;
+			location.href = "LkwDetail?id=" + id;
 		},
 		error: function(data, settings, xhr) {
 			alert("error");

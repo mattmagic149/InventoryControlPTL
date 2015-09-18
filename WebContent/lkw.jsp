@@ -181,31 +181,31 @@
 				<input type="text" class="value" id="fin"></input>
 			</div>
 			<div class="entry one_row">
-				<div class="description">LadeflÃ¤che in Meter (HÃ¶he / LÃ¤nge):</div>
+				<div class="description">LadeflÃ¤che in Meter (Höhe / Länge):</div>
 				<input type="text" class="value split_in_two" id="loading_space_height"></input>
 				<input type="text" class="value split_in_two" id="loading_space_length"></input>
 			</div>
 			<div class="entry">
 				<div class="description">Reifen vorne:</div>
-				<div class="description">(Reifenart, GrÃ¶Ãe in mm):</div>
+				<div class="description">(Reifenart, Größe in mm):</div>
 				<select class="value split_in_two" id="tyre_type_front">
 					<option value="0">RADIAL</option>
 					<option value="1">DIAGONAL</option>
 				</select>
 				<input type="text" class="value split_in_two" id="size_in_mm_front"></input>
-				<div class="description">(HÃ¶he in Prozent, GrÃ¶Ãe in Inch):</div>
+				<div class="description">(Höhe in Prozent, Größe in Inch):</div>
 				<input type="text" class="value split_in_two" id="height_in_percent_front"></input>
 				<input type="text" class="value split_in_two" id="size_in_inch_front"></input>
 			</div>
 			<div class="entry">
 				<div class="description">Reifen hinten:</div>
-				<div class="description">(Reifenart, GrÃ¶Ãe in mm):</div>
+				<div class="description">(Reifenart, Größe in mm):</div>
 				<select class="value split_in_two" id="tyre_type_rear">
 					<option value="0">RADIAL</option>
 					<option value="1">DIAGONAL</option>
 				</select>
 				<input type="text" class="value split_in_two" id="size_in_mm_rear"></input>
-				<div class="description">(HÃ¶he in Prozent, GrÃ¶Ãe in Inch):</div>
+				<div class="description">(Höhe in Prozent, Größe in Inch):</div>
 				<input type="text" class="value split_in_two" id="height_in_percent_rear"></input>
 				<input type="text" class="value split_in_two" id="size_in_inch_rear"></input>
 			</div>

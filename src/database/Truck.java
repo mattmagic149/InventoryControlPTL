@@ -315,7 +315,7 @@ public class Truck extends Location implements ISaveAndDelete {
 	
 	public static int editTruck(String object) {
 		
-		Gson gson = new GsonBuilder().create();
+		Gson gson = new GsonBuilder().setDateFormat("dd-mm-yyyy hh:mm:ss.S").create();
 		Truck parsed_truck = null;
 		try {
 			parsed_truck = gson.fromJson(object, Truck.class);
@@ -335,6 +335,8 @@ public class Truck extends Location implements ISaveAndDelete {
 		
 		TruckBrand brand = TruckBrand.getTruckBrand(parsed_truck.getBrand().getName());
 		HibernateSupport.beginTransaction();
+		parsed_truck.wheels_front.saveToDB();
+		parsed_truck.wheels_rear.saveToDB();
 		brand.saveToDB();
 		parsed_truck.setTruckBrand(brand);
 		parsed_truck.saveToDB();
