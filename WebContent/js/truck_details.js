@@ -36,7 +36,7 @@ function handleChangeBrand(e) {
 
 function fillTruckWithDataBecauseOfTextFields() {
 	truck.id = $("#truck").attr("truck_id");
-	truck.license_tag = $("#license_tag").text();
+	truck.licence_tag = $("#license_tag").text();
 	truck.brand = $("#brand").text();
 	truck.type = $("#type").text();
 	truck.type_of_fuel = $("#type_of_fuel").text();
@@ -75,7 +75,7 @@ function fillTruckWithDataBecauseOfTextFields() {
 
 function fillTruckWithDataBecauseOfInputFields() {
 	truck.id = $("#truck").attr("truck_id");
-	truck.license_tag = $("#license_tag").val();
+	truck.licence_tag = $("#licence_tag").val();
 	var brand = new Object();
 	brand.name = $("#brand").val();
 	if (brand.name == "NEW") {
@@ -187,8 +187,8 @@ function activateTruckEditing() {
 			'	<div class="description">Reifen vorne:</div>' + 
 			'	<div class="description">(Reifenart, Größe in mm):</div>' + 
 			'	<select class="value split_in_two" id="tyre_type_front">' + 
-			'		<option value="0">RADIAL</option>' + 
-			'		<option value="1">DIAGONAL</option>' + 
+			'		<option value="RADIAL">RADIAL</option>' + 
+			'		<option value="DIAGONAL">DIAGONAL</option>' + 
 			'	</select>' + 
 			'	<input type="text" class="value split_in_two" id="size_in_mm_front" value="' + truck.wheels_front.size_in_mm + '"></input>' + 
 			'	<div class="description">(Höhe in Prozent, Größe in Inch):</div>' + 
@@ -199,8 +199,8 @@ function activateTruckEditing() {
 			'	<div class="description">Reifen hinten:</div>' + 
 			'	<div class="description">(Reifenart, Größe in mm):</div>' + 
 			'	<select class="value split_in_two" id="tyre_type_rear">' + 
-			'		<option value="0">RADIAL</option>' + 
-			'		<option value="1">DIAGONAL</option>' + 
+			'		<option value="RADIAL">RADIAL</option>' + 
+			'		<option value="DIAGONAL">DIAGONAL</option>' + 
 			'	</select>' + 
 			'	<input type="text" class="value split_in_two" id="size_in_mm_rear" value="' + truck.wheels_rear.size_in_mm + '"></input>' + 
 			'	<div class="description">(Höhe in Prozent, Größe in Inch):</div>' + 

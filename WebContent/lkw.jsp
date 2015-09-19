@@ -50,8 +50,13 @@
 		performance = String.valueOf(truck.getPerformance());
 		emission_standard = String.valueOf(truck.getEmissionStandard());
 		fin = truck.getFin();
-		wheels_front_string = truck.getWheelsFront().getTyreInfos();
-		wheels_rear_string = truck.getWheelsRear().getTyreInfos();
+		if (truck.getWheelsFront() != null) {
+			wheels_front_string = truck.getWheelsFront().getTyreInfos();			
+		}
+		if (truck.getWheelsRear() != null) {
+			wheels_rear_string = truck.getWheelsRear().getTyreInfos();
+		}
+		
 		loading_space_height = String.valueOf(truck.getLoadingSpaceHeight());
 		loading_space_length = String.valueOf(truck.getLoadingSpaceLength());
 		initial_registration = String.valueOf(truck.getInitialRegistration());
@@ -67,7 +72,7 @@
 		}
 		if (truck.getWheelsFront() != null) {
 			if (truck.getWheelsFront().getTyreType() != null) {
-				tyre_type_front = "" + truck.getWheelsFront().getTyreType().ordinal();
+				tyre_type_front = "" + truck.getWheelsFront().getTyreType();
 			}
 			size_in_mm_front = "" + truck.getWheelsFront().getSizeInmm();
 			height_in_percent_front = "" + truck.getWheelsFront().getHeightInPercent();
@@ -76,7 +81,7 @@
 		
 		if (truck.getWheelsRear() != null) {
 			if (truck.getWheelsRear().getTyreType() != null) {
-				tyre_type_rear = String.valueOf(truck.getWheelsRear().getTyreType().ordinal());
+				tyre_type_rear = String.valueOf(truck.getWheelsRear().getTyreType());
 			}
 			size_in_mm_rear = String.valueOf(truck.getWheelsRear().getSizeInmm());
 			height_in_percent_rear = String.valueOf(truck.getWheelsRear().getHeightInPercent());
@@ -252,8 +257,8 @@
 				<div class="description">Reifen vorne:</div> 
 				<div class="description">(Reifenart, Größe in mm):</div> 
 				<select class="value split_in_two" id="tyre_type_front"> 
-					<option value="0">RADIAL</option> 
-					<option value="1">DIAGONAL</option> 
+					<option value="RADIAL">RADIAL</option> 
+					<option value="DIAGONAL">DIAGONAL</option> 
 				</select> 
 				<input type="text" class="value split_in_two" id="size_in_mm_front" value=""></input> 
 				<div class="description">(Höhe in Prozent, Größe in Inch):</div> 
@@ -264,8 +269,8 @@
 				<div class="description">Reifen hinten:</div> 
 				<div class="description">(Reifenart, Größe in mm):</div> 
 				<select class="value split_in_two" id="tyre_type_rear"> 
-					<option value="0">RADIAL</option> 
-					<option value="1">DIAGONAL</option> 
+					<option value="RADIAL">RADIAL</option> 
+					<option value="DIAGONAL">DIAGONAL</option> 
 				</select> 
 				<input type="text" class="value split_in_two" id="size_in_mm_rear" value=""></input> 
 				<div class="description">(Höhe in Prozent, Größe in Inch):</div> 

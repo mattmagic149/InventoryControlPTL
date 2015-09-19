@@ -286,7 +286,7 @@ public class Truck extends Location implements ISaveAndDelete {
 	
 	public static int createTruckFromJSON(String object) {
 		
-		Gson gson = new GsonBuilder().create();
+		Gson gson = new GsonBuilder().setDateFormat("dd-mm-yyyy hh:mm:ss.S").create();
 		Truck parsed_truck = null;
 		try {
 			parsed_truck = gson.fromJson(object, Truck.class);

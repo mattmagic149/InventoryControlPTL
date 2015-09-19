@@ -48,7 +48,7 @@ public class LkwDetail extends HttpServlet {
 		
 		int id;
 		try {
-		id = Integer.valueOf(request.getParameter("id"));
+		  id = Integer.valueOf(request.getParameter("id"));
 		} catch(NumberFormatException e) {
 			System.out.println("Couldn't parse id");
 			request.getRequestDispatcher("welcome.jsp").include(request, response);
