@@ -20,6 +20,7 @@ html, body {
 
 button {
 	border: none;	
+	cursor: pointer;
 }
 
 
@@ -142,7 +143,7 @@ input[type="submit"], #login_button {
 
 /*BUTTONS*/
 /*Was alle gemeinsam haben:*/
-#registration, #logout, #back, #forward, #edit, #ok, #cancel, #remove_button, #ingoing, #outgoing {
+#registration, #logout, #back, #forward, #edit, #ok, #cancel, #remove_button, #ingoing, #outgoing, #show_services {
 	line-height: 1.2em;
 	text-align: center;
 	font-size: 0.9em;
@@ -210,6 +211,9 @@ input[type="submit"], #login_button {
 	border-bottom-right-radius: 5px;
 	border-top-right-radius: 5px;
 	z-index: 1;
+}
+#show_services {
+	border-radius: 5px;
 }
 
 #add_button {

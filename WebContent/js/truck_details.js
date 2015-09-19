@@ -20,9 +20,14 @@ $(document).ready(function() {
 	$("#wrapper").on("change", "#brand", handleChangeBrand);
 
 	$("#wrapper").on("click", "#ok", confirmTruckEditing);
+	$("#show_services").on("click", handleClickOnShowServices);
 
 });
 
+function handleClickOnShowServices(e) {
+	var id = $("#show_services").attr("truck_id");
+	location.href = "LkwServices?id=" + id;
+}
 function handleChangeBrand(e) {
 	if ($(this).val() == "NEW") {
 		$("#new_brand").removeClass("hidden");

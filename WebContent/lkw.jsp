@@ -191,6 +191,10 @@
 				<div class="description">Neufahrzeug seit:</div>
 				<div class="value" id="new_vehicle_since"><%=new_vehicle_since %></div>
 			</div>
+			<div class="entry one_line"> 
+				<button class="value color" id="show_services" truck_id="<%=truck_id %>">Services anzeigen</button> 
+			</div>
+			
 			<% } else { %>
 			<h1>Neuer LKW:</h1>
 			<div class="entry one_row">

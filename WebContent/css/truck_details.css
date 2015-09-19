@@ -55,6 +55,9 @@ h2{
 	width: 49%;
 	float: left;
 }
+.entry.one_line {
+	width: 100%;	
+}
 .description {
    font-weight: bold;
    margin-right: 1em;
@@ -77,6 +80,10 @@ h2{
 
 #ok {
 	display: none;
+}
+
+#show_services {
+	padding: 0.5em 0;
 }
 
 .hidden {
