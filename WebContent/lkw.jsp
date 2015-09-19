@@ -125,7 +125,7 @@
 	<div id="wrapper">
     <a href="Logout"><button id="logout" class="color_discreet">Logout</button></a>
     <a href="Welcome"><button id="back" class="color_discreet">&#060&#060 Übersicht</button></a>
-    <button id="edit" class="color <%=hidden_in_new %>" >Bearbeiten</button>
+    <button id="edit" class="color hideinmobile <%=hidden_in_new %>" >Bearbeiten</button>
 	
 	<div id="hidden_infos">
 		<div class="hidden" id="state"><%=truck_state %></div>
@@ -163,11 +163,11 @@
 				<div class="description">Abgasnorm (0-6):</div>
 				<div class="value" id="emission_standard"><%=emission_standard %></div>
 			</div>
-			<div class="entry">
+			<div class="entry one_line_in_mobile">
 				<div class="description">Fahrzeug Identifikationsnummer:</div>
 				<div class="value" id="fin"><%=fin %></div>
 			</div>
-			<div class="entry">
+			<div class="entry one_line_in_mobile">
 				<div class="description">Ladefläche (Höhe / Länge):</div>
 				<div class="value"><span id="loading_space_height"><%=loading_space_height %></span> m / <span id="loading_space_length"><%=loading_space_length %></span> m</div>
 			</div>
@@ -289,7 +289,7 @@
 			
 		</div>
 	</div>
-	<button id="ok" class="color">OK</button>
+	<button id="ok" class="color hideinmobile">OK</button>
     <footer></footer>
     			
 	</div>

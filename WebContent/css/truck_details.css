@@ -88,6 +88,14 @@ h2{
 	
 	h1 {
 	  padding-top: 0px;
+	  padding-bottom: 0;
+	  line-height: 1em;
+	}
+	#barcode_picture {
+	  float: none;
+	  display: static;
+	  width: 50%;
+	  margin-left: 25%;
 	}
 	
 	#truck_details_container {
@@ -107,12 +115,8 @@ h2{
 		margin: 0;
 	}
 	
-	#truck_name, #truck_description , #truck textarea{
-		width: 90%;
-	}
-	
-	#truck select {
-		width: 45%;
+	.entry.one_line_in_mobile {
+		width: 100%;
 	}
 	
 	#ok {
@@ -120,5 +124,10 @@ h2{
 		margin-top: 1em;
 		margin-bottom: 1em;
 		float: right;
+	}
+	
+	
+	#new_vehicle_since {
+	  padding-bottom: 3em;
 	}	
 }
