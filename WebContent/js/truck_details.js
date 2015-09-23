@@ -22,6 +22,7 @@ $(document).ready(function() {
 	$("#wrapper").on("click", "#ok", confirmTruckEditing);
 	$("#show_services").on("click", handleClickOnShowServices);
 
+	
 });
 
 function handleClickOnShowServices(e) {
@@ -127,10 +128,9 @@ function activateTruckEditing() {
 	$("#truck").find(".description").remove();
 	$("#truck").find(".value").remove();
 	$("#barcode_picture").hide();
-
 	var content = $('<div class="entry one_row">' + 
 			'	<div class="description">Kennzeichen:</div>' + 
-			'	<input type="text" class="value" id="license_tag" value="'+ truck.license_tag +'"></input>' + 
+			'	<input type="text" class="value" id="licence_tag" value="'+ truck.licence_tag +'"></input>' + 
 			'</div>' + 
 			'<div class="entry one_row">' + 
 			'	<div class="description">Marke:</div>' + 
@@ -230,6 +230,22 @@ function activateTruckEditing() {
 	$("#tyre_type_front").val("" + truck.wheels_front.tyre_type).change();
 	$("#tyre_type_rear").val("" + truck.wheels_rear.tyre_type).change();
 
+	$('#initial_registration, #new_vehicle_since').datetimepicker({
+		lang:'de',
+			i18n:{
+			de:{
+					months:[
+					'Januar','Februar','März','April',
+					'Mai','Juni','Juli','August',
+					'September','Oktober','November','Dezember',
+					],
+					dayOfWeek:["Mo", "Di", "Mi", "Do", "Fr", "Sa","So"]
+				}
+			},
+			timepicker:false,
+			format:'d.m.Y'
+	});
+	
 }
 
 
