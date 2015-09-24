@@ -17,7 +17,9 @@ $(document).ready(function() {
 		$("#edit").on("click", activateProductEditing);		
 		fillProductWithDataBecauseOfTextFields();
 	}
-
+	
+	
+	
 	$("#wrapper").on("click", "#ok", confirmProductEditing);
 });
 
@@ -33,12 +35,36 @@ function fillProductWithDataBecauseOfTextFields() {
 
 function fillProductWithDataBecauseOfInputFields() {
 	product.id = $("#product").attr("value");
+	if (isNaN(product.id)) {
+		console.log("product.id isNaN");
+		return false;
+	}
 	product.name = $("#product_name").val();
+	if (product.name == "") {
+		$("#product_name").addClass("problem");
+		console.log("product.name is empty");
+		return false;
+	} else {
+		$("#product_name").removeClass("problem");
+	}
 	product.description = $("#product_description").val();
+	if (product.description == "") {
+		$("#product_description").addClass("problem");
+		console.log("product.description is empty");
+		return false;
+	} else {
+		$("#product_description").removeClass("problem");
+	}
 	product.minimum_limit = $("#product_minimum_limit").val();
-	var u = new Object();
-	u.name = $("#product_unity").val();
-	product.unity = u;
+	if (isNaN(product.minimum_limit)) {
+		$("#product_minimum_limit").addClass("problem");
+		console.log("product.minimum_limit isNaN");
+		return false;
+	} else {
+		$("#product_minimum_limit").removeClass("problem");
+	}
+	product.unity = new Object();
+	product.unity.name = $("#product_unity").val();
 	if ($("#product_state").is(":checked")) {
 		product.state = "ACTIVE";
 	} else {
@@ -80,7 +106,7 @@ function activateProductEditing() {
 	var content = $('<div class="description">Produkt ID:</div>' +
 				'<div class="value" id="product_id">' + product.id + '</div>' +
 				'<div class="description">Produktname:</div>' +
-				'<input type="text" class="value editable" id="product_name" value="'+ product.name +'"></input>' + 
+				'<input type="text" class="value editable text" id="product_name" value="'+ product.name +'"></input>' + 
 				'<div class="description">Beschreibung:</div>' +
 				'<textarea type="text" class="value editable" id="product_description">' + product.description + '</textarea>' +
 				'<div class="description">Mindestmenge im Lager:</div>' +
@@ -105,6 +131,10 @@ function activateProductEditing() {
 	restrictions.insertAfter("#product_restrictions_container");
 	
 	$("#product_unity").val(product.unity).change();
+	
+	$("input:text").change(checkForCorrectTextValue);
+	$("[type='number']").change(checkForCorrectNumberValue);
+
 }
 
 function showProductBecauseOfData() {
@@ -132,7 +162,11 @@ function showProductBecauseOfData() {
 }
 
 function confirmProductEditing() {
-	fillProductWithDataBecauseOfInputFields();
+	if (!fillProductWithDataBecauseOfInputFields()) {
+		alert("Problem");
+		return;
+	}
+	
 	if (is_new_product) {
 		product.id = "0";
 		var product_string = JSON.stringify(product);

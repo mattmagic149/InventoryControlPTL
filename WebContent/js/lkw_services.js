@@ -49,7 +49,7 @@ function fillServiceBecauseOfInputFields() {
 		service.repair_shop.name = $("#pop_up_repair_shop_name").val();
 		service.repair_shop.location = $("#pop_up_repair_shop_location").val();
 	}
-	service.description = $("#pop_up_description").text();
+	service.description = $("#pop_up_description").val();
 	service.mileage = $("#pop_up_mileage").val();
 	var service_string = JSON.stringify(service); 
 	console.log("service from input fields = " + service_string);

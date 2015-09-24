@@ -84,15 +84,16 @@
   
   <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="css/dialog.css" type="text/css" media="screen" />
-  <link rel="stylesheet" href="css/product_details.css" type="text/css" media="screen" />
+  <link rel="stylesheet" href="css/product.css" type="text/css" media="screen" />
 
   <script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script src="js/JsBarcodeGenCODE128.js" type="text/javascript"></script>
   <script src="js/JsBarcodeGen.js" type="text/javascript"></script>
   <script src="js/dialog.js" type="text/javascript"></script>
+  <script src="js/check_inputfields.js" type="text/javascript"></script>
   
-  <script src="js/product_details.js" type="text/javascript"></script>
+  <script src="js/product.js" type="text/javascript"></script>
   
   <title>PTL</title>
     

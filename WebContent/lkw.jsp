@@ -115,8 +115,8 @@
   
   <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="css/dialog.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="css/jquery.datetimepicker.css" type="text/css" />
-    <link rel="stylesheet" href="css/truck_details.css" type="text/css" media="screen" />
+  <link rel="stylesheet" href="css/jquery.datetimepicker.css" type="text/css" />
+  <link rel="stylesheet" href="css/lkw.css" type="text/css" media="screen" />
   
   <script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
 
@@ -125,8 +125,9 @@
   <script src="js/JsBarcodeGen.js" type="text/javascript"></script>
 
   <script src="js/dialog.js" type="text/javascript"></script>
+  <script src="js/jquery.datetimepicker.js" type="text/javascript" charset="UTF-8"></script>
   
-  <script src="js/truck_details.js" type="text/javascript"></script>
+  <script src="js/lkw.js" type="text/javascript"></script>
 
   <title>PTL - LKW</title>
     
