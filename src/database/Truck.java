@@ -317,6 +317,8 @@ public class Truck extends Location implements ISaveAndDelete {
 		HibernateSupport.beginTransaction();
 		brand.saveToDB();
 		parsed_truck.setTruckBrand(brand);
+		parsed_truck.getWheelsFront().saveToDB();
+		parsed_truck.getWheelsRear().saveToDB();
 		
 		parsed_truck.id = parsed_truck.getNextId();
 		parsed_truck.saveToDB();
