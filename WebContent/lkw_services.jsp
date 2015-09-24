@@ -1,19 +1,24 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@page import="database.TruckService"%>
 <%@page import="database.Truck" %>
+<%@page import="database.RepairShop" %>
 <%@page import="java.util.ArrayList" %>
 <%@page import="java.util.List" %>
 <%@page import="java.text.SimpleDateFormat"%>
 
 <%
 	Object obj = session.getAttribute("truck");
-	if (obj == null) {%>
+	Object obj2 = session.getAttribute("repair_shops");
+	if (obj == null || obj2 == null) {%>
 		<jsp:forward page="welcome.jsp"/>
 	<%}
 	
 	Truck truck = (Truck)session.getAttribute("truck");
 	List<TruckService> truck_services = truck.getServices();
 	SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+	
+	List<RepairShop> repair_shops = ((ArrayList) session.getAttribute("repair_shops"));
+	
 %>
 
 <!DOCTYPE html>
@@ -42,7 +47,17 @@
     <a href="Logout"><button id="logout" class="color_discreet">Logout</button></a>
     <a href="Welcome"><button id="back" class="color_discreet">&#060&#060 Übersicht</button></a>
     
-    <div style="display: none" id="truck_id"><%=truck.getId() %></div>
+    <div style="display: none">
+    	<div id="truck_id"><%=truck.getId() %></div>
+    	<div id="all_possible_repair_shops">
+    		<option value="-1">Werkstatt auswählen...</option>
+    		<% for (RepairShop rs : repair_shops) { %>
+    		<option value="<%=rs.getId() %>"><%=rs.getRepairShopDetail() %></option>
+    		<% } %>
+    		<option value="0">Neue Werkstatt anlegen</option>
+    	</div>
+   	</div>
+    
     
     <h1><span>Services</span> von <%=truck.getLicenceTag() %></h1>
 

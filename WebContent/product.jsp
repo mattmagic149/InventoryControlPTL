@@ -1,6 +1,7 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@page import="database.Product"%>
 <%@page import="database.Truck"%>
+<%@page import="database.Location"%>
 <%@page import="java.util.List"%>
 <%@page import="org.javatuples.Pair"%>
 
@@ -31,12 +32,11 @@
 	
 	List<Truck> trucks_for_ingoing = null;
 	String possible_ingoing_locations = "<option value='1'>Neue Ware...</option>";
-/*	if () {
-		for (Truck truck : trucks_for_ingoing) {
-			possible_ingoing_locations += "<option value='" + "'>" + "</option>";
-		}
+	List<Pair<Location, Long>> locations_of_product = product.getAllAvailableLocationsGreaterZero();
+	for (Pair<Location, Long> loc_quantity : locations_of_product) {
+		possible_ingoing_locations += "<option value='" + loc_quantity.getValue0().getId() + "' quantity='" + loc_quantity.getValue1() + "'>" + loc_quantity.getValue0().getId() + "</option>";
 	}
-*/	
+	
 	String product_id = "0";
 	String product_barcode = "Wird automatisch generiert";
 	String product_name = "";

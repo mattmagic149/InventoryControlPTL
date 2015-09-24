@@ -73,6 +73,17 @@ function createServicePopUp(headline, service, options_dom_element) {
 	"<div id='overlay'></div>");
 	
 	$("#pop_up_repair_shop").append(options_dom_element.children().clone());
+	$("#pop_up_repair_shop").val(service.repair_shop.id).change();		
+	
+	$("#pop_up_repair_shop").on("change", function() {
+		if ($(this).val() == "0") {
+			$("#pop_up_repair_shop_name").show();
+			$("#pop_up_repair_shop_location").show();
+		} else {
+			$("#pop_up_repair_shop_name").hide();
+			$("#pop_up_repair_shop_location").hide();
+		}
+	});
 	
 	$('#pop_up_date').datetimepicker({
 		lang:'de',

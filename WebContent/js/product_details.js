@@ -186,7 +186,7 @@ function generateBarCode() {
 
 
 function handleIngoing() {
-	createTransactionPopUp("Eingang...", "Wo kommt es her?",  $("#possible_ingoing_locations"));
+	createTransactionPopUp("Eingang...", "Wo kommt es her?", $("#possible_ingoing_locations"));
 //	createPopUp("Eingang...", "message");
 	createPopUpButtons("Verbuchen", "Abbrechen");
 	$("#confirm_pop_up_button").on("click", confirmIngoingTransaction);
@@ -228,9 +228,10 @@ function sendTransaction(quantity, from, to) {
 			//alert("success, transaction was sent");
 			//var content = xhr.getResponseHeader('content');
 
+			location.reload();
+			/*
 			var old_quantity = parseInt($("#product_lager_quantity").text());
-			var quantity_value = parseInt(quantity);
-			
+			var quantity_value = parseInt(quantity);			
 			if (from == $("#current_location").text()) {
 				//lagerabbau
 				$("#product_lager_quantity").text(old_quantity - quantity_value);
@@ -238,6 +239,7 @@ function sendTransaction(quantity, from, to) {
 				//lageraufbau
 				$("#product_lager_quantity").text("" + (old_quantity + quantity_value));				
 			}
+			*/
 		},
 		error: function(data, settings, xhr) {
 			alert("error");

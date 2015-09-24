@@ -8,8 +8,6 @@ $(document).ready(function() {
 	service.truck = new Object();
 	service.truck.id = $("#truck_id").text();
 	
-	
-	
 });
 
 
@@ -25,7 +23,7 @@ function handleClickOnDetailsButton(e) {
 	var service_string = JSON.stringify(service);
 	console.log("service = " + service_string);
 	
-	createServicePopUp("Service ändern", service);
+	createServicePopUp("Service ändern", service,  $("#all_possible_repair_shops"));
 	createPopUpButtons("Eintragen", "Abbrechen");
 	$("#confirm_pop_up_button").on("click", confirmServiceEditing);
 }
@@ -34,10 +32,11 @@ function handleClickOnNewServiceButton(e){
 	service.id = "0";
 	service.date = "";
 	service.repair_shop = new Object();
+	service.repair_shop.id = -1;
 	service.description = "";
 	service.mileage = "";
 	
-	createServicePopUp("Neues Service hinzufügen", service);
+	createServicePopUp("Neues Service hinzufügen", service, $("#all_possible_repair_shops"));
 	createPopUpButtons("Eintragen", "Abbrechen");
 	$("#confirm_pop_up_button").on("click", confirmNewService);
 }
@@ -47,8 +46,8 @@ function fillServiceBecauseOfInputFields() {
 	service.repair_shop = new Object();
 	service.repair_shop.id = $("#pop_up_repair_shop").val();
 	if (service.repair_shop.id == 0) {
-		service.repair_shop.name = "";
-		service.repair_shop.location = "";
+		service.repair_shop.name = $("#pop_up_repair_shop_name").val();
+		service.repair_shop.location = $("#pop_up_repair_shop_location").val();
 	}
 	service.description = $("#pop_up_description").text();
 	service.mileage = $("#pop_up_mileage").val();
