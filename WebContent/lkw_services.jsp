@@ -1,5 +1,5 @@
-<%@page import="database.TruckService"%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@page import="database.TruckService"%>
 <%@page import="database.Truck" %>
 <%@page import="java.util.ArrayList" %>
 <%@page import="java.util.List" %>
