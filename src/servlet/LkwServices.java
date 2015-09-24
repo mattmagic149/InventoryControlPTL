@@ -71,7 +71,7 @@ public class LkwServices extends HttpServlet {
 		}
 		
 		List<TruckService> truck_services = truck.getServices(); //HibernateSupport.readMoreObjects(Truck.class, new ArrayList<Criterion>());
-		if(truck_services != null && truck_services.size() > 0) {
+		if(truck_services != null) {
 			session.setAttribute("truck_services", truck_services);
 			request.getRequestDispatcher("lkw_services.jsp").include(request, response);
 			return;

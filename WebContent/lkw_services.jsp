@@ -8,7 +8,6 @@
 	Object obj = session.getAttribute("truck_services");
 	if (obj == null) {%>
 		<jsp:forward page="welcome.jsp"/>
-	
 	<%}
 	List<TruckService> truck_services = new ArrayList<TruckService>((ArrayList) session.getAttribute("truck_services"));
 		
@@ -47,7 +46,8 @@
     
     <section id="item_list">
       <%
-		for (TruckService tc : truck_services) {
+      	if (truck_services != null) {
+			for (TruckService tc : truck_services) {
 	  %>
 		      <section class="item color_discreet" id="<%=tc.getId() %>">
 		        <div class="name"><%=tc.getDate() %></div>
@@ -57,6 +57,7 @@
 				<button class="details color">&#062 &#062</button>
 			  </section>
 	  <%
+			}
 		}
       %>
     </section>
