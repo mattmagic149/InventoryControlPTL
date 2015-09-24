@@ -207,6 +207,8 @@ public abstract class Location implements ISaveAndDelete {
 		return result;
 	}
 	
+	public abstract String getSpecificName();
+	
 	
 	/* (non-Javadoc)
 	 * @see interfaces.ISaveAndDelete#serialize()

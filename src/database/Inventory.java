@@ -42,6 +42,10 @@ public class Inventory extends Location {
 		return location;
 	}
 	
+	public String getSpecificName() {
+		return this.name;
+	}
+	
 	/* (non-Javadoc)
 	 * @see interfaces.ISaveAndDelete#serialize()
 	 */

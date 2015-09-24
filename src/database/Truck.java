@@ -134,10 +134,6 @@ public class Truck extends Location implements ISaveAndDelete {
 		return wheels_rear;
 	}
 
-	public String getLicence_tag() {
-		return licence_tag;
-	}
-
 	public TruckBrand getBrand() {
 		return truck_brand;
 	}
@@ -227,6 +223,11 @@ public class Truck extends Location implements ISaveAndDelete {
 	public void setProductsConsumeable(List<Product> products_consumeable) {
 		this.products_consumeable = products_consumeable;
 	}
+	
+	public String getSpecificName() {
+		return this.licence_tag;
+	}
+
 
 	public static Truck createTruck(String licence_tag, 
 									String brand, 

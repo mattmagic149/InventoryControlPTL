@@ -26,13 +26,18 @@ function printSelectedLabels() {
 		if (number_of_labels > 0) {
 			var label_name = $(this).find(".name").text();
 			var label_barcode_string = $(this).attr("product_barcode_string");
+			console.log(label_barcode_string);
+
 			var img = $("<img />");
 			img.JsBarcode(label_barcode_string, barcode_options);
 			var label = $("<div class='label'><div class='label_name'>" + label_name + "</div></div>");
+
 			label.append(img);
 			for (var i = 0; i < number_of_labels; i = i + 1) {
-				$("#labels").append(label.clone());				
+				$("#labels").append(label.clone());	
 			}
+			console.log(label);
+
 		}
 	});
 	
