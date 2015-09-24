@@ -174,6 +174,8 @@ public class Product implements ISaveAndDelete {
 		HibernateSupport.beginTransaction();
 		unity.saveToDB();
 		parsed_product.setUnity(unity);
+		parsed_product.product_elements = old_product.product_elements;
+		parsed_product.trucks_to_restrict = old_product.trucks_to_restrict;
 		
 		parsed_product.saveToDB();
 		HibernateSupport.commitTransaction();
