@@ -16,7 +16,6 @@ import org.hibernate.criterion.Criterion;
 import utils.HibernateSupport;
 import database.RepairShop;
 import database.Truck;
-import database.TruckService;
 
 /**
  * Servlet implementation class Welcome
