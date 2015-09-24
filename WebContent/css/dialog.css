@@ -86,6 +86,41 @@
 	display: none;
 }
 
+#notification {
+	display: none;
+	width: 350px;
+	background-color: #FFF;
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	box-shadow: 5px 5px 5px #666;
+	border: 2px solid green;
+	border-radius: 10px;
+	padding: 10px 20px;
+	z-index: 1001;
+	opacity: 0.9;
+}
+#notification p {
+	margin: 0 0 0 20px;
+	padding: 0;
+}
+#notification h2 {
+	margin: 5px 0 10px 20px;
+	padding: 0;
+}
+#notification img {
+	height: 60px;
+	width: 60px;
+	float: left;
+	margin: 0 20px 0 0;
+	padding: 0;
+}
+
+#notification_text {
+	float: left;
+}
+
+
 @media only all and (max-width:70em) {
 
 	#pop_up {

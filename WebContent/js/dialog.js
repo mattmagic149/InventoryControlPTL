@@ -161,3 +161,15 @@ function createNotification(headline, message, icon) {
 	setTimeout(closeNotification, show_time);
 }
 
+//--------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------
+//Closes the Input Container
+//
+function closeNotification() {
+	var notification = $("#notification");
+	var duration = 600;
+	
+	notification.fadeOut(duration);
+	
+	window.setTimeout(function() {notification.remove();}, duration);
+}

@@ -10,7 +10,7 @@
 	Object obj2 = session.getAttribute("is_new");
 	Object obj3 = session.getAttribute("truck_brands");
 
-	if (obj == null || obj2 == null) {%>
+	if (obj2 == null) {%>
 		<jsp:forward page="welcome.jsp"/>
 	<%}
 	
@@ -18,7 +18,7 @@
 	
 	
 	boolean is_new = (boolean)session.getAttribute("is_new");
-	Truck truck = (Truck)session.getAttribute("current_truck");
+	
 	String truck_license_tag = "";
 	String truck_id = "";
 	String truck_barcode = "";
@@ -48,7 +48,10 @@
 	String height_in_percent_rear = "7";
 	String size_in_inch_rear = "8";
 	
-	if (truck != null) {
+	Truck truck;
+	if (obj != null) {
+		truck = (Truck)session.getAttribute("current_truck");
+
 		truck_license_tag = truck.getLicenceTag();
 		truck_id = String.valueOf(truck.getId());
 		truck_barcode = truck.getBarCodeEncoding();

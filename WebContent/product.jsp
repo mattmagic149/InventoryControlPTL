@@ -147,8 +147,8 @@
 			<div class="value editable"><span id="product_lager_quantity"><%=product_lager_quantity %></span> <span class="product_unity"><%=product_unity %></span></div>
 			<div class="hidden value" id="product_state"><%=state_string %></div>
 			<% } else { %>
-			<div class="description">Produkt ID:</div>
-			<div class="value" id="product_id"><%=product_id %></div>
+			<div class="description hidden">Produkt ID:</div>
+			<div class="value hidden" id="product_id"><%=product_id %></div>
 			<div class="description">Produktname:</div>
 			<input type="text" class="value editable" id="product_name" value=""></input>
 			<div class="description">Beschreibung:</div>

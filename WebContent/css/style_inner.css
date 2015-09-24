@@ -365,7 +365,7 @@ input[type="submit"], #login_button {
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 1000;
+	z-index: 2000 !important;
 	display: none;
 }
 #loader img {
