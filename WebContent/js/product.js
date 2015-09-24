@@ -35,34 +35,9 @@ function fillProductWithDataBecauseOfTextFields() {
 
 function fillProductWithDataBecauseOfInputFields() {
 	product.id = $("#product").attr("value");
-	if (isNaN(product.id)) {
-		console.log("product.id isNaN");
-		return false;
-	}
 	product.name = $("#product_name").val();
-	if (product.name == "") {
-		$("#product_name").addClass("problem");
-		console.log("product.name is empty");
-		return false;
-	} else {
-		$("#product_name").removeClass("problem");
-	}
 	product.description = $("#product_description").val();
-	if (product.description == "") {
-		$("#product_description").addClass("problem");
-		console.log("product.description is empty");
-		return false;
-	} else {
-		$("#product_description").removeClass("problem");
-	}
 	product.minimum_limit = $("#product_minimum_limit").val();
-	if (isNaN(product.minimum_limit)) {
-		$("#product_minimum_limit").addClass("problem");
-		console.log("product.minimum_limit isNaN");
-		return false;
-	} else {
-		$("#product_minimum_limit").removeClass("problem");
-	}
 	product.unity = new Object();
 	product.unity.name = $("#product_unity").val();
 	if ($("#product_state").is(":checked")) {
@@ -132,9 +107,7 @@ function activateProductEditing() {
 	
 	$("#product_unity").val(product.unity).change();
 	
-	$("input:text").change(checkForCorrectTextValue);
-	$("[type='number']").change(checkForCorrectNumberValue);
-
+	createInputFieldsChecker();
 }
 
 function showProductBecauseOfData() {
@@ -162,10 +135,12 @@ function showProductBecauseOfData() {
 }
 
 function confirmProductEditing() {
-	if (!fillProductWithDataBecauseOfInputFields()) {
-		alert("Problem");
+	if(!(checkAllInputFields())) {
+		console.log("confirmProductEditing: checkAllInputFields returned false");
 		return;
 	}
+	
+	fillProductWithDataBecauseOfInputFields();
 	
 	if (is_new_product) {
 		product.id = "0";

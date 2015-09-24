@@ -36,6 +36,8 @@
   <script src="js/editable.js" type="text/javascript"></script>
   <script src="js/jquery.datetimepicker.js" type="text/javascript" charset="UTF-8"></script>
   <script src="js/dialog.js" type="text/javascript"></script>
+  <script src="js/check_inputfields.js" type="text/javascript"></script>
+
   <script src="js/lkw_services.js" type="text/javascript"></script>
 
 	<title>PTL - LKWs</title>
