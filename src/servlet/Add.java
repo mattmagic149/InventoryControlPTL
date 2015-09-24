@@ -69,6 +69,16 @@ public class Add extends HttpServlet {
 				response.setHeader("id", String.valueOf(id));
 				return;
 			}
+		} else if(parameter.equals("truck_service")) {
+			System.out.println("I am adding a new TruckService");
+			/*if((id = Truck.createTruckFromJSON(object)) == -1) {
+				response.setStatus(401);
+				response.setHeader("error_message", "Lkw konnte nicht hinzugefügt werden.");
+				return;
+			} else {
+				response.setHeader("id", String.valueOf(id));
+				return;
+			}*/
 		}
 		
 	}

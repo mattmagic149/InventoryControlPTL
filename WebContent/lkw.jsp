@@ -1,8 +1,12 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@page import="database.Truck"%>
+<%@page import="java.text.SimpleDateFormat"%>
+
 <%
 	Object obj = session.getAttribute("current_truck");
 	Object obj2 = session.getAttribute("is_new");
+	Object obj3 = session.getAttribute("truck_brands");
+
 	if (obj == null || obj2 == null) {%>
 		<jsp:forward page="welcome.jsp"/>
 	<%}
@@ -57,10 +61,11 @@
 			wheels_rear_string = truck.getWheelsRear().getTyreInfos();
 		}
 		
+		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
 		loading_space_height = String.valueOf(truck.getLoadingSpaceHeight());
 		loading_space_length = String.valueOf(truck.getLoadingSpaceLength());
-		initial_registration = String.valueOf(truck.getInitialRegistration());
-		new_vehicle_since = String.valueOf(truck.getNewVehicleSince());
+		initial_registration = format.format(truck.getInitialRegistration());
+		new_vehicle_since = format.format(truck.getNewVehicleSince());
 		
 		if (truck.getTruckState() == Truck.TruckState.SOLD) {
 			state_string = "Verkauft";	

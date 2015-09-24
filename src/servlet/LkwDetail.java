@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,8 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.criterion.Criterion;
+
 import utils.HibernateSupport;
 import database.Truck;
+import database.TruckBrand;
 
 /**
  * Servlet implementation class Welcome
@@ -66,7 +71,8 @@ public class LkwDetail extends HttpServlet {
 		
 		System.out.println("id = " + id);
 		Truck truck = HibernateSupport.readOneObjectByID(Truck.class, id);
-
+		List<TruckBrand> truck_brands = HibernateSupport.readMoreObjects(TruckBrand.class, new ArrayList<Criterion>());
+		
 		//ERROR:
 		if(truck == null) {
 			request.getRequestDispatcher("welcome.jsp").include(request, response);
@@ -75,6 +81,7 @@ public class LkwDetail extends HttpServlet {
 		}
 		
 		session.setAttribute("current_truck", truck);
+		session.setAttribute("truck_brands", truck_brands);
 		request.getRequestDispatcher("lkw.jsp").include(request, response);
 		return;
 	}

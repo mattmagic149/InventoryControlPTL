@@ -1,6 +1,7 @@
 
 package database;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -71,7 +72,7 @@ public class Truck extends Location implements ISaveAndDelete {
 	private float loading_space_length;
 	
 	@OneToMany
-	@JoinColumn(name="service")
+	@JoinColumn(name="services")
 	private List<TruckService> services;
 	
 	@ManyToMany(mappedBy="trucks_to_restrict")
@@ -148,9 +149,19 @@ public class Truck extends Location implements ISaveAndDelete {
 	public Date getInitialRegistration() {
 		return initial_registration;
 	}
+	
+	public String getInitialRegistrationFormated() {
+		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+		return format.format(initial_registration);
+	}
 
 	public Date getNewVehicleSince() {
 		return new_vehicle_since;
+	}
+	
+	public String getNewVehicleSinceFormated() {
+		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+		return format.format(new_vehicle_since);
 	}
 
 	public int getPayload() {
@@ -348,11 +359,38 @@ public class Truck extends Location implements ISaveAndDelete {
 	public static List<Truck> getAllTrucks() {
 		return HibernateSupport.readMoreObjects(Truck.class, new ArrayList<Criterion>());
 	}
-
 	
-	public boolean addTruckService() {
+	public boolean addNewTruckService(Date date, 
+									  String repair_shop_name, 
+									  String repair_shop_location,
+									  String description,
+									  int mileage) {
+		TruckService service = new TruckService(date, 
+												repair_shop_name, 
+												repair_shop_location,
+												description,
+												mileage,
+												this);
+		
+		HibernateSupport.beginTransaction();		
+		service.getRepairShop().addService(service);
+		this.addTruckService(service);
+		HibernateSupport.commitTransaction();
 		
 		return true;
+	}
+
+	
+	public boolean addTruckService(TruckService service) {
+		
+		boolean success = false;
+		
+		if (this.services.add(service)){
+			success = service.saveToDB();
+		} else {
+			return false;
+		}
+		return success;
 	}
 	
 	/* (non-Javadoc)
@@ -380,6 +418,12 @@ public class Truck extends Location implements ISaveAndDelete {
 		fields.clear();
 		fields.add("trucks");
 		fields_to_skip.add(new Pair<Class<?>, List<String>>(TruckBrand.class, fields));
+		
+		fields.clear();
+		fields.add("truck");
+		//fields.add("repair_shop");
+		fields_to_skip.add(new Pair<Class<?>, List<String>>(TruckService.class, fields));
+		
 				
 	
 		Gson gson = new GsonBuilder()

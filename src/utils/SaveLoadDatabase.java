@@ -247,6 +247,7 @@ public class SaveLoadDatabase {
 		System.out.println("Starting to load trucks.");
 		FileReader file_reader;
 		Truck truck;
+		List<TruckService> services;
 		Gson gson = new GsonBuilder().create();
 		try {
 			file_reader = new FileReader(directory + truck_string + file_extension);
@@ -260,6 +261,8 @@ public class SaveLoadDatabase {
 				truck.setTruckBrand(TruckBrand.getTruckBrand(truck.getBrand().getName()));
 				truck.setWheelsFront(new Wheel(truck.getWheelsFront()));
 				truck.setWheelsRear(new Wheel(truck.getWheelsRear()));
+				services = truck.getServices();
+				truck.setServices(new ArrayList<TruckService>());
 				
 				HibernateSupport.beginTransaction();
 				truck.getWheelsFront().saveToDB();
@@ -267,6 +270,17 @@ public class SaveLoadDatabase {
 				truck.saveToDB();
 				HibernateSupport.commitTransaction();
 				System.out.println(truck.getTruckState());
+				
+				for(TruckService service : services) {					
+					truck.addNewTruckService(service.getDate(), 
+											 service.getRepairShop().getName(),
+											 service.getRepairShop().getLocation(),
+											 service.getDescription(), 
+											 service.getMileage());
+				}
+				
+				
+				
 
 			}
 			buffered_reader.close();

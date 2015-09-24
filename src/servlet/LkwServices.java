@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.hibernate.criterion.Criterion;
 
 import utils.HibernateSupport;
 import database.Truck;
@@ -70,15 +67,10 @@ public class LkwServices extends HttpServlet {
 			return;
 		}
 		
-		List<TruckService> truck_services = truck.getServices(); //HibernateSupport.readMoreObjects(Truck.class, new ArrayList<Criterion>());
-		if(truck_services != null && truck_services.size() > 0) {
-			session.setAttribute("truck_services", truck_services);
-			request.getRequestDispatcher("lkw_services.jsp").include(request, response);
-			return;
-		}
-		
-		request.getRequestDispatcher("welcome.jsp").include(request, response);
+		session.setAttribute("truck", truck);
+		request.getRequestDispatcher("lkw_services.jsp").include(request, response);
 		return;
+		
 	}
 
 	/**
