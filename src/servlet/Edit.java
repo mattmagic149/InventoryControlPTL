@@ -69,6 +69,16 @@ public class Edit extends HttpServlet {
 				response.setHeader("id", String.valueOf(id));
 				return;
 			}
+		} else if(parameter.equals("truck_service")) {
+			System.out.println("I am editing a TruckService");
+			/*if((id = Truck.editTruck(object)) == -1) {
+				response.setStatus(401);
+				response.setHeader("error_message", "Produkt konnte nicht bearbeitet werden.");
+				return;
+			} else {
+				response.setHeader("id", String.valueOf(id));
+				return;
+			}*/
 		}
 	}
 

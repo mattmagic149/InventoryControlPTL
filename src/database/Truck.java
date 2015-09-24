@@ -365,6 +365,7 @@ public class Truck extends Location implements ISaveAndDelete {
 									  String repair_shop_location,
 									  String description,
 									  int mileage) {
+		
 		TruckService service = new TruckService(date, 
 												repair_shop_name, 
 												repair_shop_location,

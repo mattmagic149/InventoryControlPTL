@@ -76,6 +76,10 @@ public class RepairShop implements ISaveAndDelete {
 		return services;
 	}
 	
+	public String getRepairShopDetail() {
+		return this.name + " (" + this.location + ")";
+	}
+	
 	public boolean addService(TruckService service) {
 		boolean success = false;
 		

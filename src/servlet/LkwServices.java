@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,9 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.criterion.Criterion;
+
 import utils.HibernateSupport;
+import database.RepairShop;
 import database.Truck;
-import database.TruckService;
 
 /**
  * Servlet implementation class Welcome
@@ -61,6 +64,7 @@ public class LkwServices extends HttpServlet {
 		
 		System.out.println("id = " + id);
 		Truck truck = HibernateSupport.readOneObjectByID(Truck.class, id);
+		List<RepairShop> repair_shops = HibernateSupport.readMoreObjects(RepairShop.class, new ArrayList<Criterion>());
 		if (truck == null) {
 			request.getRequestDispatcher("welcome.jsp").include(request, response);
 			System.out.println("Couldn't find truck in database (id = " + id + ")");
@@ -68,6 +72,7 @@ public class LkwServices extends HttpServlet {
 		}
 		
 		session.setAttribute("truck", truck);
+		session.setAttribute("repair_shops", repair_shops);
 		request.getRequestDispatcher("lkw_services.jsp").include(request, response);
 		return;
 		
