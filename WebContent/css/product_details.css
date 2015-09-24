@@ -44,15 +44,6 @@ h2{
 #barcode_picture {
 	float:right;
 }
-.description {
-   margin-top: 1em;
-   font-weight: bold;
-   margin-right: 1em;
-   font-size: 0.8em;
-}
-
-.value {
-}
 
 #ingoing , #outgoing{
 	margin-top: 3em;

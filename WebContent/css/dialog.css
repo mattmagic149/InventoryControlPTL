@@ -78,7 +78,7 @@
 #pop_up_field_container select {
 	width: 340px;
 }
-#pop_up_field_container input[type="number"] {
+#pop_up_field_container input[type="number"], #pop_up_field_container input[type="text"], #pop_up_field_container textarea {
 	width: 327px;
 }
 
@@ -132,7 +132,7 @@
 	#pop_up_field_container select {
 		width: 100%;
 	}
-	#pop_up_field_container input[type="number"] {
+	#pop_up_field_container input[type="number"], #pop_up_field_container input[type="text"], textarea {
 		width: 100%;
 	}
 		

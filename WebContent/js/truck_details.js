@@ -17,7 +17,7 @@ $(document).ready(function() {
 		generateBarCode();
 	}
 
-	$("#wrapper").on("change", "#brand", handleChangeBrand);
+	$("#wrapper").on("change", "#brand_selection", handleChangeBrand);
 
 	$("#wrapper").on("click", "#ok", confirmTruckEditing);
 	$("#show_services").on("click", handleClickOnShowServices);
@@ -80,14 +80,14 @@ function fillTruckWithDataBecauseOfTextFields() {
 }
 
 function fillTruckWithDataBecauseOfInputFields() {
+	truck = new Object();
 	truck.id = $("#truck").attr("truck_id");
 	truck.licence_tag = $("#licence_tag").val();
-	var brand = new Object();
-	brand.name = $("#brand").val();
-	if (brand.name == "NEW") {
-		brand.name = $("#new_brand").val();
+	truck.truck_brand = new Object();
+	truck.truck_brand.name = $("#brand_selection").val();
+	if (truck.truck_brand.name == "NEW") {
+		truck.truck_brand.name = $("#new_brand").val();
 	}
-	truck.truck_brand = brand;
 	truck.type = $("#type").val();
 	
 	truck.type_of_fuel = $("#type_of_fuel").val();
@@ -119,8 +119,11 @@ function fillTruckWithDataBecauseOfInputFields() {
 
 function activateTruckEditing() {
 	$("#ok").show();
+	$("#edit").hide();
 	fillTruckWithDataBecauseOfTextFields();
 
+	var all_possible_truck_brands = $("#all_possible_truck_brands").children();
+	
 	$("#hidden_infos").remove();
 	$("#truck_details_container").addClass("editing");
 
@@ -134,10 +137,7 @@ function activateTruckEditing() {
 			'</div>' + 
 			'<div class="entry one_row">' + 
 			'	<div class="description">Marke:</div>' + 
-			'	<select class="value" id="brand">' + 
-			'		<option value="Audi">brand1</option>' + 
-			'		<option value="1">brand2</option>' + 
-			'		<option value="NEW">Neue Marke anlegen</option>' + 
+			'	<select class="value" id="brand_selection">' + 
 			'	</select>' + 
 			'	<input type="text" class="value hidden split_in_two" id="new_brand"></input>' + 
 			'</div>' + 
@@ -222,10 +222,12 @@ function activateTruckEditing() {
 			'</div>'
 			);
 	content.insertAfter("#barcode_picture");
+		
+	$("#brand_selection").append(all_possible_truck_brands);
 	
 	$("#type_of_fuel").val(truck.type_of_fuel).change();
 	$("#emission_standard").val(truck.emission_standard).change();
-	$("#brand").val(truck.brand).change();
+	$("#brand_selection").val(truck.brand).change();
 	$("#state").val(truck.state).change();
 	$("#tyre_type_front").val("" + truck.wheels_front.tyre_type).change();
 	$("#tyre_type_rear").val("" + truck.wheels_rear.tyre_type).change();
@@ -264,7 +266,7 @@ function confirmTruckEditing() {
 
 
 function sendTruckToServer(servlet, truck_string) {
-
+	console.log("truck_string send to server = "+ truck_string);
 	$.ajax({
 		type: "POST",
 		url: servlet,

@@ -68,6 +68,8 @@ function fillProductWithDataBecauseOfInputFields() {
 
 function activateProductEditing() {
 	$("#ok").show();
+	$("#edit").hide();
+
 	fillProductWithDataBecauseOfTextFields();
 	$("#product").find(".description").remove();
 	$("#product").find(".value").remove();

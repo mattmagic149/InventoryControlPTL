@@ -1,6 +1,9 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@page import="database.Truck"%>
+<%@page import="database.TruckBrand"%>
 <%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.ArrayList" %>
+<%@page import="java.util.List" %>
 
 <%
 	Object obj = session.getAttribute("current_truck");
@@ -10,6 +13,10 @@
 	if (obj == null || obj2 == null) {%>
 		<jsp:forward page="welcome.jsp"/>
 	<%}
+	
+	List<TruckBrand> truck_brands = new ArrayList<TruckBrand>((ArrayList) session.getAttribute("truck_brands"));
+	
+	
 	boolean is_new = (boolean)session.getAttribute("is_new");
 	Truck truck = (Truck)session.getAttribute("current_truck");
 	String truck_license_tag = "";
@@ -144,6 +151,13 @@
 		<div class="hidden" id="size_in_mm_rear"><%=size_in_mm_rear %></div>
 		<div class="hidden" id="height_in_percent_rear"><%=height_in_percent_rear %></div>
 		<div class="hidden" id="size_in_inch_rear"><%=size_in_inch_rear %></div>
+		
+		<div class="hidden" id="all_possible_truck_brands">
+			<% for (TruckBrand tb : truck_brands) { %>
+			<option value="<%=tb.getName() %>"><%=tb.getName() %></option> 
+			<% } %>
+			<option value="NEW">Neue Marke anlegen</option>
+		</div>
 	</div>
 	
 	<div id="truck_details_container">
@@ -208,9 +222,10 @@
 			</div> 
 			<div class="entry one_row"> 
 				<div class="description">Marke:</div> 
-				<select class="value" id="brand"> 
-					<option value="Audi">brand1</option> 
-					<option value="1">brand2</option> 
+				<select class="value" id="brand_selection"> 
+					<% for (TruckBrand tb : truck_brands) { %>
+					<option value="<%=tb.getName() %>"><%=tb.getName() %></option> 
+					<% } %>
 					<option value="NEW">Neue Marke anlegen</option> 
 				</select>
 				<input type="text" class="value hidden split_in_two" id="new_brand"></input> 

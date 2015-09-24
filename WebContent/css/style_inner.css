@@ -395,4 +395,13 @@ input[type="submit"], #login_button {
 	bottom: -8px;
 }
 
+.description {
+   margin-top: 1em;
+   font-weight: bold;
+   margin-right: 1em;
+   font-size: 0.8em;
+}
+
+.value {
+}
 

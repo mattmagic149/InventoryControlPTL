@@ -59,9 +59,7 @@ h2{
 	width: 100%;	
 }
 .description {
-   font-weight: bold;
-   margin-right: 1em;
-   font-size: 0.8em;
+   margin-top: 0;
 }
 
 .value {
