@@ -55,11 +55,9 @@ function fillProductWithDataBecauseOfInputFields() {
 	product.trucks_to_restrict = restrictions_array;
 	
 	if ($("#no_restriction").is(":checked")){
-		alert("no_restriction...");
 		product.restriction = "NO";
 		product.trucks_to_restrict = [];
 	} else {
-		alert("RRRRRestriction...");
 		product.restriction = "YES";
 	}
 	
@@ -147,7 +145,6 @@ function confirmProductEditing() {
 		sendProductToServer("Add", product_string);
 	} else {
 		var product_string = JSON.stringify(product);
-		alert("product edit = " + product_string);
 		sendProductToServer("Edit", product_string);		
 	}
 }
@@ -167,8 +164,7 @@ function sendProductToServer(servlet, product_string) {
 			location.href = "ProductDetail?id=" + id;
 		},
 		error: function(data, settings, xhr) {
-			alert("error");
-//			$("#pop_up_message").html(xhr.getResponseHeader('error_message'));
+			
 		}
 	});
 }

@@ -59,9 +59,11 @@ public class LkwDetail extends HttpServlet {
 			request.getRequestDispatcher("welcome.jsp").include(request, response);
 			return;
 		}
+		List<TruckBrand> truck_brands = HibernateSupport.readMoreObjects(TruckBrand.class, new ArrayList<Criterion>());
 		
 		if(id == 0) {
 			session.setAttribute("is_new", true);
+			session.setAttribute("truck_brands", truck_brands);
 			request.getRequestDispatcher("lkw.jsp").include(request, response);
 			request.setCharacterEncoding("UTF-8");
 			return;
@@ -71,7 +73,6 @@ public class LkwDetail extends HttpServlet {
 		
 		System.out.println("id = " + id);
 		Truck truck = HibernateSupport.readOneObjectByID(Truck.class, id);
-		List<TruckBrand> truck_brands = HibernateSupport.readMoreObjects(TruckBrand.class, new ArrayList<Criterion>());
 		
 		//ERROR:
 		if(truck == null) {
