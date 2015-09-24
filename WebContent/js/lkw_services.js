@@ -26,6 +26,8 @@ function handleClickOnDetailsButton(e) {
 	createServicePopUp("Service ändern", service,  $("#all_possible_repair_shops"));
 	createPopUpButtons("Eintragen", "Abbrechen");
 	$("#confirm_pop_up_button").on("click", confirmServiceEditing);
+	
+	createInputFieldsChecker();
 }
 
 function handleClickOnNewServiceButton(e){
@@ -39,6 +41,8 @@ function handleClickOnNewServiceButton(e){
 	createServicePopUp("Neues Service hinzufügen", service, $("#all_possible_repair_shops"));
 	createPopUpButtons("Eintragen", "Abbrechen");
 	$("#confirm_pop_up_button").on("click", confirmNewService);
+
+	createInputFieldsChecker();
 }
 
 function fillServiceBecauseOfInputFields() {
@@ -56,6 +60,9 @@ function fillServiceBecauseOfInputFields() {
 }
 
 function confirmServiceEditing() {
+	if (!(checkAllInputFields())) {
+		return;
+	}
 	fillServiceBecauseOfInputFields();
 
 	var service_string = JSON.stringify(service);
@@ -63,6 +70,9 @@ function confirmServiceEditing() {
 }
 
 function confirmNewService() {
+	if (!(checkAllInputFields())) {
+		return;
+	}
 	fillServiceBecauseOfInputFields();
 	
 	var service_string = JSON.stringify(service);

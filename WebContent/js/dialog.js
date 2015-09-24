@@ -67,7 +67,7 @@ function createServicePopUp(headline, service, options_dom_element) {
 			"<div class='description'>Beschreibung</div>" +
 			"<textarea type='text' class='value' id='pop_up_description'>" + service.description + "</textarea>" +
 			"<div class='description'>Kilometerstand</div>" +
-			"<input type='text' class='value' id='pop_up_mileage' value='" + service.mileage + "'></input>" +
+			"<input type='number' class='value' id='pop_up_mileage' value='" + service.mileage + "'></input>" +
 		"</div>" +
 	"</div>" +
 	"<div id='overlay'></div>");

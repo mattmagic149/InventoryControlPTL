@@ -126,6 +126,7 @@
 
   <script src="js/dialog.js" type="text/javascript"></script>
   <script src="js/jquery.datetimepicker.js" type="text/javascript" charset="UTF-8"></script>
+  <script src="js/check_inputfields.js" type="text/javascript"></script>
   
   <script src="js/lkw.js" type="text/javascript"></script>
 
@@ -240,11 +241,11 @@
 			</div> 
 			<div class="entry one_row"> 
 				<div class="description">Nutzlast:</div> 
-				<input type="text" class="value" id="payload" value=""></input> 
+				<input type="number" class="value" id="payload" value=""></input> 
 			</div> 
 			<div class="entry one_row"> 
 				<div class="description">Leistung in KW:</div> 
-				<input type="text" class="value" id="performance" value=""></input> 
+				<input type="number" class="value" id="performance" value=""></input> 
 			</div> 
 			<div class="entry one_row"> 
 				<div class="description">Treibstoff:</div> 
@@ -267,8 +268,8 @@
 			</div> 
 			<div class="entry one_row"> 
 				<div class="description">Ladefläche in Meter (Höhe / Länge):</div> 
-				<input type="text" class="value split_in_two" id="loading_space_height" value=""></input> 
-				<input type="text" class="value split_in_two" id="loading_space_length" value=""></input> 
+				<input type="number" class="value split_in_two" id="loading_space_height" value=""></input> 
+				<input type="number" class="value split_in_two" id="loading_space_length" value=""></input> 
 			</div> 
 			<div class="entry">
 				<div class="description">Status des LKWs:</div> 
@@ -284,10 +285,10 @@
 					<option value="RADIAL">RADIAL</option> 
 					<option value="DIAGONAL">DIAGONAL</option> 
 				</select> 
-				<input type="text" class="value split_in_two" id="size_in_mm_front" value=""></input> 
+				<input type="number" class="value split_in_two" id="size_in_mm_front" value=""></input> 
 				<div class="description">(Höhe in Prozent, Größe in Inch):</div> 
-				<input type="text" class="value split_in_two" id="height_in_percent_front" value=""></input> 
-				<input type="text" class="value split_in_two" id="size_in_inch_front" value=""></input> 
+				<input type="number" class="value split_in_two" id="height_in_percent_front" value=""></input> 
+				<input type="number" class="value split_in_two" id="size_in_inch_front" value=""></input> 
 			</div> 
 			<div class="entry"> 
 				<div class="description">Reifen hinten:</div> 
@@ -296,18 +297,18 @@
 					<option value="RADIAL">RADIAL</option> 
 					<option value="DIAGONAL">DIAGONAL</option> 
 				</select> 
-				<input type="text" class="value split_in_two" id="size_in_mm_rear" value=""></input> 
+				<input type="number" class="value split_in_two" id="size_in_mm_rear" value=""></input> 
 				<div class="description">(Höhe in Prozent, Größe in Inch):</div> 
-				<input type="text" class="value split_in_two" id="height_in_percent_rear" value=""></input> 
-				<input type="text" class="value split_in_two" id="size_in_inch_rear" value=""></input> 
+				<input type="number" class="value split_in_two" id="height_in_percent_rear" value=""></input> 
+				<input type="number" class="value split_in_two" id="size_in_inch_rear" value=""></input> 
 			</div> 
 			<div class="entry"> 
 				<div class="description">Erstmalige Zulassung:</div> 
-		   	   <input type="text" value="" placeholder="Erstzulassung" id="initial_registration"/>
+		   	   <input type="text" class="date" value="" placeholder="Erstzulassung" id="initial_registration"/>
 			</div> 
 			<div class="entry"> 
 				<div class="description">Neufahrzeug seit:</div> 
-		   	   <input type="text" value="" placeholder="Neuwagen seit" id="new_vehicle_since"/>
+		   	   <input type="text" class="date" value="" placeholder="Neuwagen seit" id="new_vehicle_since"/>
 			</div>
 			<% } %>
 			

@@ -12,6 +12,8 @@ $(document).ready(function() {
 
 		$("#hidden_infos").remove();
 		$("#truck_details_container").addClass("editing");
+		createInputFieldsChecker();
+
 	} else {
 		$("#edit").on("click", activateTruckEditing);		
 		generateBarCode();
@@ -151,11 +153,11 @@ function activateTruckEditing() {
 			'</div>' + 
 			'<div class="entry one_row">' + 
 			'	<div class="description">Nutzlast:</div>' + 
-			'	<input type="text" class="value" id="payload" value="'+ truck.payload +'"></input>' + 
+			'	<input type="number" class="value" id="payload" value="'+ truck.payload +'"></input>' + 
 			'</div>' + 
 			'<div class="entry one_row">' + 
 			'	<div class="description">Leistung in KW:</div>' + 
-			'	<input type="text" class="value" id="performance" value="' + truck.performance + '"></input>' + 
+			'	<input type="number" class="value" id="performance" value="' + truck.performance + '"></input>' + 
 			'</div>' + 
 			'<div class="entry one_row">' + 
 			'	<div class="description">Treibstoff:</div>' + 
@@ -178,8 +180,8 @@ function activateTruckEditing() {
 			'</div>' + 
 			'<div class="entry one_row">' + 
 			'	<div class="description">Ladefläche in Meter (Höhe / Länge):</div>' + 
-			'	<input type="text" class="value split_in_two" id="loading_space_height" value="' + truck.loading_space_height + '"></input>' + 
-			'	<input type="text" class="value split_in_two" id="loading_space_length" value="' + truck.loading_space_length + '"></input>' + 
+			'	<input type="number" class="value split_in_two" id="loading_space_height" value="' + truck.loading_space_height + '"></input>' + 
+			'	<input type="number" class="value split_in_two" id="loading_space_length" value="' + truck.loading_space_length + '"></input>' + 
 			'</div>' + 
 			'<div class="entry">' + 
 			'	<div class="description">Status des LKWs:</div>' + 
@@ -195,10 +197,10 @@ function activateTruckEditing() {
 			'		<option value="RADIAL">RADIAL</option>' + 
 			'		<option value="DIAGONAL">DIAGONAL</option>' + 
 			'	</select>' + 
-			'	<input type="text" class="value split_in_two" id="size_in_mm_front" value="' + truck.wheels_front.size_in_mm + '"></input>' + 
+			'	<input type="number" class="value split_in_two" id="size_in_mm_front" value="' + truck.wheels_front.size_in_mm + '"></input>' + 
 			'	<div class="description">(Höhe in Prozent, Größe in Inch):</div>' + 
-			'	<input type="text" class="value split_in_two" id="height_in_percent_front" value="' + truck.wheels_front.height_in_percent + '"></input>' + 
-			'	<input type="text" class="value split_in_two" id="size_in_inch_front" value="' + truck.wheels_front.size_in_inch + '"></input>' + 
+			'	<input type="number" class="value split_in_two" id="height_in_percent_front" value="' + truck.wheels_front.height_in_percent + '"></input>' + 
+			'	<input type="number" class="value split_in_two" id="size_in_inch_front" value="' + truck.wheels_front.size_in_inch + '"></input>' + 
 			'</div>' + 
 			'<div class="entry">' + 
 			'	<div class="description">Reifen hinten:</div>' + 
@@ -207,18 +209,18 @@ function activateTruckEditing() {
 			'		<option value="RADIAL">RADIAL</option>' + 
 			'		<option value="DIAGONAL">DIAGONAL</option>' + 
 			'	</select>' + 
-			'	<input type="text" class="value split_in_two" id="size_in_mm_rear" value="' + truck.wheels_rear.size_in_mm + '"></input>' + 
+			'	<input type="number" class="value split_in_two" id="size_in_mm_rear" value="' + truck.wheels_rear.size_in_mm + '"></input>' + 
 			'	<div class="description">(Höhe in Prozent, Größe in Inch):</div>' + 
-			'	<input type="text" class="value split_in_two" id="height_in_percent_rear" value="' + truck.wheels_rear.height_in_percent + '"></input>' + 
-			'	<input type="text" class="value split_in_two" id="size_in_inch_rear" value="' + truck.wheels_rear.size_in_inch + '"></input>' + 
+			'	<input type="number" class="value split_in_two" id="height_in_percent_rear" value="' + truck.wheels_rear.height_in_percent + '"></input>' + 
+			'	<input type="number" class="value split_in_two" id="size_in_inch_rear" value="' + truck.wheels_rear.size_in_inch + '"></input>' + 
 			'</div>' + 
 			'<div class="entry">' + 
 			'	<div class="description">Erstmalige Zulassung:</div>' + 
-		   	'   <input type="text" value="' + truck.initial_registration + '" placeholder="Erstzulassung" id="initial_registration"/>' +
+		   	'   <input type="text" class="date" value="' + truck.initial_registration + '" placeholder="Erstzulassung" id="initial_registration"/>' +
 			'</div>' + 
 			'<div class="entry">' + 
 			'	<div class="description">Neufahrzeug seit:</div>' + 
-		   	'   <input type="text" value="' + truck.new_vehicle_since + '" placeholder="Neuwagen seit" id="new_vehicle_since"/>' +
+		   	'   <input type="text" class="date" value="' + truck.new_vehicle_since + '" placeholder="Neuwagen seit" id="new_vehicle_since"/>' +
 			'</div>'
 			);
 	content.insertAfter("#barcode_picture");
@@ -248,10 +250,17 @@ function activateTruckEditing() {
 			format:'d.m.Y'
 	});
 	
+	createInputFieldsChecker();
+	
 }
 
 
 function confirmTruckEditing() {
+	if(!(checkAllInputFields())) {
+		console.log("confirmTruckEditing: checkAllInputFields returned false");
+		return;
+	}
+	
 	fillTruckWithDataBecauseOfInputFields();
 	if (is_new_truck) {
 		truck.id = "0";
