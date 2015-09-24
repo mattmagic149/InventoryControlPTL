@@ -13,6 +13,21 @@ $(document).ready(function() {
 		$("#hidden_infos").remove();
 		$("#truck_details_container").addClass("editing");
 		createInputFieldsChecker();
+		$('#initial_registration, #new_vehicle_since').datetimepicker({
+			lang:'de',
+				i18n:{
+				de:{
+						months:[
+						'Januar','Februar','März','April',
+						'Mai','Juni','Juli','August',
+						'September','Oktober','November','Dezember',
+						],
+						dayOfWeek:["Mo", "Di", "Mi", "Do", "Fr", "Sa","So"]
+					}
+				},
+				timepicker:false,
+				format:'d.m.Y'
+		});
 
 	} else {
 		$("#edit").on("click", activateTruckEditing);		
@@ -130,8 +145,7 @@ function activateTruckEditing() {
 	$("#truck_details_container").addClass("editing");
 
 	$("h1").text("");
-	$("#truck").find(".description").remove();
-	$("#truck").find(".value").remove();
+	$("#truck").find(".entry").remove();
 	$("#barcode_picture").hide();
 	var content = $('<div class="entry one_row">' + 
 			'	<div class="description">Kennzeichen:</div>' + 

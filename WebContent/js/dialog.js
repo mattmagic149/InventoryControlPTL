@@ -5,7 +5,7 @@ $(document).ready(function() {
 	$("body").on("click", "#close", closeAddingInput);
 	$("body").on("click", "#close", closeAddingInput);
 	$("body").on("click", "#cancel_pop_up_button", closeAddingInput);
-	$("body").on("click", "#confirm_pop_up_button", closeAddingInput);
+//	$("body").on("click", "#confirm_pop_up_button", closeAddingInput);
 });
 
 //--------------------------------------------------------------------------------
@@ -129,3 +129,35 @@ function closeAddingInput() {
 	window.setTimeout(function() {input.remove();}, duration);
 	window.setTimeout(function() {overlay.remove();}, duration);
 }
+
+
+
+
+//--------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------
+//Creates a Notification
+//
+function createNotification(headline, message, icon) {
+	if($("#notification").length > 0) {
+	    $("#notification").remove();
+	}
+	
+	var icon_to_show = "";
+		
+	if(icon == "success") {
+		icon_to_show = "<img src='images/success.png' alt='success' title='success' />";
+	} else if(icon == "failure") {
+		icon_to_show = "<img src='images/failure.png' alt='success' title='success' />";
+	}
+	
+	$("#wrapper").after("<div id='notification'>" + icon_to_show +
+			"<div id='notification_text>'><h2 id='notification_headline'>" + headline + "</h2>" +
+			"<p id='notification_message'>" + message + "</p></div>");
+	
+	var duration = 600;
+	var show_time = 4000;
+	$("#notification").fadeIn(duration);
+	
+	setTimeout(closeNotification, show_time);
+}
+

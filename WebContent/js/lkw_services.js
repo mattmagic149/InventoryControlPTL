@@ -89,12 +89,15 @@ function sendServiceToServer(servlet, service_string) {
 				object: service_string },
 		cache: false,
 		success: function(data, settings, xhr) {
-			alert("success");
+			//alert("success");
+			closeAddingInput();
+
+//			createNotification("headline", "test message", "success");
 			location.href = "LkwServices?id=" + $("#truck_id").text();
 		},
 		error: function(data, settings, xhr) {
-			alert("error");
-//			$("#pop_up_message").html(xhr.getResponseHeader('error_message'));
+			//alert("error");
+			$("#pop_up_message").html(xhr.getResponseHeader('error_message'));
 		}
 	});
 }

@@ -84,6 +84,10 @@ h2{
 	padding: 0.5em 0;
 }
 
+.entry:last-of-type {
+	margin-bottom: 4em;	
+}
+
 .hidden {
 	display: none;
 }

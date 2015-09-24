@@ -127,6 +127,7 @@
   <script src="js/dialog.js" type="text/javascript"></script>
   <script src="js/jquery.datetimepicker.js" type="text/javascript" charset="UTF-8"></script>
   <script src="js/check_inputfields.js" type="text/javascript"></script>
+  <script src="js/ajax_loader.js" type="text/javascript"></script>
   
   <script src="js/lkw.js" type="text/javascript"></script>
 
@@ -212,7 +213,7 @@
 				<div class="value" id="new_vehicle_since"><%=new_vehicle_since %></div>
 			</div>
 			<div class="entry one_line"> 
-				<button class="value color" id="show_services" truck_id="<%=truck_id %>">Services anzeigen</button> 
+				<button class="value color hideinmobile" id="show_services" truck_id="<%=truck_id %>">Services anzeigen</button> 
 			</div>
 			
 			<% } else { %>

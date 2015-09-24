@@ -95,6 +95,7 @@
   <script src="js/JsBarcodeGen.js" type="text/javascript"></script>
   <script src="js/dialog.js" type="text/javascript"></script>
   <script src="js/check_inputfields.js" type="text/javascript"></script>
+  <script src="js/ajax_loader.js" type="text/javascript"></script>
   
   <script src="js/product.js" type="text/javascript"></script>
   

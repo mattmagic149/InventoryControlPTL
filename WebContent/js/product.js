@@ -237,6 +237,7 @@ function sendTransaction(quantity, from, to) {
 			//alert("success, transaction was sent");
 			//var content = xhr.getResponseHeader('content');
 
+			closeAddingInput();
 			location.reload();
 			/*
 			var old_quantity = parseInt($("#product_lager_quantity").text());
