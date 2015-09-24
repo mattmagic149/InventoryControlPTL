@@ -11,14 +11,13 @@ $(document).ready(function() {
 		is_new_product = true;
 		$("#ok").show();
 //		activateProductEditing();
+		createInputFieldsChecker();		
 	} else {
 		$("#ingoing").on("click", handleIngoing);
 		$("#outgoing").on("click", handleOutgoing);	
 		$("#edit").on("click", activateProductEditing);		
 		fillProductWithDataBecauseOfTextFields();
 	}
-	
-	
 	
 	$("#wrapper").on("click", "#ok", confirmProductEditing);
 });
@@ -198,27 +197,60 @@ function handleIngoing() {
 	createTransactionPopUp("Eingang...", "Wo kommt es her?", $("#possible_ingoing_locations"));
 //	createPopUp("Eingang...", "message");
 	createPopUpButtons("Verbuchen", "Abbrechen");
+	createInputFieldsChecker();
 	$("#confirm_pop_up_button").on("click", confirmIngoingTransaction);
 }
 
 function handleOutgoing() {
 	createTransactionPopUp("Ausgang...", "Wo geht es hin?", $("#possible_outgoing_locations"));
 	createPopUpButtons("Verbuchen", "Abbrechen");
+	createInputFieldsChecker();
 	$("#confirm_pop_up_button").on("click", confirmOutgoingTransaction);
 }
 
 function confirmIngoingTransaction() {
-	$("#confirm_pop_up_button").off("click", confirmIngoingTransaction);
+	if(!(checkAllInputFields())) {
+		console.log("confirmIngoingTransaction: checkAllInputFields has problem");
+		return;
+	}
+		
 	var quantity = $("#quantity").val();
 	var from = $("#location").val();
 	var to = $("#current_location").text();
+	var quantity_of_that_location = parseInt($("#location").find(":selected").attr("quantity"));
+	
+	if (quantity > quantity_of_that_location) {
+		createNotification("Error", "Es sind nur " + quantity_of_that_location + " " + $(".product_unity").first().text() + " vorhanden", "failure");
+		console.log("not so many in this location... :D");
+		return;
+	}
+	
+	
+	$("#confirm_pop_up_button").off("click", confirmIngoingTransaction);
+
 	sendTransaction(quantity, from, to);
 }
 function confirmOutgoingTransaction() {
-	$("#confirm_pop_up_button").off("click", confirmOutgoingTransaction);
-	var quantity = $("#quantity").val();
+	if(!(checkAllInputFields())) {
+		console.log("confirmOutgoingTransaction: checkAllInputFields has problem");
+		return;
+	}
+	
+	var quantity = parseInt($("#quantity").val());
 	var from = $("#current_location").text();
 	var to = $("#location").val();
+	var lager_quantity = parseInt($("#product_lager_quantity").text());
+	if (quantity > lager_quantity) {
+		createNotification("Error", "Es sind nur " + lager_quantity + " " + $(".product_unity").first().text() + " auf Lager", "failure");
+		console.log("not so many in the lager... :D");
+		return;
+	}
+	if ($("#location").val() == "selection") {
+		createNotification("Error", "Kein Ziel ausgewählt", "failure");
+		return;		
+	}
+	
+	$("#confirm_pop_up_button").off("click", confirmOutgoingTransaction);
 	sendTransaction(quantity, from, to);
 }
 
