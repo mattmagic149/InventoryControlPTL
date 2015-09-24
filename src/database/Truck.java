@@ -297,7 +297,7 @@ public class Truck extends Location implements ISaveAndDelete {
 	
 	public static int createTruckFromJSON(String object) {
 		
-		Gson gson = new GsonBuilder().setDateFormat("dd-mm-yyyy hh:mm:ss.S").create();
+		Gson gson = new GsonBuilder().setDateFormat("dd.MM.yyyy").create();
 		Truck parsed_truck = null;
 		try {
 			parsed_truck = gson.fromJson(object, Truck.class);
@@ -326,7 +326,7 @@ public class Truck extends Location implements ISaveAndDelete {
 	
 	public static int editTruck(String object) {
 		
-		Gson gson = new GsonBuilder().setDateFormat("dd-mm-yyyy hh:mm:ss.S").create();
+		Gson gson = new GsonBuilder().setDateFormat("dd.MM.yyyy").create();
 		Truck parsed_truck = null;
 		try {
 			parsed_truck = gson.fromJson(object, Truck.class);
@@ -373,7 +373,8 @@ public class Truck extends Location implements ISaveAndDelete {
 												mileage,
 												this);
 		
-		HibernateSupport.beginTransaction();		
+		HibernateSupport.beginTransaction();
+		service.saveToDB();
 		service.getRepairShop().addService(service);
 		this.addTruckService(service);
 		HibernateSupport.commitTransaction();

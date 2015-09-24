@@ -11,6 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
+
 import utils.HibernateSupport;
 
 @Entity
@@ -75,10 +79,83 @@ public class TruckService implements ISaveAndDelete {
 	}
 
 
+	public void setRepairShop(RepairShop repair_shop) {
+		this.repair_shop = repair_shop;
+	}
+
 	public Truck getTruck() {
 		return truck;
 	}
 
+	public static int createTruckServiceFromJSON(String object) {
+		
+		Gson gson = new GsonBuilder().setDateFormat("dd.MM.yyyy").create();
+		TruckService parsed_truck_service = null;
+		try {
+			parsed_truck_service = gson.fromJson(object, TruckService.class);
+		} catch(JsonSyntaxException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		
+		RepairShop shop;
+		Truck truck = HibernateSupport.readOneObjectByID(Truck.class, parsed_truck_service.getTruck().getId());
+		if(parsed_truck_service.getRepairShop().getId() != 0) {
+			shop = HibernateSupport.readOneObjectByID(RepairShop.class, parsed_truck_service.getRepairShop().getId());
+		} else {
+			shop = RepairShop.getRepairShop(parsed_truck_service.getRepairShop().getName(),
+													   parsed_truck_service.getRepairShop().getName());
+		}
+		if(truck == null || shop == null) {
+			System.out.println("truck or shop is NULL.");
+			return -1;
+		}
+		
+		truck.addNewTruckService(parsed_truck_service.getDate(), 
+								 shop.getName(), 
+								 shop.getLocation(),
+								 parsed_truck_service.getDescription(),
+								 parsed_truck_service.getMileage());
+		
+		return truck.getId();
+	}
+	
+	public static int editTruckService(String object) {
+		
+		Gson gson = new GsonBuilder().setDateFormat("dd.MM.yyyy").create();
+		TruckService parsed_truck_service = null;
+		try {
+			parsed_truck_service = gson.fromJson(object, TruckService.class);
+		} catch(JsonSyntaxException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		
+		
+		RepairShop shop;
+		Truck truck = HibernateSupport.readOneObjectByID(Truck.class, parsed_truck_service.getTruck().getId());
+		if(parsed_truck_service.getRepairShop().getId() != 0) {
+			shop = HibernateSupport.readOneObjectByID(RepairShop.class, parsed_truck_service.getRepairShop().getId());
+		} else {
+			shop = RepairShop.getRepairShop(parsed_truck_service.getRepairShop().getName(),
+													   parsed_truck_service.getRepairShop().getName());
+		}
+		System.out.println(parsed_truck_service.getDate());
+		System.out.println(object);
+
+		if(truck == null || shop == null) {
+			System.out.println("truck or shop is NULL.");
+			return -1;
+		}
+		
+		parsed_truck_service.setRepairShop(shop);
+		HibernateSupport.beginTransaction();
+		shop.saveToDB();
+		parsed_truck_service.saveToDB();
+		HibernateSupport.commitTransaction();
+		
+		return truck.getId();
+	}
 
 	@Override
 	public String serialize() {

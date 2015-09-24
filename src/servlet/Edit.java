@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import database.Product;
 import database.Truck;
+import database.TruckService;
 
 /**
  * Servlet implementation class Edit
@@ -71,14 +72,14 @@ public class Edit extends HttpServlet {
 			}
 		} else if(parameter.equals("truck_service")) {
 			System.out.println("I am editing a TruckService");
-			/*if((id = Truck.editTruck(object)) == -1) {
+			if((id = TruckService.editTruckService(object)) == -1) {
 				response.setStatus(401);
 				response.setHeader("error_message", "Produkt konnte nicht bearbeitet werden.");
 				return;
 			} else {
 				response.setHeader("id", String.valueOf(id));
 				return;
-			}*/
+			}
 		}
 	}
 
