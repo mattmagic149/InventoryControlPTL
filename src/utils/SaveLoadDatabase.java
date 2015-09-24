@@ -226,6 +226,8 @@ public class SaveLoadDatabase {
 				unity.addProduct(product);
 				unity.saveToDB();
 				product.setUnity(unity);
+				System.out.println(product.getState());
+
 				System.out.println(product.getUnity().getId());;
 
 				product.saveToDB();	

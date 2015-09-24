@@ -1,16 +1,21 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@page import="database.Product" %>
+<%@page import="database.Truck" %>
 <%@page import="java.util.ArrayList" %>
 <%@page import="java.util.List" %>
 
 <%
 
 	Object obj = session.getAttribute("products_list");
-	if (obj == null) {%>
+	Object obj2 = session.getAttribute("trucks_list");
+	if (obj == null || obj2 == null) {%>
 		<jsp:forward page="welcome.jsp"/>
 	
 	<%}
 	List<Product> products = new ArrayList<Product>((ArrayList) session.getAttribute("products_list"));
+	List<Truck> trucks = new ArrayList<Truck>((ArrayList) session.getAttribute("trucks_list"));
+	System.out.println(products.size());
+	System.out.println(trucks.size());
 %>
 
 
@@ -41,6 +46,12 @@
     	<% for (Product p : products) { %>
     		<div class="product not_to_print" product_barcode_string="<%=p.getBarCodeEncoding() %>">
     			<div class="description not_to_print"><span class="name"><%=p.getName() %></span> [<span class="des"><%=p.getDescription()%></span>]</div>
+    			<input type="number" class="value not_to_print" value="0"></input>
+    		</div>    		
+    	<% } %>
+    	<% for (Truck truck : trucks) { %>
+    		<div class="product not_to_print" product_barcode_string="<%=truck.getBarCodeEncoding() %>">
+    			<div class="description not_to_print"><span class="name"><%=truck.getLicenceTag() %></span></div>
     			<input type="number" class="value not_to_print" value="0"></input>
     		</div>    		
     	<% } %>

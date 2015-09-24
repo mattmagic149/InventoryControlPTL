@@ -380,14 +380,14 @@ public class Product implements ISaveAndDelete {
 		return result;
 	}
 	
-	public List<Pair<Truck, Long>> getAllAvailableLocationsGreaterZero() {
-		List<Truck> trucks = HibernateSupport.readMoreObjects(Truck.class, new ArrayList<Criterion>());
-		List<Pair<Truck, Long>> result = new ArrayList<Pair<Truck, Long>>();
+	public List<Pair<Location, Long>> getAllAvailableLocationsGreaterZero() {
+		List<Location> locations = HibernateSupport.readMoreObjects(Location.class, new ArrayList<Criterion>());
+		List<Pair<Location, Long>> result = new ArrayList<Pair<Location, Long>>();
 		long quantity;
-		for(Truck truck : trucks) {
-			quantity = this.getQuantityOfSpecificLocation(truck.getId());
+		for(Location location : locations) {
+			quantity = this.getQuantityOfSpecificLocation(location.getId());
 			if(quantity > 0) {
-				result.add(new Pair<Truck, Long>(truck, quantity));
+				result.add(new Pair<Location, Long>(location, quantity));
 			}
 		}
 		

@@ -8,7 +8,7 @@
 <%
 	Object obj = session.getAttribute("current_product");
 	Object obj2 = session.getAttribute("is_new");
-	if (obj == null || obj2 == null) {%>
+	if (obj2 == null) {%>
 		<jsp:forward page="welcome.jsp"/>
 	
 	<%}
@@ -30,13 +30,6 @@
 	}
 	possible_outgoing_locations += "<option value='3'>Andere Location...</option>";
 	
-	List<Truck> trucks_for_ingoing = null;
-	String possible_ingoing_locations = "<option value='1'>Neue Ware...</option>";
-	List<Pair<Location, Long>> locations_of_product = product.getAllAvailableLocationsGreaterZero();
-	for (Pair<Location, Long> loc_quantity : locations_of_product) {
-		possible_ingoing_locations += "<option value='" + loc_quantity.getValue0().getId() + "' quantity='" + loc_quantity.getValue1() + "'>" + loc_quantity.getValue0().getId() + "</option>";
-	}
-	
 	String product_id = "0";
 	String product_barcode = "Wird automatisch generiert";
 	String product_name = "";
@@ -54,6 +47,9 @@
 		hidden_in_new = "hidden";
 	}
 	
+	List<Truck> trucks_for_ingoing = null;
+	String possible_ingoing_locations = "<option value='1'>Neue Ware...</option>";
+	
 	if (product != null && !is_new) {
 		product_id = String.valueOf(product.getId());
 		product_barcode = product.getBarCodeEncoding();
@@ -70,6 +66,13 @@
 		truck_restrictions = product.getAllTrucksIncludingRestriction();	
 		if (product.getRestriction() == Product.TruckRestriction.NO) {
 			no_restriction = true; 
+		}
+		
+		List<Pair<Location, Long>> locations_of_product = product.getAllAvailableLocationsGreaterZero();
+		for (Pair<Location, Long> loc_quantity : locations_of_product) {
+			if(loc_quantity.getValue0().getId() != 2) {
+				possible_ingoing_locations += "<option value='" + loc_quantity.getValue0().getId() + "' quantity='" + loc_quantity.getValue1() + "'>" + loc_quantity.getValue0().getSpecificName() + "</option>";
+			}
 		}
 		
 		//		product_lager_quantity = " " + product.getUnity()

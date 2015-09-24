@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.criterion.Criterion;
 
 import database.Product;
+import database.Truck;
 import utils.HibernateSupport;
 
 @WebServlet("/PrintLabels")
@@ -44,9 +45,13 @@ public class PrintLabels extends HttpServlet {
 
 		List<Product> products;
 		products = HibernateSupport.readMoreObjects(Product.class, new ArrayList<Criterion>());
-				
-		if(products != null) {
+
+		List<Truck> trucks;
+		trucks = HibernateSupport.readMoreObjects(Truck.class, new ArrayList<Criterion>());
+		
+		if(products != null && trucks != null) {
 			session.setAttribute("products_list", products);
+			session.setAttribute("trucks_list", trucks);
 			request.getRequestDispatcher("print_labels.jsp").include(request, response);
 			return;
 		}
