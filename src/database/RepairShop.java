@@ -29,12 +29,15 @@ public class RepairShop implements ISaveAndDelete {
 	private String location;
 	
 	@OneToMany
-	@JoinColumn(name="service")
-	private List<TruckService> services;
+	@JoinColumn(name="repair_shop")
+	private transient List<TruckService> services;
 	
-	public RepairShop() {}
+	public RepairShop() {
+		this.services = new ArrayList<TruckService>();
+	}
 	
 	public RepairShop(String name, String location) {
+		this.services = new ArrayList<TruckService>();
 		this.name = name;
 		this.location = location;
 	}
@@ -49,11 +52,10 @@ public class RepairShop implements ISaveAndDelete {
 
 		if(repair_shop == null) {
 			repair_shop = new RepairShop(name, location);
+			HibernateSupport.beginTransaction();
+			repair_shop.saveToDB();
+			HibernateSupport.commitTransaction();
 		}
-		
-		HibernateSupport.beginTransaction();
-		repair_shop.saveToDB();
-		HibernateSupport.commitTransaction();
 		
 		return repair_shop;
 	}

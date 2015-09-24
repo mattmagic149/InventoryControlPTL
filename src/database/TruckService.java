@@ -28,10 +28,10 @@ public class TruckService implements ISaveAndDelete {
 	
 	private String description;
 	
-	private int mileage; //Kilometerstand in km
+	private int mileage; //Kilometerstand in km 
 	
 	@ManyToOne
-	@JoinColumn(name="truck") ///TODO: nullable?!?!
+	@JoinColumn(name="services") ///TODO: nullable?!?!
 	private Truck truck;
 	
 	public TruckService() {}
@@ -45,7 +45,6 @@ public class TruckService implements ISaveAndDelete {
 		this.description = description;
 		this.repair_shop = RepairShop.getRepairShop(repair_shop_name, repair_shop_name_location);
 		this.mileage = mileage;
-		this.repair_shop.addService(this);
 		this.truck = truck;
 		
 	}

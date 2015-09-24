@@ -3,14 +3,17 @@
 <%@page import="database.Truck" %>
 <%@page import="java.util.ArrayList" %>
 <%@page import="java.util.List" %>
+<%@page import="java.text.SimpleDateFormat"%>
 
 <%
-	Object obj = session.getAttribute("truck_services");
+	Object obj = session.getAttribute("truck");
 	if (obj == null) {%>
 		<jsp:forward page="welcome.jsp"/>
 	<%}
-	List<TruckService> truck_services = new ArrayList<TruckService>((ArrayList) session.getAttribute("truck_services"));
-		
+	
+	Truck truck = (Truck)session.getAttribute("truck");
+	List<TruckService> truck_services = truck.getServices();
+	SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
 %>
 
 <!DOCTYPE html>
@@ -50,7 +53,7 @@
 			for (TruckService tc : truck_services) {
 	  %>
 		      <section class="item color_discreet" id="<%=tc.getId() %>">
-		        <div class="name"><%=tc.getDate() %></div>
+		        <div class="name"><%=format.format(tc.getDate()) %></div>
 		        <div class="name"><%=tc.getRepairShop().getName() %></div>
 		        <div class="name"><%=tc.getDescription() %></div>
 		        <div class="name"><%=tc.getMileage() %></div>
