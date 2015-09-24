@@ -64,7 +64,7 @@
 	  %>
 		      <section class="item color_discreet" id="<%=tc.getId()%>">
 		        <div class="name date"><%=format.format(tc.getDate()) + ""%></div>
-		        <div class="name repair_shop"><%=tc.getRepairShop().getName() + ""%></div>
+		        <div class="name repair_shop" repair_shop_id="<%=tc.getRepairShop().getId() %>"><%=tc.getRepairShop().getName() + ""%></div>
 		        <div class="name description"><%=tc.getDescription() + ""%></div>
 		        <div class="name mileage"><%=tc.getMileage() + ""%></div>
 				<button class="details color">&#062 &#062</button>

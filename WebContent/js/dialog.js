@@ -52,7 +52,7 @@ function createTransactionPopUp(headline, options_description, options_dom_eleme
 	$("#close").delay(duration).fadeIn(200);
 }
 
-function createServicePopUp(headline, service) {
+function createServicePopUp(headline, service, options_dom_element) {
 	$("#pop_up").remove();
 	$("#wrapper").append("<div id='pop_up'>" +
 		"<img src='images/close-icon.png' id='close' alt='close' title='close' />" +
@@ -61,7 +61,9 @@ function createServicePopUp(headline, service) {
 			"<div class='description'>Datum</div>" +
 			"<input type='text' class='value' id='pop_up_date' value='" + service.date + "'></input>" +
 			"<div class='description'>Werkstatt</div>" +
-			"<input type='text' class='value' id='pop_up_repair_shop' value='" + service.repair_shop + "'></input>" +
+			"<select type='text' class='value' id='pop_up_repair_shop'></select>" +
+			"<input type='text' class='value split_in_two hidden' placeholder='Name' id='pop_up_repair_shop_name'></input>" + 
+			"<input type='text' class='value split_in_two hidden' placeholder='Ort' id='pop_up_repair_shop_location'></input>" + 
 			"<div class='description'>Beschreibung</div>" +
 			"<textarea type='text' class='value' id='pop_up_description'>" + service.description + "</textarea>" +
 			"<div class='description'>Kilometerstand</div>" +
@@ -69,6 +71,8 @@ function createServicePopUp(headline, service) {
 		"</div>" +
 	"</div>" +
 	"<div id='overlay'></div>");
+	
+	$("#pop_up_repair_shop").append(options_dom_element.children().clone());
 	
 	$('#pop_up_date').datetimepicker({
 		lang:'de',

@@ -20,6 +20,7 @@
 	} else {
 		trucks_for_outgoing = Truck.getAllTrucks();
 	}
+		
 	String possible_outgoing_locations = "<option value='selection'>Wählen Sie einen LKW aus!</option>";
 	if (trucks_for_outgoing != null) {
 		for (Truck truck : trucks_for_outgoing) {

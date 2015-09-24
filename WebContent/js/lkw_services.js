@@ -5,7 +5,8 @@ $(document).ready(function() {
 	$("#item_list").on("click", ".details", handleClickOnDetailsButton);
 	$("#add_button").on("click", handleClickOnNewServiceButton);
 	
-	service.truck_id = $("#truck_id").text();
+	service.truck = new Object();
+	service.truck.id = $("#truck_id").text();
 	
 	
 	
@@ -16,7 +17,8 @@ function handleClickOnDetailsButton(e) {
 	var item = $(e.target).parent();
 	service.id = item.attr("id");
 	service.date = item.find(".date").first().text();
-	service.repair_shop = item.find(".repair_shop").first().text();
+	service.repair_shop = new Object();
+	service.repair_shop.id = item.find(".repair_shop").first().attr("repair_shop_id");
 	service.description = item.find(".description").first().text();
 	service.mileage = item.find(".mileage").first().text();
 	
@@ -31,20 +33,23 @@ function handleClickOnDetailsButton(e) {
 function handleClickOnNewServiceButton(e){
 	service.id = "0";
 	service.date = "";
-	service.repair_shop = "";
+	service.repair_shop = new Object();
 	service.description = "";
 	service.mileage = "";
 	
 	createServicePopUp("Neues Service hinzufügen", service);
 	createPopUpButtons("Eintragen", "Abbrechen");
 	$("#confirm_pop_up_button").on("click", confirmNewService);
-	
-	
 }
 
 function fillServiceBecauseOfInputFields() {
 	service.date = $("#pop_up_date").val();
-	service.repair_shop = $("#pop_up_repair_shop").val();
+	service.repair_shop = new Object();
+	service.repair_shop.id = $("#pop_up_repair_shop").val();
+	if (service.repair_shop.id == 0) {
+		service.repair_shop.name = "";
+		service.repair_shop.location = "";
+	}
 	service.description = $("#pop_up_description").text();
 	service.mileage = $("#pop_up_mileage").val();
 	var service_string = JSON.stringify(service); 

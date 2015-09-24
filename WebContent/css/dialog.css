@@ -82,6 +82,10 @@
 	width: 327px;
 }
 
+.hidden {
+	display: none;
+}
+
 @media only all and (max-width:70em) {
 
 	#pop_up {

@@ -126,7 +126,6 @@
 
   <script src="js/dialog.js" type="text/javascript"></script>
   
-  <script src="js/jquery.datetimepicker.js" type="text/javascript" charset="UTF-8"></script>
   <script src="js/truck_details.js" type="text/javascript"></script>
 
   <title>PTL - LKW</title>
