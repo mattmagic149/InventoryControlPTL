@@ -10,7 +10,6 @@ $(document).ready(function() {
 	if ($("#barcode_picture").hasClass("hidden")) {
 		is_new_product = true;
 		$("#ok").show();
-//		activateProductEditing();
 		createInputFieldsChecker();		
 	} else {
 		$("#ingoing").on("click", handleIngoing);
@@ -19,8 +18,18 @@ $(document).ready(function() {
 		fillProductWithDataBecauseOfTextFields();
 	}
 	
+	$("#wrapper").on("click", "#no_restriction", handleClickOnNoRestrictions);	
 	$("#wrapper").on("click", "#ok", confirmProductEditing);
+	handleClickOnNoRestrictions();/*set correct state*/
 });
+
+function handleClickOnNoRestrictions() {
+	if ($("#no_restriction").is(":checked")) {
+		$(".restriction_container").hide();
+	} else {
+		$(".restriction_container").show();
+	}
+}
 
 function fillProductWithDataBecauseOfTextFields() {
 	product.id = $("#product").attr("value");
@@ -30,6 +39,8 @@ function fillProductWithDataBecauseOfTextFields() {
 	product.lager_quantity = $("#product_lager_quantity").text();
 	product.unity = $(".product_unity").get(0).innerHTML;
 	product.state = $("#product_state").text();
+	
+	console.log("fillProductWithDataBecauseOfTextFields: Product = '" + JSON.stringify(product) + "'");
 }
 
 function fillProductWithDataBecauseOfInputFields() {
@@ -60,8 +71,8 @@ function fillProductWithDataBecauseOfInputFields() {
 	} else {
 		product.restriction = "YES";
 	}
-	
-	//alert("unity = " + product.unity);
+
+	console.log("fillProductWithDataBecauseOfInputFields: Product = '" + JSON.stringify(product) + "'");
 }
 
 function activateProductEditing() {
@@ -69,6 +80,7 @@ function activateProductEditing() {
 	$("#edit").hide();
 
 	fillProductWithDataBecauseOfTextFields();
+
 	$("#product").find(".description").remove();
 	$("#product").find(".value").remove();
 	$("#ingoing").hide();
@@ -94,6 +106,8 @@ function activateProductEditing() {
 				'<div class="description" id="product_restrictions_container">Produkt darf nur in folgende LKWs:</div>'
 				);
 	content.insertAfter("#barcode_picture");
+	
+	/*set some fields*/
 	if (product.state == "ACTIVE") {
 		$("#product_state").prop("checked", true);		
 	} else {
@@ -107,33 +121,9 @@ function activateProductEditing() {
 	createInputFieldsChecker();
 }
 
-function showProductBecauseOfData() {
-	fillProductWithDataBecauseOfInputFields();
-	$("#product").find(".description").remove();
-	$("#product").find(".value").remove();
-	$("#ingoing").show();
-	$("#outgoing").show();
-	$("#barcode_picture").show();
-
-	var content = $('<div class="description">Produkt ID:</div>' +
-				'<div class="value" id="product_id">' + product.id + '</div>' +
-				'<div class="description">Produktname:</div>' +
-				'<div class="value editable" id="product_name">' + product.name + '</div>' +
-				'<div class="description">Beschreibung:</div>' +
-				'<div class="value editable" id="product_description">' + product.description + '</div>' +
-				'<div class="description">Mindestmenge im Lager:</div>' +
-				'<div class="value editable"><span id="product_minimum_limit">' + product.minimum_limit + '</span><span class="product_unity">' + " " + product.unity + '</span></div>' +
-				'<div class="description">Lagerbestand:</div>' +
-				'<div class="value editable"><span id="product_lager_quantity">' + product.lager_quantity + '</span><span class="product_unity">' + " " + product.unity + '</span></div>' +
-				'<div class="hidden value" id="product_state">' + product.state +'</div>'
-				);
-				
-	content.insertAfter("#barcode_picture");
-}
-
 function confirmProductEditing() {
 	if(!(checkAllInputFields())) {
-		console.log("confirmProductEditing: checkAllInputFields returned false");
+		console.log("confirmProductEditing: checkAllInputFields detected a problem");
 		return;
 	}
 	
@@ -147,26 +137,6 @@ function confirmProductEditing() {
 		var product_string = JSON.stringify(product);
 		sendProductToServer("Edit", product_string);		
 	}
-}
-
-
-function sendProductToServer(servlet, product_string) {
-	
-	$.ajax({
-		type: "POST",
-		url: servlet,
-		data: { type: "product",
-				object: product_string },
-		cache: false,
-		success: function(data, settings, xhr) {
-			//alert("success");
-			var id = xhr.getResponseHeader('id');
-			location.href = "ProductDetail?id=" + id;
-		},
-		error: function(data, settings, xhr) {
-			
-		}
-	});
 }
 
 function generateBarCode() {
@@ -216,11 +186,10 @@ function confirmIngoingTransaction() {
 	var quantity_of_that_location = parseInt($("#location").find(":selected").attr("quantity"));
 	
 	if (quantity > quantity_of_that_location) {
+		console.log("confirmIngoingTransaction: quantity > quantity_of_that_location");
 		createNotification("Error", "Es sind nur " + quantity_of_that_location + " " + $(".product_unity").first().text() + " vorhanden", "failure");
-		console.log("not so many in this location... :D");
 		return;
 	}
-	
 	
 	$("#confirm_pop_up_button").off("click", confirmIngoingTransaction);
 
@@ -236,22 +205,47 @@ function confirmOutgoingTransaction() {
 	var from = $("#current_location").text();
 	var to = $("#location").val();
 	var lager_quantity = parseInt($("#product_lager_quantity").text());
+
 	if (quantity > lager_quantity) {
+		console.log("confirmIngoingTransaction: quantity > lager_quantity");
 		createNotification("Error", "Es sind nur " + lager_quantity + " " + $(".product_unity").first().text() + " auf Lager", "failure");
-		console.log("not so many in the lager... :D");
 		return;
 	}
 	if ($("#location").val() == "selection") {
+		console.log("confirmIngoingTransaction: no target selected");
 		createNotification("Error", "Kein Ziel ausgewählt", "failure");
 		return;		
 	}
 	
 	$("#confirm_pop_up_button").off("click", confirmOutgoingTransaction);
+
 	sendTransaction(quantity, from, to);
+}
+
+function sendProductToServer(servlet, product_string) {
+	console.log("sendProductToServer: Servlet = '" + servlet + "' Product = '" + product_string + "'");
+	
+	$.ajax({
+		type: "POST",
+		url: servlet,
+		data: { type: "product",
+				object: product_string },
+		cache: false,
+		success: function(data, settings, xhr) {
+			var id = xhr.getResponseHeader('id');
+			location.href = "ProductDetail?id=" + id;
+		},
+		error: function(data, settings, xhr) {
+			var message = "Fehler beim Senden an den Server";
+			createNotification("Error", message, "failure");
+		}
+	});
 }
 
 function sendTransaction(quantity, from, to) {
 	var product_id = $("#product").attr("value");
+
+	console.log("sendTransaction: product_id = " + product_id + ": quantity = " + quantity + ", from = " + from + ", to = " + to);
 	
 	$.ajax({
 		type: "POST",
@@ -262,27 +256,12 @@ function sendTransaction(quantity, from, to) {
 				quantity: quantity },
 		cache: false,
 		success: function(data, settings, xhr) {
-			//alert("success, transaction was sent");
-			//var content = xhr.getResponseHeader('content');
-
 			closeAddingInput();
 			location.reload();
-			/*
-			var old_quantity = parseInt($("#product_lager_quantity").text());
-			var quantity_value = parseInt(quantity);			
-			if (from == $("#current_location").text()) {
-				//lagerabbau
-				$("#product_lager_quantity").text(old_quantity - quantity_value);
-			} else {
-				//lageraufbau
-				$("#product_lager_quantity").text("" + (old_quantity + quantity_value));				
-			}
-			*/
 		},
 		error: function(data, settings, xhr) {
-			alert("error");
-//			alert("error message = " + xhr.getResponseHeader('error_message'));
-//			$("#pop_up_message").html(xhr.getResponseHeader('error_message'));
+			var message = "Fehler beim Senden der Buchung";
+			createNotification("Error", message, "failure");
 		}
 	});
 }

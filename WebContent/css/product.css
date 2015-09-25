@@ -73,6 +73,10 @@ h2{
 	float: left;
 }
 
+#no_restriction {
+	margin-bottom: 0.5em;
+}
+
 @media only all and (max-width:70em) {
 	
 	

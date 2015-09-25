@@ -11,41 +11,26 @@ $(document).ready(function() {
 		truck.state = "ACTIVE";
 
 		$("#hidden_infos").remove();
-		$("#truck_details_container").addClass("editing");
-		createInputFieldsChecker();
-		$('#initial_registration, #new_vehicle_since').datetimepicker({
-			lang:'de',
-				i18n:{
-				de:{
-						months:[
-						'Januar','Februar','März','April',
-						'Mai','Juni','Juli','August',
-						'September','Oktober','November','Dezember',
-						],
-						dayOfWeek:["Mo", "Di", "Mi", "Do", "Fr", "Sa","So"]
-					}
-				},
-				timepicker:false,
-				format:'d.m.Y'
-		});
 
+		$("#truck_details_container").addClass("editing");
+		
+		enableDatePicker($("#initial_registration, #new_vehicle_since"));
+		createInputFieldsChecker();
 	} else {
-		$("#edit").on("click", activateTruckEditing);		
 		generateBarCode();
+		$("#edit").on("click", activateTruckEditing);		
+		$("#show_services").on("click", handleClickOnShowServices);	
 	}
 
 	$("#wrapper").on("change", "#brand_selection", handleChangeBrand);
-
 	$("#wrapper").on("click", "#ok", confirmTruckEditing);
-	$("#show_services").on("click", handleClickOnShowServices);
-
-	
 });
 
 function handleClickOnShowServices(e) {
 	var id = $("#show_services").attr("truck_id");
 	location.href = "LkwServices?id=" + id;
 }
+
 function handleChangeBrand(e) {
 	if ($(this).val() == "NEW") {
 		$("#new_brand").removeClass("hidden");
@@ -55,7 +40,6 @@ function handleChangeBrand(e) {
 		$(this).removeClass("split_in_two");		
 	}
 }
-
 
 function fillTruckWithDataBecauseOfTextFields() {
 	truck.id = $("#truck").attr("truck_id");
@@ -92,8 +76,7 @@ function fillTruckWithDataBecauseOfTextFields() {
 	truck.initial_registration = $("#initial_registration").text();
 	truck.new_vehicle_since = $("#new_vehicle_since").text();
 	
-	var truck_string = JSON.stringify(truck);
-	console.log("truck = " + truck_string);
+	console.log("fillTruckWithDataBecauseOfTextFields: Truck = '" + JSON.stringify(truck) + "'");
 }
 
 function fillTruckWithDataBecauseOfInputFields() {
@@ -130,13 +113,13 @@ function fillTruckWithDataBecauseOfInputFields() {
 	truck.initial_registration = $("#initial_registration").val();
 	truck.new_vehicle_since = $("#new_vehicle_since").val();
 	
-	var truck_string = JSON.stringify(truck);
-	console.log("truck modified = " + truck_string);
+	console.log("fillTruckWithDataBecauseOfInputFields: Truck = '" + JSON.stringify(truck) + "'");
 }
 
 function activateTruckEditing() {
 	$("#ok").show();
 	$("#edit").hide();
+	
 	fillTruckWithDataBecauseOfTextFields();
 
 	var all_possible_truck_brands = $("#all_possible_truck_brands").children();
@@ -248,64 +231,27 @@ function activateTruckEditing() {
 	$("#tyre_type_front").val("" + truck.wheels_front.tyre_type).change();
 	$("#tyre_type_rear").val("" + truck.wheels_rear.tyre_type).change();
 
-	$('#initial_registration, #new_vehicle_since').datetimepicker({
-		lang:'de',
-			i18n:{
-			de:{
-					months:[
-					'Januar','Februar','März','April',
-					'Mai','Juni','Juli','August',
-					'September','Oktober','November','Dezember',
-					],
-					dayOfWeek:["Mo", "Di", "Mi", "Do", "Fr", "Sa","So"]
-				}
-			},
-			timepicker:false,
-			format:'d.m.Y'
-	});
-	
+	enableDatePicker($("#initial_registration, #new_vehicle_since"));	
 	createInputFieldsChecker();
-	
 }
 
 
 function confirmTruckEditing() {
 	if(!(checkAllInputFields())) {
-		console.log("confirmTruckEditing: checkAllInputFields returned false");
+		console.log("confirmTruckEditing: checkAllInputFields dedected a problem");
 		return;
 	}
 	
 	fillTruckWithDataBecauseOfInputFields();
+
 	if (is_new_truck) {
 		truck.id = "0";
 		var truck_string = JSON.stringify(truck);
 		sendTruckToServer("Add", truck_string);
 	} else {
 		var truck_string = JSON.stringify(truck);
-		alert("truck edit = " + truck_string);
 		sendTruckToServer("Edit", truck_string);		
 	}
-}
-
-
-function sendTruckToServer(servlet, truck_string) {
-	console.log("truck_string send to server = "+ truck_string);
-	$.ajax({
-		type: "POST",
-		url: servlet,
-		data: { type: "truck",
-				object: truck_string },
-		cache: false,
-		success: function(data, settings, xhr) {
-			//alert("success");
-			var id = xhr.getResponseHeader('id');
-			location.href = "LkwDetail?id=" + id;
-		},
-		error: function(data, settings, xhr) {
-			alert("error");
-//			$("#pop_up_message").html(xhr.getResponseHeader('error_message'));
-		}
-	});
 }
 
 function generateBarCode() {
@@ -325,4 +271,24 @@ function generateBarCode() {
 	if (id != "") {
 		$("#barcode_picture").JsBarcode(id, barcode_options);			
 	}
+}
+
+function sendTruckToServer(servlet, truck_string) {
+	console.log("sendTruckToServer: Servlet = '" + servlet + "', Truck = '" + truck_string + "'");
+
+	$.ajax({
+		type: "POST",
+		url: servlet,
+		data: { type: "truck",
+				object: truck_string },
+		cache: false,
+		success: function(data, settings, xhr) {
+			var id = xhr.getResponseHeader('id');
+			location.href = "LkwDetail?id=" + id;
+		},
+		error: function(data, settings, xhr) {
+			var message = "Fehler beim Senden an den Server";
+			createNotification("Error", message, "failure");
+		}
+	});
 }

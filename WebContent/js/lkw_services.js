@@ -7,9 +7,7 @@ $(document).ready(function() {
 	
 	service.truck = new Object();
 	service.truck.id = $("#truck_id").text();
-	
 });
-
 
 function handleClickOnDetailsButton(e) {
 	var item = $(e.target).parent();
@@ -20,8 +18,7 @@ function handleClickOnDetailsButton(e) {
 	service.description = item.find(".description").first().text();
 	service.mileage = item.find(".mileage").first().text();
 	
-	var service_string = JSON.stringify(service);
-	console.log("service = " + service_string);
+	console.log("handleClickOnDetailsButton: Extracted Service = '" + JSON.stringify(service) + "'");
 	
 	createServicePopUp("Service ändern", service,  $("#all_possible_repair_shops"));
 	createPopUpButtons("Eintragen", "Abbrechen");
@@ -55,14 +52,16 @@ function fillServiceBecauseOfInputFields() {
 	}
 	service.description = $("#pop_up_description").val();
 	service.mileage = $("#pop_up_mileage").val();
-	var service_string = JSON.stringify(service); 
-	console.log("service from input fields = " + service_string);
+
+	console.log("fillServiceBecauseOfInputFields: Service = '" + JSON.stringify(service) + "'");
 }
 
 function confirmServiceEditing() {
 	if (!(checkAllInputFields())) {
+		console.log("confirmServiceEditing: checkAllInputFields dedected a problem");
 		return;
 	}
+	
 	fillServiceBecauseOfInputFields();
 
 	var service_string = JSON.stringify(service);
@@ -71,8 +70,10 @@ function confirmServiceEditing() {
 
 function confirmNewService() {
 	if (!(checkAllInputFields())) {
+		console.log("confirmNewService: checkAllInputFields dedected a problem");
 		return;
 	}
+
 	fillServiceBecauseOfInputFields();
 	
 	var service_string = JSON.stringify(service);
@@ -81,7 +82,8 @@ function confirmNewService() {
 
 
 function sendServiceToServer(servlet, service_string) {
-	
+	console.log("sendServiceToServer: Servlet = '" + servlet + "', Service = '" + service_string + "'");
+
 	$.ajax({
 		type: "POST",
 		url: servlet,
@@ -89,16 +91,12 @@ function sendServiceToServer(servlet, service_string) {
 				object: service_string },
 		cache: false,
 		success: function(data, settings, xhr) {
-			//alert("success");
 			closeAddingInput();
-
-//			createNotification("headline", "test message", "success");
-			location.href = "LkwServices?id=" + $("#truck_id").text();
+			location.reload();
 		},
 		error: function(data, settings, xhr) {
-			//alert("error");
-			$("#pop_up_message").html(xhr.getResponseHeader('error_message'));
+			var message = "Fehler beim Senden an den Server";
+			createNotification("Error", message, "failure");
 		}
 	});
 }
-

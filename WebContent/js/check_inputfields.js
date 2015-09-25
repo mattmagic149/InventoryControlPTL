@@ -1,23 +1,13 @@
 //Javascript Document
 
 function createInputFieldsChecker () {
-	console.log("createInputFieldsChecker start");
 	$("input:text").blur(checkForCorrectTextValue);
 	$("textarea").blur(checkForCorrectTextValue);
 	$('input[type="number"]').blur(checkForCorrectNumberValue);
-	console.log("createInputFieldsChecker finished");
 }
+
 function checkAllInputFields() {
 	console.log("checkAllInputFields start");
-	var all_textareas = $("textarea");
-	for (var i = 0; i < all_textareas.length; i++) {
-		console.log("i = " + i);
-		if ($(all_textareas[i]).val() == "" && !($(all_textareas[i]).hasClass("hidden"))) {
-			$(all_textareas[i]).addClass("problem");
-			console.log("problem exists");
-			return false;
-		}
-	}
 	var all_inputtext = $("input:text");
 	for (var i = 0; i < all_inputtext.length; i++) {
 		console.log("i = " + i);
@@ -33,6 +23,15 @@ function checkAllInputFields() {
 		if ($(all_inputnumber[i]).val() == "" && !($(all_inputnumber[i]).hasClass("hidden"))) {
 			$(all_inputnumber[i]).addClass("problem");
 			console.log("problem exists in all_inputnumber");
+			return false;
+		}
+	}
+	var all_textareas = $("textarea");
+	for (var i = 0; i < all_textareas.length; i++) {
+		console.log("i = " + i);
+		if ($(all_textareas[i]).val() == "" && !($(all_textareas[i]).hasClass("hidden"))) {
+			$(all_textareas[i]).addClass("problem");
+			console.log("problem exists");
 			return false;
 		}
 	}

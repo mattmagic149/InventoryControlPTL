@@ -115,9 +115,9 @@
 	<div id="restrictions" class="hidden">
 	<% if (!is_new && truck_restrictions != null) { 
 		if (no_restriction) { %>
-			<div class="value restriction_container" > Alle LKWs<input type="checkbox" class="restriction" lkw_id="0" id="no_restriction" checked></input></div>
+			<div class="value" > Alle LKWs<input type="checkbox" class="restriction" lkw_id="0" id="no_restriction" checked></input></div>
  		<% } else { %>
-			<div class="value restriction_container" > Alle LKWs<input type="checkbox" class="restriction" lkw_id="0" id="no_restriction" ></input></div>
+			<div class="value" > Alle LKWs<input type="checkbox" class="restriction" lkw_id="0" id="no_restriction" ></input></div>
 		<% } %>
  		<% for (Pair<Boolean, Truck> bool_truck : truck_restrictions) { %>	
  			<% if(bool_truck.getValue0() || no_restriction) { %>	
@@ -165,10 +165,10 @@
 			<div class="description">Aktives Produkt:<input type="checkbox" id="product_state" checked></input></div>
 			
 			<div class="description" id="product_restrictions_container">Produkt darf nur in folgende LKWs:</div>
-			<div class="value restriction_container" > Alle LKWs<input type="checkbox" class="restriction" lkw_id="0" id="no_restriction" checked></input></div>
-			<% for (Truck truck : Truck.getAllTrucks()) { %>
-				<div class="value restriction_container" ><%=truck.getLicenceTag() %> <input type="checkbox" class="restriction" lkw_id="<%=truck.getId() %>" checked></input></div>
-			<% } %>		
+				<div class="value""> Alle LKWs<input type="checkbox" class="restriction" lkw_id="0" id="no_restriction" checked></input></div>
+				<% for (Truck truck : Truck.getAllTrucks()) { %>
+					<div class="value restriction_container" ><%=truck.getLicenceTag() %> <input type="checkbox" class="restriction" lkw_id="<%=truck.getId() %>" checked></input></div>
+				<% } %>
 			<% } %>	
 		</div>
 		

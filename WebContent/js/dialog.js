@@ -85,21 +85,7 @@ function createServicePopUp(headline, service, options_dom_element) {
 		}
 	});
 	
-	$('#pop_up_date').datetimepicker({
-		lang:'de',
-			i18n:{
-			de:{
-					months:[
-					'Januar','Februar','März','April',
-					'Mai','Juni','Juli','August',
-					'September','Oktober','November','Dezember',
-					],
-					dayOfWeek:["Mo", "Di", "Mi", "Do", "Fr", "Sa","So"]
-				}
-			},
-			timepicker:false,
-			format:'d.m.Y'
-	});
+	enableDatePicker($("#pop_up_date"));
 	
 	var duration = 300;
 	$("#overlay").fadeIn(duration);
