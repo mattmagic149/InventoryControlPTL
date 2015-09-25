@@ -80,7 +80,7 @@ h2{
 	display: none;
 }
 
-#show_services {
+#show_services, #show_products {
 	padding: 0.5em 0;
 }
 

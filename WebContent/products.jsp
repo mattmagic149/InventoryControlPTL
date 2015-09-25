@@ -5,12 +5,16 @@
 
 <%
 	Object obj = session.getAttribute("products_list");
-	if (obj == null) {%>
+	Object obj2 = session.getAttribute("location_id");
+	Object obj3 = session.getAttribute("details");
+	if (obj == null || obj2 == null || obj3 == null) {%>
 		<jsp:forward page="welcome.jsp"/>
 	
 	<%}
 	List<Product> products = new ArrayList<Product>((ArrayList) session.getAttribute("products_list"));
 	System.out.println(products.size());
+	int location_id = ((int) session.getAttribute("location_id"));
+	boolean show_details = ((boolean) session.getAttribute("details"));
 %>
 
 <!DOCTYPE html>
@@ -43,9 +47,13 @@
     <section id="item_header" class="color_without_hover">
       <div class="name">Name</div>
       <div class="name">Beschreibung</div>
-      <div class="name">Unteres Limit</div>
+      <% if (show_details) { %>
+	      <div class="name">Unteres Limit</div>
+      <% } %>
       <div class="name">Anzahl</div>
-      <div class="details">Details</div>
+      <% if (show_details) { %>
+	      <div class="details">Details</div>
+      <% } %>
     </section>
     
     <section id="item_list">
@@ -55,9 +63,13 @@
 		<section class="item color_discreet" id="<%=products.get(i).getId() %>">
 			<div class="name"><%=products.get(i).getName() + "&nbsp;" %> </div>
 			<div class="name"><%=products.get(i).getDescription() + "&nbsp;"%></div>
-			<div class="name"><%=products.get(i).getMinimumLimit() + " " + products.get(i).getUnity().getName()  + "&nbsp;"%></div>
-			<div class="name"><%=products.get(i).getQuantityOfSpecificLocation(2) + " " + products.get(i).getUnity().getName()  + "&nbsp;"%></div>
-			<button class="details color"> &#062 &#062 </button>
+			<% if (show_details) { %>
+				<div class="name"><%=products.get(i).getMinimumLimit() + " " + products.get(i).getUnity().getName()  + "&nbsp;"%></div>
+			<% } %>
+			<div class="name"><%=products.get(i).getQuantityOfSpecificLocation(location_id) + " " + products.get(i).getUnity().getName()  + "&nbsp;"%></div>
+			<% if (show_details) { %>
+				<button class="details color"> &#062 &#062 </button>
+			<% } %>
 		</section>
 	<%
       	}	

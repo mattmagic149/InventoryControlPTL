@@ -20,6 +20,7 @@ $(document).ready(function() {
 		generateBarCode();
 		$("#edit").on("click", activateTruckEditing);		
 		$("#show_services").on("click", handleClickOnShowServices);	
+		$("#show_products").on("click", handleClickOnShowProducts);	
 	}
 
 	$("#wrapper").on("change", "#brand_selection", handleChangeBrand);
@@ -29,6 +30,11 @@ $(document).ready(function() {
 function handleClickOnShowServices(e) {
 	var id = $("#show_services").attr("truck_id");
 	location.href = "LkwServices?id=" + id;
+}
+
+function handleClickOnShowProducts(e) {
+	var id = $("#show_products").attr("truck_id");
+	location.href = "ProductsOverview?id=" + id;
 }
 
 function handleChangeBrand(e) {

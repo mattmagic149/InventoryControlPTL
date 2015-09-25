@@ -215,10 +215,12 @@
 				<div class="description">Neufahrzeug seit:</div>
 				<div class="value" id="new_vehicle_since"><%=new_vehicle_since %></div>
 			</div>
-			<div class="entry one_line"> 
+			<div class="entry"> 
 				<button class="value color hideinmobile" id="show_services" truck_id="<%=truck_id %>">Services anzeigen</button> 
 			</div>
-			
+			<div class="entry"> 
+				<button class="value color hideinmobile" id="show_products" truck_id="<%=truck_id %>">Produkte anzeigen</button> 
+			</div>
 			<% } else { %>
 			<h1>Neuer LKW:</h1>
 			<div class="entry one_row">
