@@ -63,13 +63,15 @@ public class ProductsOverview extends HttpServlet {
 			products = location.getAllProductsQuantityGreaterZero();
 			session.setAttribute("products_list", products);
 			session.setAttribute("details", false);
-			session.setAttribute("location_id", location_id);
+			session.setAttribute("location", location);
 			request.getRequestDispatcher("products.jsp").include(request, response);
 			return;
 		}
 		
+		Location location = HibernateSupport.readOneObjectByID(Location.class, 2);
+		
 		session.setAttribute("details", true);
-		session.setAttribute("location_id", 2); //this is the main inventory
+		session.setAttribute("location", location); //this is the main inventory
 		String minimum_string = request.getParameter("show_under_minimum_only");
 		if(minimum_string != null && minimum_string.equals("true")) {
 			Inventory inventory = HibernateSupport.readOneObjectByID(Inventory.class, 2);
