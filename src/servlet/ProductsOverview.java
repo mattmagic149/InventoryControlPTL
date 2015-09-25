@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.criterion.Criterion;
 
 import database.Inventory;
+import database.Location;
 import database.Product;
 import utils.HibernateSupport;
 
@@ -43,8 +44,31 @@ public class ProductsOverview extends HttpServlet {
 		}*/
 		System.out.println("ProductsOverview has been called...");
 
-		String minimum_string = request.getParameter("show_under_minimum_only");
+		
+		String location_id_string = request.getParameter("location_id");
 		List<Product> products;
+		if(location_id_string != null) {
+			int location_id;
+			try {
+				location_id = Integer.parseInt(location_id_string);
+			} catch(NumberFormatException e) {
+				System.out.println("Couldn't parse ids.");
+				response.setStatus(401);
+				response.setHeader("error_message", "Ungültige Anfrage.");
+				return;
+			}
+			
+			
+			Location location = HibernateSupport.readOneObjectByID(Location.class, location_id);
+			products = location.getAllProductsQuantityGreaterZero();
+			session.setAttribute("products_list", products);
+			session.setAttribute("details", false);
+			request.getRequestDispatcher("products.jsp").include(request, response);
+			return;
+		}
+		
+		session.setAttribute("details", true);
+		String minimum_string = request.getParameter("show_under_minimum_only");
 		if(minimum_string != null && minimum_string.equals("true")) {
 			Inventory inventory = HibernateSupport.readOneObjectByID(Inventory.class, 2);
 			products = inventory.getAllProductsUnderMinimumLimit();
