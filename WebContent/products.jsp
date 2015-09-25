@@ -1,19 +1,19 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@page import="database.Product" %>
+<%@page import="database.Location" %>
 <%@page import="java.util.ArrayList" %>
 <%@page import="java.util.List" %>
 
 <%
 	Object obj = session.getAttribute("products_list");
-	Object obj2 = session.getAttribute("location_id");
+	Object obj2 = session.getAttribute("location");
 	Object obj3 = session.getAttribute("details");
 	if (obj == null || obj2 == null || obj3 == null) {%>
 		<jsp:forward page="welcome.jsp"/>
-	
-	<%}
+	<% }
 	List<Product> products = new ArrayList<Product>((ArrayList) session.getAttribute("products_list"));
 	System.out.println(products.size());
-	int location_id = ((int) session.getAttribute("location_id"));
+	Location location = ((Location) session.getAttribute("location"));
 	boolean show_details = ((boolean) session.getAttribute("details"));
 %>
 
@@ -42,7 +42,11 @@
       </form>
     </header>-->
 
-    <h1><span>Produkte</span></h1>
+    <h1><span>Produkte</span>
+    	<% if (!show_details) { %>
+    		- <%=location.getSpecificName() %>
+    	<% } %>
+    </h1>
 
     <section id="item_header" class="color_without_hover">
       <div class="name">Name</div>
@@ -66,7 +70,7 @@
 			<% if (show_details) { %>
 				<div class="name"><%=products.get(i).getMinimumLimit() + " " + products.get(i).getUnity().getName()  + "&nbsp;"%></div>
 			<% } %>
-			<div class="name"><%=products.get(i).getQuantityOfSpecificLocation(location_id) + " " + products.get(i).getUnity().getName()  + "&nbsp;"%></div>
+			<div class="name"><%=products.get(i).getQuantityOfSpecificLocation(location.getId()) + " " + products.get(i).getUnity().getName()  + "&nbsp;"%></div>
 			<% if (show_details) { %>
 				<button class="details color"> &#062 &#062 </button>
 			<% } %>
