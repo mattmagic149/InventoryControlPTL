@@ -24,11 +24,10 @@
 	<img src="img/logo.png" style="position: absolute; top: 10px; left: 10px; width: 200px;"/>
 	
 	<form id="login_form">
-      <input type="text" name="email" id="email" placeholder="E-Mail" maxlength="30" required="reguired">
+      <input type="text" name="email" id="email" placeholder="Benutzername" maxlength="30" required="reguired">
       <input type="password" name="password" id="password" maxlength="30" required="reguired"
       			 placeholder="&#9679&#9679&#9679&#9679&#9679&#9679&#9679&#9679&#9679&#9679">
       <section id="login_button" class="color">Anmelden</section>
-      <a href="Login" id="forgotten"><p>Passwort vergessen?</p></a>
     </form>
 	</div>
 </body>
