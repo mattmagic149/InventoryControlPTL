@@ -51,7 +51,7 @@ public class Login extends HttpServlet {
 			HttpSession session = request.getSession(true);
 			session.setAttribute("currentUser", user);
 			
-			request.getRequestDispatcher("welcome.jsp").include(request, response);
+			//request.getRequestDispatcher("welcome.jsp").include(request, response);
 			return;
 		}
 				
