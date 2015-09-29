@@ -45,7 +45,7 @@ import database.*;
 
 @SuppressWarnings("deprecation")
 public class HibernateSupport {
-	
+		
 	/** The session factory. */
 	private static SessionFactory sessionFactory;
 
@@ -67,8 +67,9 @@ public class HibernateSupport {
 	private static void init() {
 		//Change the path to your deployed config file !
 		
-		File configFile = new File("/Users/matthiasivantsits/Documents/workspace/InventoryControlPTL/src/hibernate.cfg.xml");
+		//File configFile = new File("/Users/matthiasivantsits/Documents/workspace/InventoryControlPTL/src/hibernate.cfg.xml");
 		//File configFile = new File("C:/xampp/htdocs/InventoryControlPTL/src/hibernate.cfg.xml");
+		File configFile = new File("C:/xampp/tomcat/webapps/InventoryControlPTL/hibernate.cfg.xml");
 		//File configFile = new File("hibernate.cfg.xml");
 
 		Configuration configuration = new Configuration();
@@ -108,7 +109,19 @@ public class HibernateSupport {
 	 * Begin transaction.
 	 */
 	public static void beginTransaction() {
-		getCurrentSession().beginTransaction();
+		
+		if (getCurrentSession().getTransaction() != null
+	            && getCurrentSession().getTransaction().isActive()) {
+			
+	        getCurrentSession().getTransaction();
+	    } else {
+	        getCurrentSession().beginTransaction();
+	    }
+		
+        //getCurrentSession().beginTransaction();
+
+		
+		//getCurrentSession().beginTransaction();
 	}
 	
 	/**
@@ -127,10 +140,10 @@ public class HibernateSupport {
 	public static boolean commit(Object obj) {
 		try {
 			getCurrentSession().saveOrUpdate(obj);
-		}
-		catch (HibernateException e) {
+		} catch (HibernateException e) {
 			return false;
 		}
+		
 		return true;
 	}
 

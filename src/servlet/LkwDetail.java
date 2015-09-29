@@ -39,11 +39,11 @@ public class LkwDetail extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		HttpSession session = request.getSession(true);
 		
-		/*if(session.getAttribute("currentUser") == null) {
+		if(session.getAttribute("currentUser") == null) {
 			request.getRequestDispatcher("index.jsp").include(request, response);
 			System.out.println("NOT logged in");
 			return;
-		}*/
+		}
 		
 		if(request.getParameter("id")	== null) {
 			request.getRequestDispatcher("welcome.jsp").include(request, response);
@@ -92,7 +92,7 @@ public class LkwDetail extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
-		request.getRequestDispatcher("welcome.jsp").include(request, response);
+		request.getRequestDispatcher("index.jsp").include(request, response);
 		return;
 	}
 

@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import database.Product;
 import database.Truck;
@@ -32,7 +33,7 @@ public class Edit extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
-		request.getRequestDispatcher("welcome.jsp").include(request, response);
+		request.getRequestDispatcher("index.jsp").include(request, response);
 		return;
 	}
 
@@ -40,8 +41,19 @@ public class Edit extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(true);
+		
+		if(session.getAttribute("currentUser") == null) {
+			request.getRequestDispatcher("index.jsp").include(request, response);
+			System.out.println("NOT logged in");
+			return;
+		}	
+		
+		response.setContentType("text/html; charset=UTF-8");
+	    System.out.println("charEncoding: "+ request.getCharacterEncoding());
+
 		String parameter = request.getParameter("type");
-		String object = request.getParameter("object");
+		String object = new String(request.getParameter("object").getBytes("iso-8859-1"),"UTF-8");
 		if(parameter == null || object == null) {
 			response.setStatus(401);
 			response.setHeader("error_message", "Ungültige Anfrage.");
@@ -62,6 +74,8 @@ public class Edit extends HttpServlet {
 			}
 		} else if(parameter.equals("truck")) {
 			System.out.println("I am editing a Truck");
+			System.out.println(object);
+			
 			if((id = Truck.editTruck(object)) == -1) {
 				response.setStatus(401);
 				response.setHeader("error_message", "Produkt konnte nicht bearbeitet werden.");

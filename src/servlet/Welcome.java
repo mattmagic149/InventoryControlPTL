@@ -34,18 +34,17 @@ public class Welcome extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
-		/*HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(true);
 		
 		if(session.getAttribute("currentUser") == null) {
 			request.getRequestDispatcher("index.jsp").include(request, response);
 			System.out.println("NOT logged in");
 			return;
-		}	*/
+		}
 		
 		Inventory inventory = HibernateSupport.readOneObjectByID(Inventory.class, 2);
 		List<Product> products = inventory.getAllProductsUnderMinimumLimit();
 		
-		HttpSession session = request.getSession(true);
 		session.setAttribute("products_under_limit", products.size());
 		
 		System.out.println("Welcome has been called...");
@@ -58,7 +57,7 @@ public class Welcome extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
-		request.getRequestDispatcher("welcome.jsp").include(request, response);
+		request.getRequestDispatcher("index.jsp").include(request, response);
 		return;
 	}
 

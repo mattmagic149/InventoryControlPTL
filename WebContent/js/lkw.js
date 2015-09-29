@@ -285,6 +285,7 @@ function sendTruckToServer(servlet, truck_string) {
 	$.ajax({
 		type: "POST",
 		url: servlet,
+		encoding: "UTF-8",
 		data: { type: "truck",
 				object: truck_string },
 		cache: false,

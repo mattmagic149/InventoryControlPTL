@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Welcome
@@ -29,13 +30,13 @@ public class LagerDetail extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
 
-		/*HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(true);
 		
 		if(session.getAttribute("currentUser") == null) {
 			request.getRequestDispatcher("index.jsp").include(request, response);
 			System.out.println("NOT logged in");
 			return;
-		}	*/
+		}
 		
 		System.out.println("Welcome has been called...");
 		request.getRequestDispatcher("lager.jsp").include(request, response);
@@ -47,7 +48,7 @@ public class LagerDetail extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
-		request.getRequestDispatcher("welcome.jsp").include(request, response);
+		request.getRequestDispatcher("index.jsp").include(request, response);
 		return;
 	}
 

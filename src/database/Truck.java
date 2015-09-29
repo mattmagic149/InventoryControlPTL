@@ -38,7 +38,7 @@ public class Truck extends Location implements ISaveAndDelete {
 	private String licence_tag;
 	
 	@ManyToOne
-	@JoinColumn(name="truck_brand",updatable=false) ///TODO: nullable?!?!
+	@JoinColumn(name="truck_brand",updatable=true) ///TODO: nullable?!?!
 	private TruckBrand truck_brand;
 	
 	private String type;
@@ -123,7 +123,7 @@ public class Truck extends Location implements ISaveAndDelete {
 	
 	
 	public String getBarCodeEncoding() {
-		return "L-" + BarCodeUtils.getBarCodeEncoding(id);
+		return "L-" + BarCodeUtils.getBarCodeEncoding(id) + ".";
 	}
 		
 	public String getLicenceTag() {
@@ -351,14 +351,15 @@ public class Truck extends Location implements ISaveAndDelete {
 		HibernateSupport.beginTransaction();
 		parsed_truck.wheels_front.saveToDB();
 		parsed_truck.wheels_rear.saveToDB();
-		brand.saveToDB();
-		parsed_truck.setTruckBrand(brand);
+		brand.saveToDB();		
+		parsed_truck.setTruckBrand(brand);		
 		parsed_truck.services = old_truck.services;
 		parsed_truck.product_elements = old_truck.product_elements;
-		
-		parsed_truck.saveToDB();
+				
+		System.out.println(parsed_truck.saveToDB());
+
 		HibernateSupport.commitTransaction();
-		
+
 		return parsed_truck.getId();
 	}
 	

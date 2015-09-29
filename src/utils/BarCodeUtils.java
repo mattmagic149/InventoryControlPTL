@@ -27,6 +27,8 @@ public class BarCodeUtils {
 		return result;
 	}
 	
+	
+	//DON'T USE, FIRST FIX PROBLEM WITH . at the end.
 	public static int decodeBarCode(String barcode) {
 		if(barcode.length() < 3) {
 			return -1;

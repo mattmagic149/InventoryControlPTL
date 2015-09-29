@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import utils.HibernateSupport;
 import database.Location;
@@ -33,7 +34,7 @@ public class CommitTransaction extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
-		request.getRequestDispatcher("welcome.jsp").include(request, response);
+		request.getRequestDispatcher("index.jsp").include(request, response);
 		return;
 	}
 
@@ -41,9 +42,17 @@ public class CommitTransaction extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(true);
+		
+		if(session.getAttribute("currentUser") == null) {
+			request.getRequestDispatcher("index.jsp").include(request, response);
+			System.out.println("NOT logged in");
+			return;
+		}	
+		
 		response.setContentType("text/html; charset=UTF-8");
 
-		User user = User.login("rene", "123456");
+		User user = (User)session.getAttribute("currentUser");
 		if(user == null) {
 			System.out.println("User not logged in.");
 			response.setStatus(401);

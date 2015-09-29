@@ -241,9 +241,7 @@ public abstract class Location implements ISaveAndDelete {
 	 */
 	@Override
 	public boolean saveToDB() {
-		if(!HibernateSupport.commit(this))
-			return false;
-		return true;
+		return HibernateSupport.commit(this);
 	}
 	
 	/* (non-Javadoc)

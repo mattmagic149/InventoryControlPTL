@@ -101,7 +101,7 @@ function getCorrectServlet(code) {
 }
 
 function getId(code) {
-	return code.substring(2, code.length);
+	return code.substring(2, code.length - 1);
 }
 
 
@@ -121,7 +121,8 @@ function getValidIdsFromServer() {
 			startQuaggaIfListAndQuaggaIsReady();
 		},
 		error: function(data, settings, xhr) {
-			alert("error");
+			alert("Barcode nicht erkannt.");
+			location.reload();
 //			$("#pop_up_message").html(xhr.getResponseHeader('error_message'));
 		}
 	});
