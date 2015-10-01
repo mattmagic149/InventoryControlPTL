@@ -6,6 +6,13 @@ h1 {
   color: #023e88;
 }
 
+#interactive  video, #interactive canvas {
+	position: absolute;
+	left: 50%;
+	margin-left: -200px;
+	width: 400px;
+	max-height: 300px;
+}
 
 @media only all and (max-width:70em) {
 	h1 {
@@ -15,4 +22,18 @@ h1 {
 	h2 {
 		position: static;
 	}	
+	
+	#interactive  video, #interactive canvas {
+		margin: 0 0 0 0;
+		padding: 0 0 0 0;
+		width: auto;
+		max-height: none;
+		
+		position: absolute;
+		margin-top: 9em;
+		top: 0em;
+		left: 0;
+		width: 100%;
+		height: auto;
+	}
 }

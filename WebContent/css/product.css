@@ -124,5 +124,7 @@ h2{
 		margin-bottom: 1em;
 		float: right;
 	}
-	
+	#barcode_picture {
+		max-width: 50%;
+	}
 }
