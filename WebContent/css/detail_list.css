@@ -48,6 +48,9 @@ p {
 	display: inline-block;
 	cursor: auto;
 }
+.item.hidden {
+	display: none;
+}
 
 .name {
 	width: 23%;
@@ -144,4 +147,10 @@ button.delete {
 	right: 100px;
 	bottom: 30px;
 	z-index: 1;
+}
+
+#show_not_active {
+	right: 100px;
+	position: absolute;
+	top: 80px;
 }

@@ -35,6 +35,8 @@
       
     <h1><span>LKWs</span></h1>
 
+	<button id="show_not_active" class="color_discreet">Inaktive anzeigen</button>
+	
     <section id="item_header" class="color_without_hover">
       <div class="name">Kennzeichen</div>
       <div class="name">Marke</div>
@@ -47,7 +49,11 @@
       <%
 		for (int i = 0; i < trucks.size(); i++) {
 	  %>
-		      <section class="item color_discreet" id="<%=trucks.get(i).getId() %>">
+	  	<% if (trucks.get(i).getTruckState() == Truck.TruckState.ACTIVE) { %>
+		      <section class="item color_discreet active" id="<%=trucks.get(i).getId() %>">
+		<% } else { %>
+		      <section class="item color_discreet not_active hidden" id="<%=trucks.get(i).getId() %>">
+		<% } %>		
 		        <div class="name"><%=trucks.get(i).getLicenceTag() %></div>
 		        <div class="name"><%=trucks.get(i).getBrand().getName() %></div>
 		        <div class="name"><%=trucks.get(i).getPayload() %></div>

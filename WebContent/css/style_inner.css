@@ -151,7 +151,7 @@ input[type="submit"], #login_button {
 
 /*BUTTONS*/
 /*Was alle gemeinsam haben:*/
-#registration, #logout, #back, #forward, #edit, #ok, #cancel, #remove_button, #ingoing, #outgoing, #show_services, #show_products {
+#registration, #logout, #back, #forward, #edit, #ok, #cancel, #remove_button, #ingoing, #outgoing, #show_services, #show_products, #show_not_active {
 	line-height: 1.2em;
 	text-align: center;
 	font-size: 0.9em;
@@ -220,7 +220,7 @@ input[type="submit"], #login_button {
 	border-top-right-radius: 5px;
 	z-index: 1;
 }
-#show_services, #show_products {
+#show_services, #show_products, #show_not_active {
 	border-radius: 5px;
 }
 
@@ -413,3 +413,6 @@ input[type="submit"], #login_button {
 .value {
 }
 
+.hidden {
+	display: none;
+}

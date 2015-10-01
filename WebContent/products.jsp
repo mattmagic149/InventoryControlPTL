@@ -48,6 +48,8 @@
     	<% } %>
     </h1>
 
+	<button id="show_not_active" class="color_discreet">Inaktive anzeigen</button>
+
     <section id="item_header" class="color_without_hover">
       <div class="name">Name</div>
       <div class="name">Beschreibung</div>
@@ -64,7 +66,11 @@
     <%
     	for (int i = 0; i < products.size(); i++) {    		
     %>
-		<section class="item color_discreet" id="<%=products.get(i).getId() %>">
+		<% if (products.get(i).getState() == Product.ProductState.ACTIVE) { %>
+			<section class="item color_discreet active" id="<%=products.get(i).getId() %>">
+		<% } else { %>
+			<section class="item color_discreet not_active hidden" id="<%=products.get(i).getId() %>">
+		<% } %>
 			<div class="name"><%=products.get(i).getName() + "&nbsp;" %> </div>
 			<div class="name"><%=products.get(i).getDescription() + "&nbsp;"%></div>
 			<% if (show_details) { %>
