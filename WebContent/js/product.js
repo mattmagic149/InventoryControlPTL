@@ -18,7 +18,7 @@ $(document).ready(function() {
 		fillProductWithDataBecauseOfTextFields();
 	}
 	
-	$("#wrapper").on("click", "#no_restriction", handleClickOnNoRestrictions);	
+	$("#wrapper").on("click", "#no_restriction", handleClickOnNoRestrictions);
 	$("#wrapper").on("click", "#ok", confirmProductEditing);
 	handleClickOnNoRestrictions();/*set correct state*/
 });
