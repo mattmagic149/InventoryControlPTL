@@ -27,7 +27,7 @@ public class TruckService implements ISaveAndDelete {
 	private Date date;
 	
 	@ManyToOne
-	@JoinColumn(name="repair_shop", updatable=false) ///TODO: nullable?!?!
+	@JoinColumn(name="repair_shop", updatable=true) ///TODO: nullable?!?!
 	private RepairShop repair_shop;
 	
 	private String description;

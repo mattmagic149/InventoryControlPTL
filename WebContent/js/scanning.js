@@ -30,7 +30,7 @@ function startReadingBarcode() {
             var self = this;
         },
         state: {
-            locate: false
+            locate: true
         }
     };
     App.init();

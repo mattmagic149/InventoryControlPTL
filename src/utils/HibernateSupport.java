@@ -22,6 +22,7 @@ package utils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -48,6 +49,7 @@ public class HibernateSupport {
 		
 	/** The session factory. */
 	private static SessionFactory sessionFactory;
+	private static final ReentrantLock mutex = new ReentrantLock(true);
 
 	static {
 		System.out.println("HibernateSupport: Constructor");
@@ -110,18 +112,15 @@ public class HibernateSupport {
 	 */
 	public static void beginTransaction() {
 		
-		if (getCurrentSession().getTransaction() != null
+		/*if (getCurrentSession().getTransaction() != null
 	            && getCurrentSession().getTransaction().isActive()) {
 			
 	        getCurrentSession().getTransaction();
 	    } else {
 	        getCurrentSession().beginTransaction();
-	    }
-		
-        //getCurrentSession().beginTransaction();
-
-		
-		//getCurrentSession().beginTransaction();
+	    }*/
+		mutex.lock();
+		getCurrentSession().beginTransaction();
 	}
 	
 	/**
@@ -129,6 +128,7 @@ public class HibernateSupport {
 	 */
 	public static void commitTransaction() {
 		getCurrentSession().getTransaction().commit();
+		mutex.unlock();
 	}
 	
 	/**
