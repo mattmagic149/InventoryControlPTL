@@ -400,3 +400,12 @@ input[type="submit"], #login_button {
 .hidden {
 	display: none;
 }
+
+#interactive  video, #interactive canvas {
+	position: absolute;
+	left: 50%;
+	margin-left: -200px;
+	width: 400px;
+	max-height: 300px;
+}
+

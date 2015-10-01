@@ -27,9 +27,7 @@
 
 	<h1>Scanning<span></span>!</h1>
 	
-	<div id="scanning_container">
-		<div id="interactive" class="viewport"></div>
-	</div>
+	<div id="interactive" class="viewport"></div>
 	
     <footer></footer>
     
