@@ -93,10 +93,39 @@ function createServicePopUp(headline, service, options_dom_element) {
 	$("#close").delay(duration).fadeIn(200);
 }
 
+function createServiceDeletePopUp(headline, service, options_dom_element) {
+	$("#pop_up").remove();
+	$("#wrapper").append("<div id='pop_up'>" +
+		"<img src='images/close-icon.png' id='close' alt='close' title='close' />" +
+		"<h2 id='pop_up_headline'>" + headline + "</h2>" +
+		"<div id='pop_up_field_container'>" +
+			"<div class='description'>Datum</div>" +
+			"<div type='text' class='value' id='pop_up_date'>" + service.date + "</div>" +
+			"<div class='description'>Werkstatt</div>" +
+			"<div type='text' class='value' id='pop_up_repair_shop'>" + service.repair_shop.name + "</div>" +
+			"<div class='description'>Beschreibung</div>" +
+			"<div type='text' class='value' id='pop_up_description'>" + service.description + "</div>" +
+			"<div class='description'>Kilometerstand</div>" +
+			"<div type='number' class='value' id='pop_up_mileage'>" + service.mileage + "</div>" +
+		"</div>" +
+	"</div>" +
+	"<div id='overlay'></div>");
+			
+	var duration = 300;
+	$("#overlay").fadeIn(duration);
+	$("#pop_up").slideDown(duration);
+	$("#close").delay(duration).fadeIn(200);
+}
+
 
 function createPopUpButtons(button_1, button_2) {
 	$("#pop_up").append("<section id='confirm_pop_up_button' class='pop_up_button'>" + button_1 + "</section>" +
 			"<section id='cancel_pop_up_button' class='pop_up_button'>" + button_2 + "</section>");
+}
+
+function createDeletePopUpButtons(button_1, button_2) {
+	$("#pop_up").append("<section id='delete_pop_up_button' class='pop_up_button'>" + button_1 + "</section>" +
+			"<section id='cancel_pop_up_button' class='pop_up_button'>" + button_2 + "</section>");	
 }
 
 //--------------------------------------------------------------------------------

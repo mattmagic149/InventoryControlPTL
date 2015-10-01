@@ -3,6 +3,7 @@ var service = new Object();
 
 $(document).ready(function() {
 	$("#item_list").on("click", ".details", handleClickOnDetailsButton);
+	$("#item_list").on("click", ".delete", handleClickOnDeleteButton);
 	$("#add_button").on("click", handleClickOnNewServiceButton);
 	
 	service.truck = new Object();
@@ -22,7 +23,27 @@ function handleClickOnDetailsButton(e) {
 	
 	createServicePopUp("Service ändern", service,  $("#all_possible_repair_shops"));
 	createPopUpButtons("Eintragen", "Abbrechen");
+	
 	$("#confirm_pop_up_button").on("click", confirmServiceEditing);
+	
+	createInputFieldsChecker();
+}
+function handleClickOnDeleteButton(e) {
+	var item = $(e.target).parent();
+	service.id = item.attr("id");
+	service.date = item.find(".date").first().text();
+	service.repair_shop = new Object();
+	service.repair_shop.id = item.find(".repair_shop").first().attr("repair_shop_id");
+	service.repair_shop.name = item.find(".repair_shop").first().text();
+	service.description = item.find(".description").first().text();
+	service.mileage = item.find(".mileage").first().text();
+	
+	console.log("handleClickOnDeleteButton: Extracted Service = '" + JSON.stringify(service) + "'");
+	
+	createServiceDeletePopUp("Service Löschen", service,  $("#all_possible_repair_shops"));
+
+	createDeletePopUpButtons("Löschen", "Abbrechen");
+	$("#delete_pop_up_button").on("click", confirmServiceDeleting);
 	
 	createInputFieldsChecker();
 }
@@ -66,6 +87,10 @@ function confirmServiceEditing() {
 
 	var service_string = JSON.stringify(service);
 	sendServiceToServer("Edit", service_string);
+}
+function confirmServiceDeleting() {
+	var service_string = JSON.stringify(service);
+	sendServiceToServer("Delete", service_string);
 }
 
 function confirmNewService() {

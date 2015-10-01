@@ -86,6 +86,7 @@
 		        <div class="name description"><%=tc.getDescription() + ""%></div>
 		        <div class="name mileage"><%=tc.getMileage() + ""%></div>
 				<button class="details color">&#062 &#062</button>
+				<button class="delete color">x</button>
 			  </section>
 	  <%
 			}

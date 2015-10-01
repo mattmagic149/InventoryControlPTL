@@ -44,7 +44,7 @@
 	z-index: 10;
 }
 
-#confirm_pop_up_button, #cancel_pop_up_button {
+#confirm_pop_up_button, #cancel_pop_up_button, #delete_pop_up_button {
 	background-color: #023e88;
 	width: 120px;
 	color: #FFF;
@@ -58,16 +58,25 @@
 #confirm_pop_up_button {
 	right: 60px;
 }
+#delete_pop_up_button {
+	right: 60px;
+	background-color: red;
+	color: white;
+}
 #cancel_pop_up_button {
 	left: 60px;
 	color: #555;
   	background-color: #CCC;
 }
 
-#confirm_pop_up_button:hover, #cancel_pop_up_button:hover {
+
+#confirm_pop_up_button:hover, #cancel_pop_up_button:hover, #delete_pop_up_button:hover {
 	background-color: #5576c7;
 	cursor: pointer;
 	color: #FFF;
+}
+#delete_pop_up_button:hover {
+	background-color: #600;
 }
 
 #pop_up_field_container {

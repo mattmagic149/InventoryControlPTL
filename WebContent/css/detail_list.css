@@ -59,11 +59,20 @@ p {
 
 
 .details {
-	width: 8%;
+	width: 5.5%;
 	float: left;
 	padding: 0;
     line-height: 1.5em;
 	margin: 0;
+}
+
+.delete {
+	width: 2%;
+	float: left;
+	padding: 0;
+	line-height: 1.5em;
+	margin: 0;
+	margin-left: 0.5%;
 }
 
 .admin, .creator, .user {
@@ -112,12 +121,20 @@ p {
 	background-color: #5576c7;
 	cursor: pointer;
 }
+#item_list .delete:hover {
+	background-color: red;
+	color: white;
+}
 
 #item_list .item:last-of-type {
 	margin-bottom: 4em;	
 }
 
 button.details {
+	margin-top: 2px;
+	border-radius: 5px;
+}
+button.delete {
 	margin-top: 2px;
 	border-radius: 5px;
 }
