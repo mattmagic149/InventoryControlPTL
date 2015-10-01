@@ -1,4 +1,5 @@
 // JavaScript Document
+
 $(document).ready(function() {
 	getValidIdsFromServer();
 	startReadingBarcode();
@@ -7,6 +8,7 @@ $(document).ready(function() {
 var has_valid_id_list = false;
 var quagga_is_ready = false;
 var valid_ids = [];
+var counter_invalid_codes = 0;
 
 function startReadingBarcode() {
 	var App = {
@@ -33,9 +35,11 @@ function startReadingBarcode() {
             locate: true
         }
     };
-    App.init();
+    
+	App.init();
+    
     Quagga.onProcessed(function(result) {
-/*        var drawingCtx = Quagga.canvas.ctx.overlay,
+        var drawingCtx = Quagga.canvas.ctx.overlay,
             drawingCanvas = Quagga.canvas.dom.overlay;
 
         if (result) {
@@ -47,14 +51,15 @@ function startReadingBarcode() {
                     Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 2});
                 });
             }
+
             if (result.box) {
                 Quagga.ImageDebug.drawPath(result.box, {x: 0, y: 1}, drawingCtx, {color: "#00F", lineWidth: 2});
             }
+
             if (result.codeResult && result.codeResult.code) {
                 Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
             }
         }
-        */
     });
 
     Quagga.onDetected(function(result) {
@@ -63,16 +68,21 @@ function startReadingBarcode() {
 			var servlet = getCorrectServlet(code);
 			var id = getId(code);
 			var link = servlet + "?id=" + id;
-			//alert("referring to " + link);
+			console.log("Scanned valid code = " + code);
 			location.href = link;
-		}		
+		}
     });
 }
 
 function isValidCode(code) {	
 	var index = valid_ids.indexOf(code);
 	if (index == -1) {
-		alert("not valid code = " + code);
+		counter_invalid_codes = counter_invalid_codes + 1;
+		console.log("Scanned not valid code = " + code);
+		if (counter_invalid_codes > 3) {
+			alert("Es wurde leider kein gültiger Barcode erkannt. (" + code + ")");
+			counter_invalid_codes = 0;
+		}
 		return false;
 	} else {
 		return true;
@@ -121,7 +131,7 @@ function getValidIdsFromServer() {
 			startQuaggaIfListAndQuaggaIsReady();
 		},
 		error: function(data, settings, xhr) {
-			alert("Barcode nicht erkannt.");
+			alert("Error beim Abrufen der Barcodes vom Server. Es wird nochmal versucht...");
 			location.reload();
 //			$("#pop_up_message").html(xhr.getResponseHeader('error_message'));
 		}

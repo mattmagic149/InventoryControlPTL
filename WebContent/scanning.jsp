@@ -26,6 +26,7 @@
     <a href="Welcome"><button id="back" class="color_discreet">&#060&#060 Übersicht</button></a>
 
 	<h1>Scanning<span></span>!</h1>
+	
 	<div id="scanning_container">
 		<div id="interactive" class="viewport"></div>
 	</div>

@@ -126,22 +126,6 @@ input[type="submit"], #login_button {
 	border: 1px solid #023e88;
 }
 
-#interactive {
-	position: absolute;
-	top: 0;
-	margin-top: 20%;
-	right: 0;
-	width: 100%;
-}
-#interactive  video{
-	position: relative;
-	left: 50%;
-	margin-left: -200px;
-	width: 400px;
-	max-height: 300px;
-}
-
-
 #content {
   width: 700px;
   margin: 0 auto;
