@@ -34,7 +34,7 @@ function handleClickOnDeleteButton(e) {
 	service.date = item.find(".date").first().text();
 	service.repair_shop = new Object();
 	service.repair_shop.id = item.find(".repair_shop").first().attr("repair_shop_id");
-	//service.repair_shop.name = item.find(".repair_shop").first().text();
+	service.repair_shop.name = item.find(".repair_shop").first().text();
 	service.description = item.find(".description").first().text();
 	service.mileage = item.find(".mileage").first().text();
 	
