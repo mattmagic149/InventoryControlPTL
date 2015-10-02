@@ -13,7 +13,7 @@ import database.Truck;
 
 public class BarCodeUtils {
 
-	private final static int total_length = 6;
+	private final static int total_length = 5;
 	
 	public static String getBarCodeEncoding(int id) {
 		String string_id = Integer.toString(id);

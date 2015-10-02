@@ -76,7 +76,7 @@ public class ProductsOverview extends HttpServlet {
 			Inventory inventory = HibernateSupport.readOneObjectByID(Inventory.class, 2);
 			products = inventory.getAllProductsUnderMinimumLimit();
 		} else {
-			products = HibernateSupport.readMoreObjects(Product.class, new ArrayList<Criterion>());
+			products = HibernateSupport.readMoreObjectsDesc(Product.class, new ArrayList<Criterion>(), "name");
 		}
 				
 		if(products != null) {

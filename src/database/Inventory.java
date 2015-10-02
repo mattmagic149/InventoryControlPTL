@@ -30,7 +30,7 @@ public class Inventory extends Location {
 	}
 	
 	public String getBarCodeEncoding() {
-		return "I-" + BarCodeUtils.getBarCodeEncoding(id) + ".";
+		return "I" + BarCodeUtils.getBarCodeEncoding(id) + ".";
 	}
 	
 	public String getName() {

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 
 import utils.HibernateSupport;
 import database.Truck;
@@ -45,7 +46,7 @@ public class LkwsDetail extends HttpServlet {
 		}
 		
 		System.out.println("LkwsDetail has been called...");
-		List<Truck> trucks = HibernateSupport.readMoreObjects(Truck.class, new ArrayList<Criterion>());
+		List<Truck> trucks = HibernateSupport.readMoreObjectsDesc(Truck.class, new ArrayList<Criterion>(), "licence_tag");
 		System.out.println(trucks.size());
 		if(trucks != null && trucks.size() > 0) {
 			session.setAttribute("trucks_list", trucks);

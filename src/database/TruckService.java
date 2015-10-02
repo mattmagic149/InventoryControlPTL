@@ -18,7 +18,7 @@ import com.google.gson.JsonSyntaxException;
 import utils.HibernateSupport;
 
 @Entity
-public class TruckService implements ISaveAndDelete {
+public class TruckService implements ISaveAndDelete, Comparable<TruckService> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
@@ -179,6 +179,11 @@ public class TruckService implements ISaveAndDelete {
 	@Override
 	public void deleteFromDB(Object obj) {
 		HibernateSupport.deleteObject(this);	
+	}
+	
+	@Override
+	public int compareTo(TruckService other_value) {
+		return this.getDate().compareTo(other_value.getDate());
 	}
 	
 }

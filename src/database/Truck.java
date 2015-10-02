@@ -28,7 +28,7 @@ import utils.*;
 public class Truck extends Location implements ISaveAndDelete {
 	
 	public enum FuelType {
-		DIESEL, PETROL
+		DIESEL, PETROL, ELECTRIC
 	}
 	
 	public enum TruckState {
@@ -73,6 +73,7 @@ public class Truck extends Location implements ISaveAndDelete {
 	
 	@OneToMany
 	@JoinColumn(name="services")
+	@OrderBy(value = "date ASC")
 	private List<TruckService> services;
 	
 	@ManyToMany(mappedBy="trucks_to_restrict")
@@ -123,7 +124,7 @@ public class Truck extends Location implements ISaveAndDelete {
 	
 	
 	public String getBarCodeEncoding() {
-		return "L-" + BarCodeUtils.getBarCodeEncoding(id) + ".";
+		return "L" + BarCodeUtils.getBarCodeEncoding(id) + ".";
 	}
 		
 	public String getLicenceTag() {

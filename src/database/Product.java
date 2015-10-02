@@ -117,7 +117,7 @@ public class Product implements ISaveAndDelete {
 	}
 	
 	public String getBarCodeEncoding() {
-		return "P-" + BarCodeUtils.getBarCodeEncoding(id) + ".";
+		return "P" + BarCodeUtils.getBarCodeEncoding(id) + ".";
 	}
 	
 	public static int createProductFromJSON(String object) {

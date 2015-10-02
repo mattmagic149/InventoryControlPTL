@@ -190,7 +190,7 @@ public abstract class Location implements ISaveAndDelete {
 	}
 	
 	public List<Product> getAllProductsUnderMinimumLimit() {
-		List<Product> products = HibernateSupport.readMoreObjects(Product.class, new ArrayList<Criterion>());
+		List<Product> products = HibernateSupport.readMoreObjectsDesc(Product.class, new ArrayList<Criterion>(), "name");
 		List<Product> result = new ArrayList<Product>();
 		long quantity;
 		
@@ -208,7 +208,7 @@ public abstract class Location implements ISaveAndDelete {
 	}
 	
 	public List<Product> getAllProductsQuantityGreaterZero() {
-		List<Product> products = HibernateSupport.readMoreObjects(Product.class, new ArrayList<Criterion>());
+		List<Product> products = HibernateSupport.readMoreObjectsDesc(Product.class, new ArrayList<Criterion>(), "name");
 		List<Product> result = new ArrayList<Product>();
 		long quantity;
 		
