@@ -37,6 +37,7 @@
   <script src="js/dialog.js" type="text/javascript"></script>
   <script src="js/check_inputfields.js" type="text/javascript"></script>
   <script src="js/ajax_loader.js" type="text/javascript"></script>	
+  <script src="js/detail_list_search.js" type="text/javascript"></script>
   <script src="js/lkw_services.js" type="text/javascript"></script>
 
   <title>PTL - LKW-Services</title>
@@ -61,6 +62,12 @@
     
     
     <h1><span>Services</span> von <%=truck.getLicenceTag() %></h1>
+    
+    <form id="search_form">
+      <input type="text" name="search" id="search" placeholder="Suchtext" maxlength="30" autocomplete="off">
+      <input type="submit" value="" id="search_button" class="icon-search" />
+    </form>
+    
 
     <section id="item_header" class="color_without_hover">
       <div class="name">Datum</div>

@@ -28,7 +28,7 @@ import utils.*;
 public class Truck extends Location implements ISaveAndDelete {
 	
 	public enum FuelType {
-		DIESEL, PETROL
+		DIESEL, PETROL, ELECTRIC
 	}
 	
 	public enum TruckState {

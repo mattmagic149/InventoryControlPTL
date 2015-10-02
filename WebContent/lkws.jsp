@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="css/detail_list.css" type="text/css" media="screen" />
 
   <script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
+  <script src="js/detail_list_search.js" type="text/javascript"></script>
   <script src="js/lkws.js" type="text/javascript"></script>
 
   <title>PTL - LKWs</title>
@@ -33,6 +34,11 @@
     <a href="Welcome"><button id="back" class="color_discreet">&#060&#060 Übersicht</button></a>
       
     <h1><span>LKWs</span></h1>
+
+	<form id="search_form">
+      <input type="text" name="search" id="search" placeholder="Suchtext" maxlength="30" autocomplete="off">
+      <input type="submit" value="" id="search_button" class="icon-search" />
+    </form>
 
 	<button id="show_not_active" class="color_discreet">Inaktive anzeigen</button>
 	

@@ -21,8 +21,8 @@ p {
 
 #search_form {
 	position: absolute;
-	top: 49px;
-	right: 35px;
+    top: 70px;
+    left: 100px;
 }
 
 #item_header {
@@ -153,4 +153,8 @@ button.delete {
 	right: 100px;
 	position: absolute;
 	top: 80px;
+}
+
+.hide_for_search {
+	display: none;
 }

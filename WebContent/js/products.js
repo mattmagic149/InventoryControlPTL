@@ -10,7 +10,9 @@ $(document).ready(function() {
 	if ($("#item_header").children().length == 3) {
 		$(".name").width("32%");
 	}
+	
 });
+
 
 function toggleNotActiveProducts() {
 	if ($("#show_not_active").text() == "Inaktive anzeigen") { //show inactive & hide active
