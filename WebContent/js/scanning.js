@@ -111,7 +111,7 @@ function getCorrectServlet(code) {
 }
 
 function getId(code) {
-	return code.substring(2, code.length - 1);
+	return code.substring(1, code.length - 1);
 }
 
 

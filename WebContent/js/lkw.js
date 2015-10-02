@@ -167,6 +167,7 @@ function activateTruckEditing() {
 			'	<select class="value" id="type_of_fuel">' + 
 			'		<option value="DIESEL">Diesel</option>' + 
 			'		<option value="PETROL">Benzin</option>' + 
+			'		<option value="ELECTRIC">Elektro</option>' + 
 			'	</select>' + 
 			'</div>' + 
 			'<div class="entry one_row">' + 
