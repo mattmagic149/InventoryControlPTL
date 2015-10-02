@@ -23,15 +23,18 @@
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
-	<title></title>
+    
     <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/print_labels.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
+	
 	<script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="js/JsBarcodeGenCODE128.js" type="text/javascript"></script>
+	<script src="js/JsBarcodeGenCODE128.js" type="text/javascript"></script>
 	<script src="js/JsBarcodeGen.js" type="text/javascript"></script>
-	<script src="js/print_labels.js" type="text/javascript"></script>
+	<script src="js/check_inputfields.js" type="text/javascript"></script>
+    <script src="js/print_labels.js" type="text/javascript"></script>
+
+	<title>PTL - Labels drucken</title>
 	
 </head>
 <body>
@@ -40,7 +43,7 @@
     <a href="Logout" class="not_to_print"><button id="logout" class="color_discreet">Logout</button></a>
     <a href="Welcome" class="not_to_print"><button id="back" class="color_discreet">&#060&#060 Übersicht</button></a>
     
-    <h1 class="not_to_print">Barcode-Labels ausdrucken</h1>
+    <h1 class="not_to_print">Labels drucken</h1>
     
     <div id="container" class="not_to_print">
     	<% for (Product p : products) { %>

@@ -8,15 +8,12 @@
   <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="css/scanning.css" type="text/css" media="screen" />
 
-  <script src="js/JsBarcodeReader/jquery-1.9.0.min.js" type="text/javascript"></script>
-  <script src="js/JsBarcodeReader/quagga.js" type="text/javascript"></script>
-  
   <script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="js/JsBarcodeReader/quagga.js" type="text/javascript"></script>
   <script src="js/dialog.js" type="text/javascript"></script>
   <script src="js/scanning.js" type="text/javascript"></script>
 
-  <title>PTL - Scanning</title>
+  <title>PTL - Scannen</title>
     
 </head>
 <body>
@@ -25,7 +22,7 @@
     <a href="Logout"><button id="logout" class="color_discreet">Logout</button></a>
     <a href="Welcome"><button id="back" class="color_discreet">&#060&#060 Übersicht</button></a>
 
-	<h1>Scanning<span></span>!</h1>
+	<h1>Scannen<span></span>!</h1>
 	
 	<div id="interactive" class="viewport"></div>
 	

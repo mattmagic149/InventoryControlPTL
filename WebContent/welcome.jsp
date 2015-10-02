@@ -23,10 +23,11 @@
  	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
 	
   	<script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
-  	<script src="js/main.js" type="text/javascript"></script>
   	<script src="js/dialog.js" type="text/javascript"></script>
+
+  	<script src="js/main.js" type="text/javascript"></script>
 	
-	<title>PTL - Welcome</title>
+  <title>PTL - Übersicht</title>
     
 </head>
 <body>

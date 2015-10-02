@@ -24,25 +24,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
   
   <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="css/jquery.datetimepicker.css" type="text/css" />
   <link rel="stylesheet" href="css/dialog.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="css/detail_list.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="css/lkw_services.css" type="text/css" media="screen" />
+  
   <script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
-  <script type="text/javascript" src="js/inline_edit/jquery.inlineedit.js"></script>
-  <script src="js/editable.js" type="text/javascript"></script>
   <script src="js/jquery.datetimepicker.js" type="text/javascript" charset="UTF-8"></script>
   <script src="js/dialog.js" type="text/javascript"></script>
   <script src="js/check_inputfields.js" type="text/javascript"></script>
-  <script src="js/ajax_loader.js" type="text/javascript"></script>
-	
+  <script src="js/ajax_loader.js" type="text/javascript"></script>	
   <script src="js/lkw_services.js" type="text/javascript"></script>
 
-	<title>PTL - LKWs</title>
-    
+  <title>PTL - LKW-Services</title>
+  
 </head>
 <body>
 	<div id="distance"></div>

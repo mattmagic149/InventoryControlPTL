@@ -21,6 +21,7 @@ $(document).ready(function() {
 	$("#wrapper").on("click", "#no_restriction", handleClickOnNoRestrictions);
 	$("#wrapper").on("click", "#ok", confirmProductEditing);
 	handleClickOnNoRestrictions();/*set correct state*/
+	preventDefault();
 });
 
 function handleClickOnNoRestrictions() {
@@ -161,7 +162,6 @@ function generateBarCode() {
 
 function handleIngoing() {
 	createTransactionPopUp("Eingang...", "Wo kommt es her?", $("#possible_ingoing_locations"));
-//	createPopUp("Eingang...", "message");
 	createPopUpButtons("Verbuchen", "Abbrechen");
 	createInputFieldsChecker();
 	$("#confirm_pop_up_button").on("click", confirmIngoingTransaction);

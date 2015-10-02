@@ -24,23 +24,18 @@
   
   <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="css/detail_list.css" type="text/css" media="screen" />
+  
   <script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
   <script src="js/products.js" type="text/javascript"></script>
   <script src="js/live_search.js" type="text/javascript"></script>
 
-  <title>PTL - Products</title>
+  <title>PTL - Produkte</title>
 </head>
 <body>
     <div id="distance"></div>
     <div id="wrapper">
     <a href="Logout"><button id="logout" class="color_discreet">Logout</button></a>
     <a href="Welcome"><button id="back" class="color_discreet">&#060&#060 Übersicht</button></a>
-    <!--<header>
-      <form id="search_form">
-        <input type="text" name="search" id="search" placeholder="Suchtext" maxlength="30" autocomplete="off">
-        <input type="submit" value="" id="search_button" class="icon-search" />
-      </form>
-    </header>-->
 
     <h1><span>Produkte</span>
     	<% if (!show_details) { %>

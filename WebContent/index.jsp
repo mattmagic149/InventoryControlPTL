@@ -2,15 +2,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" width="device-width">
   
 	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="css/dialog.css" type="text/css" media="screen" />
 	
-  	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
-  	<script src="js/dialog.js" type="text/javascript"></script>
-  	<script src="js/index.js" type="text/javascript"></script>
+  	<script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="js/dialog.js" type="text/javascript"></script>
   	<script src="js/ajax_loader.js" type="text/javascript"></script>
+  	<script src="js/index.js" type="text/javascript"></script>
 	
 	<title>PTL - Login</title>
     

@@ -115,6 +115,8 @@
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <!-- to prevent zooming in textfields: -->
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   
   <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="css/dialog.css" type="text/css" media="screen" />
@@ -122,16 +124,12 @@
   <link rel="stylesheet" href="css/lkw.css" type="text/css" media="screen" />
   
   <script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
-
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script src="js/JsBarcodeGenCODE128.js" type="text/javascript"></script>
   <script src="js/JsBarcodeGen.js" type="text/javascript"></script>
-
   <script src="js/dialog.js" type="text/javascript"></script>
   <script src="js/jquery.datetimepicker.js" type="text/javascript" charset="UTF-8"></script>
   <script src="js/check_inputfields.js" type="text/javascript"></script>
   <script src="js/ajax_loader.js" type="text/javascript"></script>
-  
   <script src="js/lkw.js" type="text/javascript"></script>
 
   <title>PTL - LKW</title>

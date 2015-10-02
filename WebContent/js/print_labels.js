@@ -1,6 +1,7 @@
 // JavaScript Document
 
 $(document).ready(function() {	
+	createInputFieldsChecker();
 	$("#wrapper").on("click", "#ok", printSelectedLabels);
 });
 
@@ -19,6 +20,11 @@ var barcode_options = {
 				};
 
 function printSelectedLabels() {
+	if(!(checkAllInputFields())) {
+		console.log("printSelectedLabels: checkAllInputFields detected a problem");
+		return;
+	}
+	
 	$(".label").remove();
 	$(".product").each(function(index) {
 		var number_of_labels = $(this).find(".value").val();
