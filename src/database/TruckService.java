@@ -104,7 +104,7 @@ public class TruckService implements ISaveAndDelete, Comparable<TruckService> {
 			shop = HibernateSupport.readOneObjectByID(RepairShop.class, parsed_truck_service.getRepairShop().getId());
 		} else {
 			shop = RepairShop.getRepairShop(parsed_truck_service.getRepairShop().getName(),
-													   parsed_truck_service.getRepairShop().getName());
+													   parsed_truck_service.getRepairShop().getLocation());
 		}
 		if(truck == null || shop == null) {
 			System.out.println("truck or shop is NULL.");

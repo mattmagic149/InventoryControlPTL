@@ -73,7 +73,7 @@ public class Truck extends Location implements ISaveAndDelete {
 	
 	@OneToMany
 	@JoinColumn(name="services")
-	@OrderBy(value = "date ASC")
+	@OrderBy(value = "date DESC")
 	private List<TruckService> services;
 	
 	@ManyToMany(mappedBy="trucks_to_restrict")
