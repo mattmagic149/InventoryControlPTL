@@ -12,9 +12,11 @@ function checkAllInputFields() {
 	for (var i = 0; i < all_inputtext.length; i++) {
 		console.log("i = " + i);
 		if ($(all_inputtext[i]).val() == ""  && !($(all_inputtext[i]).hasClass("hidden"))) {
-			$(all_inputtext[i]).addClass("problem");
-			console.log("problem exists in all_inputtext");
-			return false;
+			if (!($(all_inputtext[i]).is("#search"))) {
+				$(all_inputtext[i]).addClass("problem");
+				console.log("problem exists in all_inputtext");
+				return false;				
+			}
 		}
 	}
 	var all_inputnumber = $('input[type="number"]');

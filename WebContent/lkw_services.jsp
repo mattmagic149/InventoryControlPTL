@@ -65,10 +65,8 @@
     
     <form id="search_form">
       <input type="text" name="search" id="search" placeholder="Suchtext" maxlength="30" autocomplete="off">
-      <input type="submit" value="" id="search_button" class="icon-search" />
     </form>
     
-
     <section id="item_header" class="color_without_hover">
       <div class="name">Datum</div>
       <div class="name">Werkstatt</div>

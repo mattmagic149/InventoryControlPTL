@@ -2,7 +2,7 @@
 /* CSS Document */
 
 h1 {
-  padding: 50px 0 0 0;
+  padding: 50px 0 10px 0;
   margin: 0;
 }
 
@@ -21,7 +21,7 @@ p {
 
 #search_form {
 	position: absolute;
-    top: 70px;
+    top: 80px;
     left: 100px;
 }
 
@@ -152,7 +152,7 @@ button.delete {
 #show_not_active {
 	right: 100px;
 	position: absolute;
-	top: 80px;
+	top: 90px;
 }
 
 .hide_for_search {
