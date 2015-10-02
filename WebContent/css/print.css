@@ -6,8 +6,8 @@ html, body {
 
 .label {
 	float: left;
-	margin-left: 2em;
-	margin-right: 2em;
+	margin-left: 2.5em;
+	margin-right: 0em;
 	display: inline !important;
 	margin-bottom: 1em;
 }
