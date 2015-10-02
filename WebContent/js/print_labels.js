@@ -8,7 +8,7 @@ $(document).ready(function() {
 
 var barcode_options = {
 					width:  2,
-					height: 100,
+					height: 80,
 					quite: 0,
 					format: "CODE128",
 					displayValue: true,

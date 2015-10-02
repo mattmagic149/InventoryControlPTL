@@ -32,6 +32,7 @@
 	<script src="js/JsBarcodeGenCODE128.js" type="text/javascript"></script>
 	<script src="js/JsBarcodeGen.js" type="text/javascript"></script>
 	<script src="js/check_inputfields.js" type="text/javascript"></script>
+    <script src="js/detail_list_search.js" type="text/javascript"></script>
     <script src="js/print_labels.js" type="text/javascript"></script>
 
 	<title>PTL - Labels drucken</title>
@@ -45,15 +46,21 @@
     
     <h1 class="not_to_print">Labels drucken</h1>
     
+    <form id="search_form">
+      <input type="text" name="search" id="search" placeholder="Suchtext" maxlength="30" autocomplete="off">
+      <input type="submit" value="" id="search_button" class="icon-search" />
+    </form>
+    
+    
     <div id="container" class="not_to_print">
     	<% for (Product p : products) { %>
-    		<div class="product not_to_print" product_barcode_string="<%=p.getBarCodeEncoding() %>">
+    		<div class="item product not_to_print" product_barcode_string="<%=p.getBarCodeEncoding() %>">
     			<div class="description not_to_print"><span class="name"><%=p.getName() %></span> [<span class="des"><%=p.getDescription()%></span>]</div>
     			<input type="number" class="value not_to_print" value="0"></input>
     		</div>    		
     	<% } %>
     	<% for (Truck truck : trucks) { %>
-    		<div class="product not_to_print" product_barcode_string="<%=truck.getBarCodeEncoding() %>">
+    		<div class="item product not_to_print" product_barcode_string="<%=truck.getBarCodeEncoding() %>">
     			<div class="description not_to_print"><span class="name"><%=truck.getLicenceTag() %></span></div>
     			<input type="number" class="value not_to_print" value="0"></input>
     		</div>    		

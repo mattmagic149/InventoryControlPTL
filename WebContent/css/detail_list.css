@@ -10,21 +10,6 @@ p {
   margin: 0.3em 0;
 }
 
-#search_button, #search_form input[type="text"] {
-	float: left;
-	background-color: transparent;
-}
-
-#search_button {
-	margin: 12px 0 0 10px;
-}
-
-#search_form {
-	position: absolute;
-    top: 80px;
-    left: 100px;
-}
-
 #item_header {
 	width: 680px;
   margin: 25px 0 0 100px;
@@ -153,8 +138,4 @@ button.delete {
 	right: 100px;
 	position: absolute;
 	top: 90px;
-}
-
-.hide_for_search {
-	display: none;
 }
