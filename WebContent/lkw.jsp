@@ -223,7 +223,7 @@
 			<h1>Neuer LKW:</h1>
 			<div class="entry one_row">
 				<div class="description">Kennzeichen:</div>
-				<input type="text" class="value" id="license_tag" value=""></input>
+				<input type="text" class="value" id="licence_tag" value=""></input>
 			</div> 
 			<div class="entry one_row"> 
 				<div class="description">Marke:</div> 

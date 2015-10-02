@@ -53,7 +53,8 @@ public class Edit extends HttpServlet {
 	    System.out.println("charEncoding: "+ request.getCharacterEncoding());
 
 		String parameter = request.getParameter("type");
-		String object = new String(request.getParameter("object").getBytes("iso-8859-1"),"UTF-8");
+//		String object = new String(request.getParameter("object").getBytes("iso-8859-1"),"UTF-8");
+		String object = request.getParameter("object");
 		if(parameter == null || object == null) {
 			response.setStatus(401);
 			response.setHeader("error_message", "Ungültige Anfrage.");

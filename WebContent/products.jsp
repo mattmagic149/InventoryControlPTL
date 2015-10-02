@@ -27,7 +27,6 @@
   
   <script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
   <script src="js/products.js" type="text/javascript"></script>
-  <script src="js/live_search.js" type="text/javascript"></script>
 
   <title>PTL - Produkte</title>
 </head>
