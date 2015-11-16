@@ -70,7 +70,7 @@ public class HibernateSupport {
 		//Change the path to your deployed config file !
 		
 		//File configFile = new File("/Users/matthiasivantsits/Documents/workspace/InventoryControlPTL/src/hibernate.cfg.xml");
-		File configFile = new File("C:/xampp/htdocs/InventoryControlPTL/src/hibernate.cfg.xml");
+		File configFile = new File("D:/Daten_Mike/z_sonstiges/!_ARBEITEN/68_PTL_Lagerverwaltung_mit_Matthias/InventoryControlPTL/src/hibernate.cfg.xml");
 		//File configFile = new File("C:/xampp/tomcat/webapps/InventoryControlPTL/WEB-INF/classes/hibernate.cfg.xml");
 		//File configFile = new File("hibernate.cfg.xml");
 
