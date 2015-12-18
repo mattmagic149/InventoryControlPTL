@@ -61,7 +61,7 @@
     	Pair<Long, Transaction> pair = transactions_quantity.get(i);
     	long quantity = pair.getValue0();
     	Transaction transaction = pair.getValue1();
-    	Product product = transaction.getElements().get(0);
+    	Product product = transaction.getElements().get(0).getProduct();
     %>
 		<section class="item color_discreet active" id="<%= product.getId() %>">
 		<div class="name"><%=transaction.getDateMoved() + "&nbsp;" %> </div>
