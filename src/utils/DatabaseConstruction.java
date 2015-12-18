@@ -75,13 +75,13 @@ public class DatabaseConstruction {
 		String password2 = "michimatt";
 		User user2 = User.register(username2, "Michael", "Matthias", "bla@gmail.com", password2, User.Permission.ADMIN);
 
-		String username3 = "andreas";
-		String password3 = "6307";
-		User user3 = User.register(username3, "Andreas", "Brandl", "andreas@ptl-logistic.com", password3, User.Permission.ADMIN);
+		String username3 = "nelly";
+		String password3 = "520200";
+		User user3 = User.register(username3, "Nelly", "Pellissier", "bla@gmail.com", password3, User.Permission.USER);
 
-		String username4 = "heli";
-		String password4 = "6310";
-		User user4 = User.register(username4, "Andreas", "Brandl", "bla@gmail.com", password4, User.Permission.USER);
+		String username4 = "helmut";
+		String password4 = "520100";
+		User user4 = User.register(username4, "Helmut", "", "bla@gmail.com", password4, User.Permission.USER);
 
 		
 		HibernateSupport.beginTransaction();
