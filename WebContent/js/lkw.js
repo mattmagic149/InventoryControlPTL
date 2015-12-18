@@ -34,7 +34,7 @@ function handleClickOnShowServices(e) {
 
 function handleClickOnShowProducts(e) {
 	var id = $("#show_products").attr("truck_id");
-	location.href = "ProductsOverview?location_id=" + id;
+	location.href = "TransactionsOverview?location_id=" + id;
 }
 
 function handleChangeBrand(e) {
