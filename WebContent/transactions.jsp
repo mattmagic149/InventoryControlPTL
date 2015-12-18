@@ -5,6 +5,8 @@
 <%@page import="java.util.ArrayList" %>
 <%@page import="java.util.List" %>
 <%@page import="org.javatuples.Pair" %>
+<%@page import="java.text.SimpleDateFormat"%>
+
 
 <%
 	Object obj = session.getAttribute("transactions_list");
@@ -12,6 +14,9 @@
 	if (obj == null || obj2 == null) {%>
 		<jsp:forward page="welcome.jsp"/>
 	<% }
+	
+	SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+	
 	List<Pair<Long,Transaction>> transactions_quantity = new ArrayList<Pair<Long,Transaction>>((ArrayList) session.getAttribute("transactions_list"));
 	System.out.println(transactions_quantity.size());
 	Location location = ((Location) session.getAttribute("location"));
@@ -64,7 +69,7 @@
     	Product product = transaction.getElements().get(0).getProduct();
     %>
 		<section class="item color_discreet active" id="<%= product.getId() %>">
-		<div class="name"><%=transaction.getDateMoved() + "&nbsp;" %> </div>
+		<div class="name"><%=format.format(transaction.getDateMoved()) + "&nbsp;" %> </div>
 		<div class="name"><%=product.getName() + "&nbsp;"%></div>
 		<div class="name"><%=product.getDescription()  + "&nbsp;"%></div>
 		<div class="name"><%=quantity + " " + product.getUnity().getName() + "&nbsp;"%></div>
