@@ -17,7 +17,7 @@ function startReadingBarcode() {
             Quagga.init(this.state, function(err) {
                 if (err) {
                 	var new_error_obj = $('<h2 id="error_message">Leider konnte keine Kamera gefunden werden... :(</h2>');
-                	new_error_obj.insertBefore("#scanning_container");
+                	new_error_obj.insertAfter("h1");
                     return self.handleError(err);
                 }
                 App.attachListeners();
@@ -98,12 +98,12 @@ function startQuaggaIfListAndQuaggaIsReady() {
 }
 
 function getCorrectServlet(code) {
-	var first_two_char = code.substring(0, 2);
-	if (first_two_char == "P-") {
+	var first_two_char = code.substring(0, 1);
+	if (first_two_char == "P") {
 		return "ProductDetail";
-	} else if (first_two_char == "L-") {
+	} else if (first_two_char == "L") {
 		return "LkwDetail";
-	} else if (first_two_char == "I-") {
+	} else if (first_two_char == "I") {
 		return "LagerDetail";
 	} else {
 		return "Unknown";

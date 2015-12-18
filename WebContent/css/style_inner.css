@@ -401,3 +401,20 @@ input[type="submit"], #login_button {
 	display: none;
 }
 
+.hide_for_search {
+	display: none !important;
+}
+
+#search_form {
+    position: absolute;
+    top: 80px;
+    left: 100px;
+}
+#search_button, #search_form input[type="text"] {
+	float: left;
+	background-color: transparent;
+}
+
+#search_button {
+	margin: 12px 0 0 10px;
+}

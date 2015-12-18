@@ -993,9 +993,10 @@ function enableDatePicker(object) {
 					'Mai','Juni','Juli','August',
 					'September','Oktober','November','Dezember',
 					],
-					dayOfWeek:["Mo", "Di", "Mi", "Do", "Fr", "Sa","So"]
+					dayOfWeek:["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"]
 				}
 			},
+			dayOfWeekStart: 1,
 			timepicker:false,
 			format:'d.m.Y'
 	});
