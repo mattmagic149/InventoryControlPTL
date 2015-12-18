@@ -69,8 +69,8 @@ public class HibernateSupport {
 	private static void init() {
 		//Change the path to your deployed config file !
 		
-		//File configFile = new File("/Users/matthiasivantsits/Documents/workspace/InventoryControlPTL/src/hibernate.cfg.xml");
-		File configFile = new File("C:/xampp/htdocs/InventoryControlPTL/src/hibernate.cfg.xml");
+		File configFile = new File("/Users/matthiasivantsits/Documents/workspace/InventoryControlPTL/src/hibernate.cfg.xml");
+		//File configFile = new File("C:/xampp/htdocs/InventoryControlPTL/src/hibernate.cfg.xml");
 		//File configFile = new File("C:/xampp/tomcat/webapps/InventoryControlPTL/WEB-INF/classes/hibernate.cfg.xml");
 		//File configFile = new File("hibernate.cfg.xml");
 
@@ -180,6 +180,27 @@ public class HibernateSupport {
 	public static <T> ArrayList <T> readMoreObjectsDesc(Class<?> classToRetrieve, List<Criterion> criterions, String field) {
 		beginTransaction();
 		Criteria criteria = getCurrentSession().createCriteria(classToRetrieve).addOrder(Order.asc(field));
+		for(Criterion criterion: criterions) {
+			criteria.add(criterion);
+		}
+		List<T> result = criteria.list();
+		commitTransaction();
+		return (ArrayList<T>) result;
+	}
+	
+	/**
+	 * Read more objects asc.
+	 *
+	 * @param <T> the generic type
+	 * @param classToRetrieve the class to retrieve
+	 * @param criterions the criterions
+	 * @param field the field
+	 * @return the array list
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> ArrayList <T> readMoreObjectsAsc(Class<?> classToRetrieve, List<Criterion> criterions, String field) {
+		beginTransaction();
+		Criteria criteria = getCurrentSession().createCriteria(classToRetrieve).addOrder(Order.desc(field));
 		for(Criterion criterion: criterions) {
 			criteria.add(criterion);
 		}

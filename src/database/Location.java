@@ -17,6 +17,7 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.javatuples.Pair;
 
 import utils.HibernateSupport;
 
@@ -221,6 +222,37 @@ public abstract class Location implements ISaveAndDelete {
 			}
 			
 		}
+		
+		return result;
+	}
+	
+	public List<Pair<Long, Transaction>> getTransactionsWithQuantity() {
+		List<Transaction> transactions = HibernateSupport.readMoreObjectsAsc(Transaction.class, new ArrayList<Criterion>(), "date_moved");
+		//List<Transaction> result = new ArrayList<Transaction>();
+		List<Pair<Long, Transaction>> result = new ArrayList<Pair<Long, Transaction>>();
+		long quantity;
+		
+		for(Transaction transaction : transactions) {
+			if(transaction.getFrom().getId() == this.getId()) {
+				quantity = transaction.getElements().size() * -1;
+				result.add(new Pair<Long, Transaction>(quantity, transaction));
+			}
+			
+			if( transaction.getTo().getId() == this.getId()) {
+				quantity = transaction.getElements().size();
+				result.add(new Pair<Long, Transaction>(quantity, transaction));
+			}
+		}
+		
+		/*for(Product product : products) {
+			if(product.getState() == Product.ProductState.ACTIVE) {
+				quantity = product.getQuantityOfSpecificLocation(this.getId());
+				if(quantity > 0) {
+					result.add(product);
+				}
+			}
+			
+		}*/
 		
 		return result;
 	}
