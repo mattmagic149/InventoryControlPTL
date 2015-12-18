@@ -20,7 +20,7 @@ import database.Product;
 import database.Transaction;
 import utils.HibernateSupport;
 
-@WebServlet("/ProductsOverview")
+@WebServlet("/TransactionsOverview")
 public class TransactionsOverview extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -74,7 +74,7 @@ public class TransactionsOverview extends HttpServlet {
 			session.setAttribute("transations_list", transations);
 			session.setAttribute("details", false);
 			session.setAttribute("location", location);
-			request.getRequestDispatcher("products.jsp").include(request, response);
+			request.getRequestDispatcher("transactions.jsp").include(request, response);
 			return;
 		}
 		
