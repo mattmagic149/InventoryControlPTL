@@ -1,0 +1,42 @@
+###############
+Im Projekt:
+HibernateSupport-File: C:/xampp/tomcat/webapps/InventoryControlPTL/WEB-INF/classes/hibernate.cfg.xml
+
+War-File generieren: File | Export | WAR-File ...
+
+C:\xampp\tomcat: catalina_stop.bat ausführen
+
+C:\xampp\tomcat\webapps: War-File einfügen
+
+hibernate.cfg.xml in C:/xampp/tomcat/webapps/InventoryControlPTL/WEB-INF/classes/hibernate.cfg.xml einfügen... 
+
+C:\xampp\tomcat: catalina_stop.bat ausführen
+C:\xampp\tomcat: catalina_start.bat ausführen bzw BESSER: Tomcat8-Dienst starten: (Bei Problemen, in Prozessen task beenden / Tomcat sonsta auch noch)
+
+###############
+URL: localhost/phpmyadmin
+Info: (Port 3306, User: root, pw= xs5GEUM5gz )
+
+###############
+
+
+Für automatischen Start von Tomcat8:
+Systemsteuerung | Verwaltung | Aufgabenplanung | neuer Dienst (sc start Tomcat8) und (sc start MySQL)
+vorher muss Dienst Tomcat installiert werden (Im Ordner bin von Tomcat, "service.bat remove" und dann "service.bat install"
+
+Um manuell zu starten, einfach Ausführen | cmd | sc start Tomcat8 bzw nach Erstellem des Tasks kann man dort in Dienste rechte Maustaste | Ausführen
+
+
+
+Für Encoding:
+
+im server.xml von tomcat:
+
+    <Connector port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443"
+			   URIEncoding="UTF-8"   <--- WICHTIG
+			   />
+
+
+<Connector port="8009" protocol="AJP/1.3" redirectPort="8443" URIEncoding="UTF-8" />

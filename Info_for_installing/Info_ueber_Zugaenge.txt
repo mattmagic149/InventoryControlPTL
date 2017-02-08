@@ -1,0 +1,19 @@
+Link zur Webanwendung: 192.168.0.20:8080/InventoryControlPTL/
+
+Benutzer: rene
+PW: 520189
+
+Benutzer: admin
+PW: michimatt
+
+SQL-Datenbank:
+Benutzer: root
+PW: xs5GEUM5gz
+
+
+Gewünschte Zugänge:
+Benutzer: Rene
+PW: 26021973
+
+Benutzer: Gast
+PW: 47471111

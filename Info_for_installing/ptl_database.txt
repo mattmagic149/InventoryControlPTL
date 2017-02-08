@@ -1,0 +1,675 @@
+-- phpMyAdmin SQL Dump
+-- version 4.2.10
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost:8889
+-- Generation Time: Sep 29, 2015 at 09:30 PM
+-- Server version: 5.5.38
+-- PHP Version: 5.6.2
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `InventoryControlPTL`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hibernate_sequences`
+--
+
+CREATE TABLE `hibernate_sequences` (
+  `sequence_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sequence_next_hi_value` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `hibernate_sequences`
+--
+
+INSERT INTO `hibernate_sequences` (`sequence_name`, `sequence_next_hi_value`) VALUES
+('TruckBrand', 1),
+('Wheel', 4),
+('RepairShop', 1),
+('TruckService', 1),
+('Unity', 2),
+('ProductElement', 4),
+('Transaction', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Inventory`
+--
+
+CREATE TABLE `Inventory` (
+  `location` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `Inventory`
+--
+
+INSERT INTO `Inventory` (`location`, `name`, `id`) VALUES
+('', 'Waren Eingang', 1),
+('1. Stock', 'Hauptlager', 2),
+('', 'Andere Location', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Location`
+--
+
+CREATE TABLE `Location` (
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `Location`
+--
+
+INSERT INTO `Location` (`id`) VALUES
+(1),
+(2),
+(3),
+(10),
+(11);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Product`
+--
+
+CREATE TABLE `Product` (
+  `id` int(11) NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `minimum_limit` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `restriction` int(11) DEFAULT NULL,
+  `state` int(11) DEFAULT NULL,
+  `unity` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `Product`
+--
+
+INSERT INTO `Product` (`id`, `description`, `minimum_limit`, `name`, `restriction`, `state`, `unity`) VALUES
+(11, 'Stapler Still', 10, 'Hydraulikschlauch', 1, 0, 1),
+(12, 'Orange 4 to', 10, 'Zurrgurten', 1, 0, 2),
+(13, 'Blau klein', 10, 'Zurrgurten', 1, 2, 2),
+(14, 'Beschreibung', 10, 'Ladekabel Samsung Galaxy S 4 mini', 1, 2, 2),
+(15, 'Beschreibung', 10, 'Samsung Handy Neu Galaxy S4 mini', 1, 2, 2),
+(16, 'Beschreibung', 10, 'Samsung  Handytascherl', 0, 2, 2),
+(17, 'Neu', 10, 'X Loc Bildschirm', 1, 2, 2),
+(18, 'Gebraucht', 10, 'X Loc Bildschirm', 1, 2, 2),
+(19, 'Beschreibung', 10, 'CMR Blöcke', 1, 2, 2),
+(20, 'Beschreibung', 10, 'Motoröl', 1, 2, 1),
+(21, 'Beschreibung', 10, 'Blitzer Bühne', 1, 2, 2),
+(22, 'Beschreibung', 10, 'Bremsbelege', 1, 2, 2),
+(23, 'Veritas', 10, 'Arbeitshandschuhe', 1, 2, 3),
+(24, 'Gebraucht', 10, 'Doppelklebeband', 1, 2, 2),
+(25, 'Türe Büro', 10, 'Türschloss', 1, 2, 2),
+(26, 'Supra Extra', 10, 'Klebeband', 1, 2, 2),
+(27, 'Groß', 10, 'Kabelbinder ', 1, 2, 4),
+(28, 'Klein', 10, 'Kabelbinder', 1, 2, 4),
+(29, 'Dick', 10, 'Handschuhe', 1, 2, 3),
+(30, 'Dünn', 10, 'Handschuhe', 1, 2, 3),
+(31, 'Beschreibung', 10, 'Stecksicherungen', 1, 2, 2),
+(32, 'Birnen', 10, '12 V H4', 0, 0, 32768),
+(33, 'Birnen', 10, '12 V H7', 1, 2, 2),
+(34, 'Birnen', 10, '12 V 21 W', 1, 2, 2),
+(35, 'Birnen', 10, '24 V 21/5W', 1, 2, 2),
+(36, 'Birnen', 10, '12 V 21/5W', 1, 2, 2),
+(37, 'Birnen', 10, '24 V 21 W', 1, 2, 2),
+(38, 'Halogenlampen Flutlicht', 10, '500 W', 1, 2, 2),
+(39, 'Birnen', 10, '12 V 10 W', 1, 2, 2),
+(40, 'Birnen', 10, '12 V 5 W', 1, 2, 2),
+(41, 'Birnen', 10, '24 V 4 W', 1, 2, 2),
+(42, 'Beschreibung', 10, 'Ersatzlampenbox für 12 V', 1, 2, 2),
+(43, '5 Meter', 10, 'Maßband', 1, 2, 2),
+(44, 'Beschreibung', 10, 'MOS 2 Oil', 1, 2, 2),
+(45, 'Beschreibung', 10, 'Radbolzen Stil Stapler', 1, 2, 2),
+(46, 'Neu', 10, 'Doppelklebeband', 1, 2, 2),
+(47, 'AAA', 10, 'Batterien', 1, 2, 2),
+(48, 'AA', 10, 'Batterien', 1, 2, 2),
+(49, 'Beschreibung', 10, 'Gurtenaufroller', 1, 2, 2),
+(50, '65x90 mm', 10, 'Einkochringe Gummi', 1, 2, 2),
+(51, 'Beschreibung', 10, 'Tachopapier', 1, 2, 4),
+(52, 'Beschreibung', 10, 'Kantenschoner', 1, 2, 2),
+(53, 'Beschreibung', 10, 'Antirutschmatte', 1, 2, 5),
+(54, 'Beschreibung...', 10, 'Samsung Handy Neu Galaxy S4 mini', 0, 2, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ProductElement`
+--
+
+CREATE TABLE `ProductElement` (
+  `id` int(11) NOT NULL,
+  `location` int(11) DEFAULT NULL,
+  `product` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `ProductElement`
+--
+
+INSERT INTO `ProductElement` (`id`, `location`, `product`) VALUES
+(1, 2, 11),
+(2, 11, 11),
+(3, 11, 11),
+(4, 11, 11),
+(5, 10, 11),
+(6, 10, 11),
+(7, 10, 11),
+(8, 10, 11),
+(9, 11, 11),
+(10, 11, 11),
+(11, 11, 11),
+(12, 11, 11),
+(32768, 2, 12),
+(32769, 2, 12),
+(32770, 2, 12),
+(32771, 11, 11),
+(32772, 11, 11),
+(32773, 11, 11),
+(32774, 2, 11),
+(32775, 2, 11),
+(32776, 2, 11),
+(32777, 2, 11),
+(32778, 2, 11),
+(32779, 2, 11),
+(32780, 2, 11),
+(65536, 2, 11),
+(65537, 2, 11),
+(65538, 2, 11),
+(65539, 2, 11),
+(65540, 2, 11),
+(65541, 2, 11),
+(65542, 2, 11),
+(98304, 2, 11),
+(98305, 2, 11),
+(98306, 2, 11),
+(98307, 10, 32),
+(98308, 2, 32),
+(98309, 2, 32),
+(98310, 2, 32),
+(98311, 2, 32),
+(98312, 2, 32),
+(98313, 2, 32),
+(98314, 2, 32),
+(98315, 2, 32),
+(98316, 2, 32),
+(98317, 2, 32),
+(98318, 2, 32);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ProductTransactions`
+--
+
+CREATE TABLE `ProductTransactions` (
+  `transaction_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `ProductTransactions`
+--
+
+INSERT INTO `ProductTransactions` (`transaction_id`, `product_id`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6),
+(1, 7),
+(1, 8),
+(1, 9),
+(1, 10),
+(1, 11),
+(1, 12),
+(2, 1),
+(32768, 32768),
+(32768, 32769),
+(32768, 32770),
+(32769, 32771),
+(32769, 32772),
+(32769, 32773),
+(32769, 32774),
+(32769, 32775),
+(32769, 32776),
+(32769, 32777),
+(32769, 32778),
+(32769, 32779),
+(32769, 32780),
+(32770, 2),
+(32770, 3),
+(32770, 4),
+(65536, 65536),
+(65536, 65537),
+(65536, 65538),
+(65536, 65539),
+(65536, 65540),
+(65536, 65541),
+(65536, 65542),
+(65537, 5),
+(65537, 6),
+(65537, 7),
+(65537, 8),
+(65538, 9),
+(65538, 10),
+(65538, 11),
+(65538, 12),
+(98304, 32771),
+(98304, 32772),
+(98304, 32773),
+(98305, 98304),
+(98305, 98305),
+(98305, 98306),
+(98306, 1),
+(98307, 98307),
+(98307, 98308),
+(98307, 98309),
+(98307, 98310),
+(98307, 98311),
+(98307, 98312),
+(98307, 98313),
+(98307, 98314),
+(98307, 98315),
+(98307, 98316),
+(98307, 98317),
+(98307, 98318),
+(98308, 98307);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `RepairShop`
+--
+
+CREATE TABLE `RepairShop` (
+  `id` int(11) NOT NULL,
+  `location` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `RepairShop`
+--
+
+INSERT INTO `RepairShop` (`id`, `location`, `name`) VALUES
+(1, 'Österreich/Zettling', 'Wittwar'),
+(2, 'Österreich/Unterpremstätten', 'Weichberger');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Transaction`
+--
+
+CREATE TABLE `Transaction` (
+  `id` int(11) NOT NULL,
+  `date_moved` datetime DEFAULT NULL,
+  `transaction` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `from_id` int(11) DEFAULT NULL,
+  `to_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `Transaction`
+--
+
+INSERT INTO `Transaction` (`id`, `date_moved`, `transaction`, `from_id`, `to_id`) VALUES
+(1, '2015-09-25 14:05:52', 'rene', 1, 2),
+(2, '2015-09-25 14:05:57', 'rene', 2, 10),
+(32768, '2015-09-25 14:15:35', 'rene', 1, 2),
+(32769, '2015-09-25 15:24:57', 'rene', 1, 2),
+(32770, '2015-09-25 15:25:10', 'rene', 2, 11),
+(65536, '2015-09-27 22:04:40', 'rene', 1, 2),
+(65537, '2015-09-27 22:04:48', 'rene', 2, 10),
+(65538, '2015-09-27 22:07:02', 'rene', 2, 11),
+(98304, '2015-09-29 20:14:41', 'rene', 2, 11),
+(98305, '2015-09-29 20:15:14', 'rene', 1, 2),
+(98306, '2015-09-29 20:15:24', 'rene', 10, 2),
+(98307, '2015-09-29 20:16:49', 'rene', 1, 2),
+(98308, '2015-09-29 20:16:56', 'rene', 2, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Truck`
+--
+
+CREATE TABLE `Truck` (
+  `emission_standard` int(11) NOT NULL,
+  `fin` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `initial_registration` datetime DEFAULT NULL,
+  `licence_tag` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `loading_space_height` float NOT NULL,
+  `loading_space_length` float NOT NULL,
+  `new_vehicle_since` datetime DEFAULT NULL,
+  `payload` int(11) NOT NULL,
+  `performance` int(11) NOT NULL,
+  `state` int(11) DEFAULT NULL,
+  `type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `type_of_fuel` int(11) DEFAULT NULL,
+  `id` int(11) NOT NULL,
+  `truck_brand` int(11) DEFAULT NULL,
+  `wheel_front` int(11) DEFAULT NULL,
+  `wheel_rear` int(11) DEFAULT NULL,
+  `truck` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `Truck`
+--
+
+INSERT INTO `Truck` (`emission_standard`, `fin`, `initial_registration`, `licence_tag`, `loading_space_height`, `loading_space_length`, `new_vehicle_since`, `payload`, `performance`, `state`, `type`, `type_of_fuel`, `id`, `truck_brand`, `wheel_front`, `wheel_rear`, `truck`) VALUES
+(6, 'WDB9634031L803044', '2013-09-26 00:00:00', 'GU PTL 11', 13.6, 2.73, '2014-11-21 00:00:00', 23500, 350, 0, 'Actros', 0, 10, 1, 98304, 98305, NULL),
+(5, 'VF3YASMFA12632646', '2014-11-21 00:00:00', 'GU PKT 10', 2.4, 1.073, '2014-11-21 00:00:00', 991, 81, 0, 'Boxkw3000L1H1', 0, 11, 2, 3, 4, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TruckBrand`
+--
+
+CREATE TABLE `TruckBrand` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `TruckBrand`
+--
+
+INSERT INTO `TruckBrand` (`id`, `name`) VALUES
+(1, 'Mercedes Benz'),
+(2, 'Peugeot');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TruckRestriction`
+--
+
+CREATE TABLE `TruckRestriction` (
+  `product_id` int(11) NOT NULL,
+  `truck_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `TruckRestriction`
+--
+
+INSERT INTO `TruckRestriction` (`product_id`, `truck_id`) VALUES
+(32, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TruckService`
+--
+
+CREATE TABLE `TruckService` (
+  `id` int(11) NOT NULL,
+  `date` datetime DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mileage` int(11) NOT NULL,
+  `repair_shop` int(11) DEFAULT NULL,
+  `services` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `TruckService`
+--
+
+INSERT INTO `TruckService` (`id`, `date`, `description`, `mileage`, `repair_shop`, `services`) VALUES
+(1, '2015-09-09 00:00:00', 'Zeitservice', 291499, 1, 10),
+(2, '2015-09-09 00:00:00', 'Li und RE Seitenverkleidung', 291499, 1, 10),
+(3, '2015-09-09 00:00:00', 'Sattelkupplung befestigt', 291499, 1, 10),
+(4, '2015-09-09 00:00:00', 'Innenbeleuchtung erneuert', 291499, 1, 10),
+(5, '2015-09-09 00:00:00', 'Tachoüberprüfung', 291499, 1, 10),
+(6, '2015-09-09 00:00:00', 'Lärmarmüberprüfung', 291499, 1, 10),
+(7, '2015-09-10 00:00:00', 'Pickerl Neu', 291499, 1, 10),
+(8, '2015-09-10 00:00:00', '2 Stück Michelin Lenkachse neu', 291510, 2, 10),
+(9, '2015-09-10 00:00:00', '4 Stück Brightstone Antrieb neu', 291510, 2, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Unity`
+--
+
+CREATE TABLE `Unity` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `Unity`
+--
+
+INSERT INTO `Unity` (`id`, `name`) VALUES
+(1, 'Liter'),
+(2, 'Stück'),
+(3, 'Paar'),
+(4, 'Packung'),
+(5, 'Rolle'),
+(32768, 'StÃ¼ck');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `User`
+--
+
+CREATE TABLE `User` (
+  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `firstname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `lastname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `password_hash` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `permission` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `User`
+--
+
+INSERT INTO `User` (`username`, `email`, `firstname`, `lastname`, `password_hash`, `permission`) VALUES
+('matt', 'bla@gmail.com', 'Matt', 'Nachname', '$2a$10$9.BMz45BPDwKi61orhmu9eP/zZlxNoJ.whWQIRbAsCnroQNWPZT7C', 1),
+('rene', 'matthiasivantsits@gmail.com', 'Rene', 'Pellissier', '$2a$10$IZnL.6Dm0H4dNnmtmjIbTe3jtrFwmY.3mdhuE5PGbPYA5s5kd3BUq', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Wheel`
+--
+
+CREATE TABLE `Wheel` (
+  `id` int(11) NOT NULL,
+  `height_in_percent` int(11) NOT NULL,
+  `size_in_inch` float NOT NULL,
+  `size_in_mm` int(11) NOT NULL,
+  `tyre_type` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `Wheel`
+--
+
+INSERT INTO `Wheel` (`id`, `height_in_percent`, `size_in_inch`, `size_in_mm`, `tyre_type`) VALUES
+(1, 55, 22.5, 385, 0),
+(2, 70, 22.5, 315, 0),
+(3, 70, 15, 215, 0),
+(4, 70, 15, 215, 0),
+(32768, 55, 22.5, 385, 0),
+(32769, 70, 22.5, 315, 0),
+(32770, 55, 22.5, 385, 0),
+(32771, 70, 22.5, 315, 0),
+(65536, 55, 22.5, 385, 0),
+(65537, 70, 22.5, 315, 0),
+(98304, 55, 22.5, 385, 0),
+(98305, 70, 22.5, 315, 0);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `Inventory`
+--
+ALTER TABLE `Inventory`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `Location`
+--
+ALTER TABLE `Location`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `Product`
+--
+ALTER TABLE `Product`
+ ADD PRIMARY KEY (`id`), ADD KEY `FK_hxq1hd8phtb8vnn9ubguyqqob` (`unity`);
+
+--
+-- Indexes for table `ProductElement`
+--
+ALTER TABLE `ProductElement`
+ ADD PRIMARY KEY (`id`), ADD KEY `FK_s1gcmre9xu3cxug6ddkqh9gym` (`location`), ADD KEY `FK_d8o0fdfixh0aof8u5fvkuemty` (`product`);
+
+--
+-- Indexes for table `ProductTransactions`
+--
+ALTER TABLE `ProductTransactions`
+ ADD KEY `FK_bpy3fsin40g4wvysmc40bcdfw` (`product_id`), ADD KEY `FK_9kuqfkv4ee07hgw31kqdwjkb6` (`transaction_id`);
+
+--
+-- Indexes for table `RepairShop`
+--
+ALTER TABLE `RepairShop`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `Transaction`
+--
+ALTER TABLE `Transaction`
+ ADD PRIMARY KEY (`id`), ADD KEY `FK_5w3qylmwn8ndi6a8o3sbotats` (`transaction`), ADD KEY `FK_919xu5jxre2q6fiy0c5ll78se` (`from_id`), ADD KEY `FK_hc49ctu4bch0t8tt6vrid667n` (`to_id`);
+
+--
+-- Indexes for table `Truck`
+--
+ALTER TABLE `Truck`
+ ADD PRIMARY KEY (`id`), ADD KEY `FK_imepyn5es26v4ms1qjn49vwwh` (`truck_brand`), ADD KEY `FK_982nth2gqvia990bpsfk362g1` (`wheel_front`), ADD KEY `FK_ci4v3preipro2vq55v3ywrx74` (`wheel_rear`), ADD KEY `FK_5brpmfmvn1ea5pss2ivhelbw1` (`truck`);
+
+--
+-- Indexes for table `TruckBrand`
+--
+ALTER TABLE `TruckBrand`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `TruckRestriction`
+--
+ALTER TABLE `TruckRestriction`
+ ADD KEY `FK_olmchsb9ve06ww1l4vthl7fqa` (`truck_id`), ADD KEY `FK_tj5ct7l1il86l3ttv06u4vsbr` (`product_id`);
+
+--
+-- Indexes for table `TruckService`
+--
+ALTER TABLE `TruckService`
+ ADD PRIMARY KEY (`id`), ADD KEY `FK_19wj3gujfdjmqnt7f5cxum34n` (`repair_shop`), ADD KEY `FK_e6soh43a53b674g8rq26aqbf` (`services`);
+
+--
+-- Indexes for table `Unity`
+--
+ALTER TABLE `Unity`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `User`
+--
+ALTER TABLE `User`
+ ADD PRIMARY KEY (`username`);
+
+--
+-- Indexes for table `Wheel`
+--
+ALTER TABLE `Wheel`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `Inventory`
+--
+ALTER TABLE `Inventory`
+ADD CONSTRAINT `FK_t1puv5t4ycswi18pndgs2g27j` FOREIGN KEY (`id`) REFERENCES `Location` (`id`);
+
+--
+-- Constraints for table `Product`
+--
+ALTER TABLE `Product`
+ADD CONSTRAINT `FK_hxq1hd8phtb8vnn9ubguyqqob` FOREIGN KEY (`unity`) REFERENCES `Unity` (`id`);
+
+--
+-- Constraints for table `ProductElement`
+--
+ALTER TABLE `ProductElement`
+ADD CONSTRAINT `FK_d8o0fdfixh0aof8u5fvkuemty` FOREIGN KEY (`product`) REFERENCES `Product` (`id`),
+ADD CONSTRAINT `FK_s1gcmre9xu3cxug6ddkqh9gym` FOREIGN KEY (`location`) REFERENCES `Location` (`id`);
+
+--
+-- Constraints for table `ProductTransactions`
+--
+ALTER TABLE `ProductTransactions`
+ADD CONSTRAINT `FK_9kuqfkv4ee07hgw31kqdwjkb6` FOREIGN KEY (`transaction_id`) REFERENCES `Transaction` (`id`),
+ADD CONSTRAINT `FK_bpy3fsin40g4wvysmc40bcdfw` FOREIGN KEY (`product_id`) REFERENCES `ProductElement` (`id`);
+
+--
+-- Constraints for table `Transaction`
+--
+ALTER TABLE `Transaction`
+ADD CONSTRAINT `FK_5w3qylmwn8ndi6a8o3sbotats` FOREIGN KEY (`transaction`) REFERENCES `User` (`username`),
+ADD CONSTRAINT `FK_919xu5jxre2q6fiy0c5ll78se` FOREIGN KEY (`from_id`) REFERENCES `Location` (`id`),
+ADD CONSTRAINT `FK_hc49ctu4bch0t8tt6vrid667n` FOREIGN KEY (`to_id`) REFERENCES `Location` (`id`);
+
+--
+-- Constraints for table `Truck`
+--
+ALTER TABLE `Truck`
+ADD CONSTRAINT `FK_5brpmfmvn1ea5pss2ivhelbw1` FOREIGN KEY (`truck`) REFERENCES `TruckBrand` (`id`),
+ADD CONSTRAINT `FK_982nth2gqvia990bpsfk362g1` FOREIGN KEY (`wheel_front`) REFERENCES `Wheel` (`id`),
+ADD CONSTRAINT `FK_ci4v3preipro2vq55v3ywrx74` FOREIGN KEY (`wheel_rear`) REFERENCES `Wheel` (`id`),
+ADD CONSTRAINT `FK_hi5n138b5pp28xwnpliiefthm` FOREIGN KEY (`id`) REFERENCES `Location` (`id`),
+ADD CONSTRAINT `FK_imepyn5es26v4ms1qjn49vwwh` FOREIGN KEY (`truck_brand`) REFERENCES `TruckBrand` (`id`);
+
+--
+-- Constraints for table `TruckRestriction`
+--
+ALTER TABLE `TruckRestriction`
+ADD CONSTRAINT `FK_olmchsb9ve06ww1l4vthl7fqa` FOREIGN KEY (`truck_id`) REFERENCES `Truck` (`id`),
+ADD CONSTRAINT `FK_tj5ct7l1il86l3ttv06u4vsbr` FOREIGN KEY (`product_id`) REFERENCES `Product` (`id`);
+
+--
+-- Constraints for table `TruckService`
+--
+ALTER TABLE `TruckService`
+ADD CONSTRAINT `FK_19wj3gujfdjmqnt7f5cxum34n` FOREIGN KEY (`repair_shop`) REFERENCES `RepairShop` (`id`),
+ADD CONSTRAINT `FK_e6soh43a53b674g8rq26aqbf` FOREIGN KEY (`services`) REFERENCES `Truck` (`id`);

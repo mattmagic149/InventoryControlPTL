@@ -61,17 +61,17 @@ public class TransactionsOverview extends HttpServlet {
 			
 			
 			Location location = HibernateSupport.readOneObjectByID(Location.class, location_id);
-			List<Pair<Long, Transaction>> transactions = location.getTransactionsWithQuantity();
+			List<Pair<Long, Transaction>> transations = location.getTransactionsWithQuantity();
 			
 			System.out.println("WAAAAS!?!?");
-			for(Pair<Long, Transaction> transaction : transactions) {
+			for(Pair<Long, Transaction> transaction : transations) {
 				System.out.println(transaction.getValue0());
 				System.out.println(transaction.getValue1().getDateMoved());
 				System.out.println(transaction.getValue1().getElements().get(0).getProduct().getDescription());
 				System.out.println("----------------------------------------");
 			}
 			
-			session.setAttribute("transactions_list", transactions);
+			session.setAttribute("transactions_list", transations);
 			session.setAttribute("details", false);
 			session.setAttribute("location", location);
 			request.getRequestDispatcher("transactions.jsp").include(request, response);
